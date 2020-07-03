@@ -1,0 +1,387 @@
+<resources>
+    <string name="app_name">Inventaris</string>
+
+    <!--    ARRAY OPTION-->
+    <string-array name="branch_array">
+        <item>Banjarmasin</item>
+        <item>Sampit</item>
+        <item>Bagendang</item>
+        <item>Kotabaru</item>
+        <item>Batulicin</item>
+        <item>Mekarputih</item>
+        <item>Kumai</item>
+        <item>Bumiharjo</item>
+    </string-array>
+
+    <string-array name="stock_active_array">
+        <item>Aktif</item>
+        <item>Non Aktif</item>
+    </string-array>
+
+    <string-array name="stock_category_array">
+        <item>Semua</item>
+        <item>Komputer</item>
+        <item>Part komputer</item>
+        <item>UPS</item>
+        <item>Printer</item>
+        <item>CCTV</item>
+        <item>Jaringan</item>
+        <item>Server</item>
+        <item>Handheld</item>
+        <item>Display</item>
+        <item>Presensi</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="server_category_array">
+        <item>Semua</item>
+        <item>Server</item>
+        <item>Router</item>
+        <item>Man_Switch</item>
+        <item>Switch</item>
+        <item>Wireless_Router</item>
+        <item>Smart_UPS</item>
+        <item>UPS</item>
+        <item>PC</item>
+        <item>Stabilizer</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="server_category_post">
+        <item>Server</item>
+        <item>Router</item>
+        <item>Man_Switch</item>
+        <item>Switch</item>
+        <item>Wireless_Router</item>
+        <item>Smart_UPS</item>
+        <item>UPS</item>
+        <item>PC</item>
+        <item>Stabilizer</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="computer_location_array">
+        <item>---</item>
+        <item>Bjm_Reg</item>
+        <item>Bjm_Trisakti</item>
+        <item>Bjm_TPKB</item>
+        <item>Bjm_Pulpis</item>
+    </string-array>
+
+    <string-array name="computer_division_array">
+        <item>---</item>
+        <item>Umum</item>
+        <item>Operasional</item>
+        <item>Komersial</item>
+        <item>Teknik</item>
+        <item>Keuangan</item>
+        <item>TIK</item>
+        <item>SMI</item>
+        <item>GM</item>
+        <item>Server</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="computer_division_array_post">
+        <item>Umum</item>
+        <item>Operasional</item>
+        <item>Komersial</item>
+        <item>Teknik</item>
+        <item>Keuangan</item>
+        <item>TIK</item>
+        <item>SMI</item>
+        <item>GM</item>
+        <item>Server</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="computer_seat_manajemen_array">
+        <item>---</item>
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+    <string-array name="computer_status_array">
+        <item>---</item>
+        <item>Baik</item>
+        <item>Backup</item>
+        <item>Rusak</item>
+        <item>Hilang</item>
+    </string-array>
+
+    <string-array name="cctv_status_array">
+        <item>---</item>
+        <item>Aktif</item>
+        <item>Backup</item>
+        <item>Rusak</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="cctv_status_array_post">
+        <item>Aktif</item>
+        <item>Backup</item>
+        <item>Rusak</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="printer_status_array">
+        <item>---</item>
+        <item>Baik</item>
+        <item>Backup</item>
+        <item>Rusak</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="printer_status_array_post">
+        <item>Baik</item>
+        <item>Backup</item>
+        <item>Rusak</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="cctv_history_status">
+        <item>Pengecekan</item>,
+        <item>Diperbaiki</item>,
+        <item>Bermasalah</item>,
+        <item>Rusak</item>,
+        <item>Pindah_Tempat</item>,
+        <item>Dibersihkan</item>,
+        <item>Digudangkan</item>,
+        <item>Dimusnahkan</item>,
+        <item>Hilang</item>
+    </string-array>
+
+    <string-array name="printer_history_status">
+        <item>Refill_Tinta</item>,
+        <item>Diperbaiki</item>,
+        <item>Bermasalah</item>,
+        <item>Rusak</item>,
+        <item>Pindah_Tempat</item>,
+        <item>Dibersihkan</item>,
+        <item>Digudangkan</item>,
+        <item>Dimusnahkan</item>,
+        <item>Hilang</item>
+    </string-array>
+
+    <string-array name="server_history_status">
+        <item>Pengecekan</item>,
+        <item>Diperbaiki</item>,
+        <item>Disetting</item>,
+        <item>Bermasalah</item>,
+        <item>Rusak</item>,
+        <item>Pindah_Tempat</item>,
+        <item>Dibersihkan</item>,
+        <item>Digudangkan</item>,
+        <item>Dimusnahkan</item>,
+        <item>Hilang</item>
+    </string-array>
+
+    <string-array name="history_select">
+        <item>Komputer</item>
+        <item>Printer</item>
+        <item>Server</item>
+        <item>CCTV</item>
+    </string-array>
+
+
+    <string name="error">Server Sleep</string>
+    <string name="dot">Dot Point</string>
+    <string name="identitas">Identitas</string>
+    <string name="nama_user">Nama User</string>
+    <string name="informasi_perangkat">Informasi Perangkat</string>
+    <string name="spesifikasi">Spesifikasi</string>
+    <string name="save_finish">Simpan Selesai</string>
+    <string name="save_continue">Simpan Lanjut</string>
+    <string name="nama_host_komputer">Nama Host Komputer</string>
+    <string name="alamat_ip">Alamat IP</string>
+    <string name="nomer_inventaris">Nomer Inventaris</string>
+    <string name="cabang">Cabang</string>
+    <string name="divisi">Divisi</string>
+    <string name="lokasi_khusus_bjm">Lokasi (Khusus BJM)</string>
+    <string name="jenis_perangkat">Jenis Perangkat</string>
+    <string name="merk_tipe">Merk / Tipe</string>
+    <string name="tahun_pengadaan">Tahun Pengadaan</string>
+    <string name="seat_manajemen_tidak">Seat Manajemen : Tidak</string>
+    <string name="sistem_operasi">Sistem Operasi</string>
+    <string name="processor">Processor</string>
+    <string name="ram">RAM</string>
+    <string name="hardisk">Hardisk</string>
+    <string name="vga">VGA</string>
+    <string name="status">Status</string>
+    <string name="note">Catatan</string>
+    <string name="save">SIMPAN</string>
+    <string name="profile">profile</string>
+    <string name="membersihkan_kipas_prosesor_karena_sering_restart">Membersihkan kipas prosesor karena sering restart
+    </string>
+    <string name="diperbaiki">Diperbaiki</string>
+    <string name="_19_06_2019">19 - 06 -2019</string>
+    <string name="pilih_akun">Pilih Akun</string>
+    <string name="logout">Logout</string>
+    <string name="primary">Primary</string>
+    <string name="secondary">Secondary</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">LOGIN</string>
+    <string name="pastikan_status_server_tidak_sleep_sebelum_melakukan_login">* Pastikan status server OK
+        sebelum melakukan login.
+    </string>
+    <string name="catatan">Catatan :</string>
+    <string name="status_">Status :</string>
+    <string name="name">Name</string>
+    <string name="simpan">SIMPAN</string>
+    <string name="edit_komputer">Ubah Komputer</string>
+    <string name="tambah_history">Tambah Riwayat</string>
+    <string name="history__">RIWAYAT</string>
+    <string name="no_invent">No Invent ..................................</string>
+    <string name="ip">IP ..................................</string>
+    <string name="host">Host ..................................</string>
+    <string name="lokasi">Lokasi ..................................</string>
+    <string name="divisi_">Divisi ..................................</string>
+    <string name="cabang_">Cabang ..................................</string>
+    <string name="status_dot">Status ..................................</string>
+    <string name="os_">OS ..................................</string>
+    <string name="vga_">VGA ..................................</string>
+    <string name="harddisk_">Harddisk ..................................</string>
+    <string name="ram_">RAM ..................................</string>
+    <string name="prosessor_">Prosessor ..................................</string>
+    <string name="seat_management_">Seat Management :</string>
+    <string name="history">--RIWAYAT--</string>
+    <string name="reload">RELOAD</string>
+    <string name="tambah_komputer">Tambah Komputer</string>
+    <string name="jumlah">Jumlah : &#8212;</string>
+    <string name="about">About</string>
+    <string name="detail">Detail</string>
+    <string name="itventory_ver_0_1">ITventory Ver 1.0.1</string>
+    <string name="ventory_login">ITventory</string>
+    <string name="itventory_logo">itventory logo</string>
+    <string name="logo_muchlis">Logo Muchlis</string>
+    <string name="logo_pelindo">Logo Pelindo</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_intro">Muchlis built the ITventory app as a Free app. This SERVICE is provided by Muchlis at
+        no cost and is intended for use as is. This page is used to inform visitors regarding my policies with the
+        collection, use, and disclosure of Personal Information if anyone decided to use my Service. If you choose to
+        use my Service, then you agree to the collection and use of information in relation to this policy. The Personal
+        Information that I collect is used for providing and improving the Service. I will not use or share your
+        information with anyone except as described in this Privacy Policy. The terms used in this Privacy Policy have
+        the same meanings as in our Terms and Conditions, which is accessible at ITventory unless otherwise defined in
+        this Privacy Policy.
+    </string>
+    <string name="info_coll_use">For a better experience, while using our Service, I may require you to provide us with
+        certain personally identifiable information. The information that I request will be retained on your device and
+        is not collected by me in any way. The app does use third party services that may collect information used to
+        identify you. Link to privacy policy of third party service providers used by the app Google Play Services
+    </string>
+    <string name="information_collection_and_use">Information Collection and Use</string>
+    <string name="log_data">Log Data</string>
+    <string name="log_desc">I want to inform you that whenever you use my Service, in a case of an error in the app I
+        collect generalData and information (through third party products) on your phone called Log Data. This Log Data may
+        include information such as your device Internet Protocol (“IP”) address, device name, operating system version,
+        the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other
+        statistics.
+    </string>
+    <string name="cookies">Cookies</string>
+    <string name="cookie_desc">Cookies are files with a small amount of generalData that are commonly used as anonymous unique
+        identifiers. These are sent to your browser from the websites that you visit and are stored on your device\'s
+        internal memory. This Service does not use these “cookies” explicitly. However, the app may use third party code
+        and libraries that use “cookies” to collect information and improve their services. You have the option to
+        either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to
+        refuse our cookies, you may not be able to use some portions of this Service.
+    </string>
+    <string name="service_providers">Service Providers</string>
+    <string name="serv_desc">I may employ third-party companies and individuals due to the following reasons: To
+        facilitate our Service; To provide the Service on our behalf; To perform Service-related services; or To assist
+        us in analyzing how our Service is used. I want to inform users of this Service that these third parties have
+        access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However,
+        they are obligated not to disclose or use the information for any other purpose.
+    </string>
+    <string name="security">Security</string>
+    <string name="sec_desc">I value your trust in providing us your Personal Information, thus we are striving to use
+        commercially acceptable means of protecting it. But remember that no method of transmission over the internet,
+        or method of electronic storage is 100 percent secure and reliable, and I cannot guarantee its absolute security.
+    </string>
+    <string name="children_s_privacy">Children’s Privacy</string>
+    <string name="child_desc">These Services do not address anyone under the age of 13. I do not knowingly collect
+        personally identifiable information from children under 13. In the case I discover that a child under 13 has
+        provided me with personal information, I immediately delete this from our servers. If you are a parent or
+        guardian and you are aware that your child has provided us with personal information, please contact me so that
+        I will be able to do necessary actions.
+    </string>
+    <string name="changes_to_this_privacy_policy">Changes to This Privacy Policy</string>
+    <string name="change_desc">I may update our Privacy Policy from time to time. Thus, you are advised to review this
+        page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this
+        page. These changes are effective immediately after they are posted on this page.
+    </string>
+    <string name="if_you_have_any_questions_or_suggestions_about_my_privacy_policy_do_not_hesitate_to_contact_me_at_muchlis_pelindo_co_id_this_privacy_policy_page_was_created_at_privacypolicytemplate_net_and_modified_generated_by_app_privacy_policy_generator">
+        If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at
+        muchlis@pelindo.co.id. This privacy policy page was created at privacypolicytemplate.net and modified/generated
+        by App Privacy Policy Generator
+    </string>
+    <string name="contact_us">Contact Us</string>
+    <string name="tambah_nama_stok">Tambah Nama Stok</string>
+    <string name="nama_stok">Nama Stok</string>
+    <string name="satuan">Satuan</string>
+    <string name="ambang_batas">Ambang Batas</string>
+    <string name="lokasi_catatan">Lokasi / Catatan</string>
+    <string name="edit_stok">Ubah Stok</string>
+    <string name="simpan__">Simpan</string>
+    <string name="hapus">Hapus</string>
+    <string name="ubah">ubah</string>
+    <string name="stok_barang">-- STOK BARANG --</string>
+    <string name="filter">Filter</string>
+    <string name="tambah_stok">Tambah Stok</string>
+    <string name="filter_stok">Filter Stok</string>
+    <string name="kategori">Kategori</string>
+    <string name="terapkan">Terapkan</string>
+    <string name="nonaktifkan">Nonaktifkan</string>
+    <string name="total_ditambahkan">Total Ditambahkan :</string>
+    <string name="total_terpakai">Total Terpakai :</string>
+    <string name="sisa">Sisa :</string>
+    <string name="batas">Batas :</string>
+    <string name="edit">Ubah</string>
+    <string name="dibuat">Dibuat :</string>
+    <string name="cabang__">Cabang :</string>
+    <string name="ba">_</string>
+    <string name="icon_low_value">icon_low_value</string>
+    <string name="nomer_acara">Nomer Acara</string>
+    <string name="kurangi_jumlah_stok">Kurangi Jumlah Stok</string>
+    <string name="nomor_acara">Nomor Acara</string>
+    <string name="jumlah_">Jumlah</string>
+    <string name="catatan_">Catatan</string>
+    <string name="kurangkan">Kurangkan</string>
+    <string name="nomor_acara_diisi_dengan_nomor_berita_acara_atau_penanda_lainnya_catatan_dapat_di_isi_dengan_lokasi_dan_keperluan_pemakaian">*[Nomor Acara] diisi dengan nomor berita acara atau penanda lainnya. *[Catatan] dapat di isi dengan lokasi dan keperluan pemakaian.</string>
+    <string name="pakai_barang">Pakai Barang</string>
+    <string name="tambahkan_barang">Tambahkan barang</string>
+    <string name="tambah_jumlah_stok">Tambah Jumlah Stok</string>
+    <string name="tambahkan">Tambahkan</string>
+    <string name="nomor_acara_diisi_dengan_nomor_berita_acara_atau_penanda_lainnya_catatan_dapat_di_isi_dengan_lokasi_penyimpanan_dan_detil_pengadaan">*[Nomor Acara] diisi dengan nomor berita acara atau penanda lainnya. *[Catatan] dapat di isi dengan lokasi penyimpanan dan detil pengadaan.</string>
+    <string name="lokasi_">Lokasi</string>
+    <string name="seat">Seat M.</string>
+    <string name="filter_komputer">Filter Komputer</string>
+    <string name="inv_komputer">-- INV. KOMPUTER --</string>
+    <string name="logo_menu_gridview">Logo Menu GridView</string>
+    <string name="ubah_penambahan">Ubah Penambahan</string>
+    <string name="ubah_pengurangan">Ubah Pengurangan</string>
+    <string name="ditambahkan">Ditambahkan</string>
+    <string name="dipakai">Dipakai</string>
+    <string name="inv_cctv">-- INV. CCTV</string>
+    <string name="inv_printer">-- INV. Printer</string>
+    <string name="tambah_cctv">tambah cctv</string>
+    <string name="filter_cctv">Filter Cctv</string>
+    <string name="filter_printer">Filter Printer</string>
+    <string name="tambah_cctv_add">Tambah Cctv</string>
+    <string name="nama_cctv">Nama Cctv</string>
+    <string name="merk_model_dot">Merk Model ............................</string>
+    <string name="tahun_dot">Tahun .....................................</string>
+    <string name="ubah_cctv">Ubah Cctv</string>
+    <string name="edit_cctv">Edit Cctv</string>
+    <string name="tambah_printer">Tambah Printer</string>
+    <string name="nama_printer">Nama Printer</string>
+    <string name="ubah_printer">ubah_printer</string>
+    <string name="ubah_printer_">Ubah Printer</string>
+    <string name="inv_server">-- INV. Server</string>
+    <string name="tambah_server">Tambah Server</string>
+    <string name="filter_server">Filter Server</string>
+    <string name="nama_server">Nama Server</string>
+    <string name="kategori_dot">Kategori .........................</string>
+    <string name="ubah_server">Ubah Server</string>
+</resources>
