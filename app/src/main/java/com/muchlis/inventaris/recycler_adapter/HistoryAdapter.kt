@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
+import com.muchlis.inventaris.data.MenuData
 import com.muchlis.inventaris.data.response.HistoryResponse
+import com.muchlis.inventaris.utils.toDate
+import com.muchlis.inventaris.utils.toStringJustDate
 import kotlinx.android.synthetic.main.item_history.view.*
 
 class HistoryAdapter(
     private val context: Context?,
-    private val itemPrint: List<HistoryResponse>,
+    private val itemList: List<HistoryResponse>,
     private val itemClick: (HistoryResponse) -> Unit
 ) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
@@ -24,10 +27,10 @@ class HistoryAdapter(
         )
     }
 
-    override fun getItemCount(): Int = itemPrint.size
+    override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(itemPrint[position])
+        holder.bindItem(itemList[position])
     }
 
 
@@ -38,14 +41,26 @@ class HistoryAdapter(
             itemView.apply {
                 tv_history_author.text = items.author
                 tv_history_branch.text = items.branch
-                tv_history_date.text = items.date
+                tv_history_date.text = items.date.toDate().toStringJustDate()
                 tv_history_name.text = items.parentName
                 tv_history_note.text = items.note
-                val categoryStatus = items.category + " - " + items.status
+                val categoryStatus = items.status
                 tv_history_status.text = categoryStatus
+
+                iv_circle_history.setImageResource(getImageResourceFromCategory(items.category))
 
                 //onClick
                 itemView.setOnClickListener { itemClick(items) }
+            }
+        }
+
+        private fun getImageResourceFromCategory(category: String): Int{
+            return when (category){
+                "PC" -> R.drawable.ic_029_computer
+                "Printer" -> R.drawable.ic_041_printer
+                "Server" -> R.drawable.ic_047_server
+                "CCTV" -> R.drawable.ic_018_cctv
+                else -> R.drawable.ic_029_computer
             }
         }
     }

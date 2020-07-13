@@ -15,7 +15,7 @@ fun Date.toStringDateForView(): String {
 //}
 
 fun Date.toStringJustDate(): String {
-    val formatEx = SimpleDateFormat("dd-MMM", Locale.US)
+    val formatEx = SimpleDateFormat("dd MMM yyyy", Locale.US)
     return formatEx.format(this)
 }
 

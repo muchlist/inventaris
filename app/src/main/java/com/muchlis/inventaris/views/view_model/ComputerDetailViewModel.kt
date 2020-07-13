@@ -1,9 +1,9 @@
-package com.muchlis.inventaris.view_model
+package com.muchlis.inventaris.views.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.muchlis.inventaris.data.response.HistoryListResponse
+import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
@@ -11,14 +11,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DashboardViewModel : ViewModel() {
+class ComputerDetailViewModel : ViewModel() {
 
     private val apiService: ApiService = Api.retrofitService
 
-    //Data untuk RecyclerView
-    private val _historyData: MutableLiveData<HistoryListResponse> = MutableLiveData()
-    fun getHistoryData(): MutableLiveData<HistoryListResponse> {
-        return _historyData
+    //Data untuk detail
+    private val _computerData: MutableLiveData<ComputerDetailResponse> = MutableLiveData()
+    fun getComputerData(): MutableLiveData<ComputerDetailResponse> {
+        return _computerData
     }
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -39,23 +39,20 @@ class DashboardViewModel : ViewModel() {
     }
 
 
-    fun findHistories(branch: String, category: String, limit: Int) {
+    fun getComputer(computerID : String) {
         _isLoading.value = true
         _messageError.value = ""
-        apiService.getHistory(
+        apiService.getComputerDetail(
             token = App.prefs.authTokenSave,
-            branch = branch,
-            category = category,
-            limit = limit
-        ).enqueue(object : Callback<HistoryListResponse> {
+            id = computerID
+        ).enqueue(object : Callback<ComputerDetailResponse> {
             override fun onResponse(
-                call: Call<HistoryListResponse>,
-                response: Response<HistoryListResponse>
+                call: Call<ComputerDetailResponse>,
+                response: Response<ComputerDetailResponse>
             ) {
                 when {
                     response.isSuccessful -> {
-                        val result = response.body()
-                        _historyData.postValue(result)
+                        _computerData.postValue(response.body())
                         _isLoading.value = false
                     }
                     response.code() == 400 -> {
@@ -69,9 +66,9 @@ class DashboardViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<HistoryListResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
                 _isLoading.value = false
-                _messageError.value = t.message//"Gagal terhubung ke server"
+                _messageError.value = "Gagal terhubung ke server"
             }
         })
     }

@@ -1,6 +1,8 @@
 package com.muchlis.inventaris.services
 
 import com.muchlis.inventaris.data.request.LoginRequest
+import com.muchlis.inventaris.data.response.ComputerDetailResponse
+import com.muchlis.inventaris.data.response.ComputerListResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.LoginResponse
 import com.muchlis.inventaris.utils.App
@@ -40,6 +42,28 @@ interface ApiService {
         @Query("category") category: String = "",
         @Query("limit") limit: Int?
     ): Call<HistoryListResponse>
+
+
+    //{{url}}/api/computers?branch=banjarmasin&ip_address=&client_name=&deactive=no
+    @GET("/api/computers")
+    fun getComputerList(
+        @Header("Authorization") token: String,
+        @Query("branch") branch: String = "",
+        @Query("ip_address") ipAddress: String = "",
+        @Query("client_name") clientName: String = ""
+    ): Call<ComputerListResponse>
+
+    //{{url}}/api/computers/5ef05f051bbfc2b3db5d1159
+    @GET("/api/computers/{id}")
+    fun getComputerDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ComputerDetailResponse>
+
+    /*
+    * @PUT("/api/containers/{id}")
+//    fun putContainer(
+//        @Path("id") id: String,*/
 
 //    @GET("/profile")
 //    fun getProfile(

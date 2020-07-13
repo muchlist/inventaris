@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.views
+package com.muchlis.inventaris.views.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,10 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.request.LoginRequest
+import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.databinding.ActivityLoginBinding
 import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.visible
-import com.muchlis.inventaris.view_model.LoginViewModel
+import com.muchlis.inventaris.views.view_model.LoginViewModel
 import es.dmoral.toasty.Toasty
 
 class LoginActivity : AppCompatActivity(){
@@ -21,7 +22,10 @@ class LoginActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        bd = ActivityLoginBinding.inflate(layoutInflater)
+        val view = bd.root
+        setContentView(view)
+
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         hideNotificationBar()

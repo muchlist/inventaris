@@ -1,5 +1,6 @@
-package com.muchlis.inventaris.views
+package com.muchlis.inventaris.views.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -9,18 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.MenuData
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
+import com.muchlis.inventaris.databinding.ActivityComputerDetailBinding
 import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.recycler_adapter.DashboardMenuAdapter
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.visible
-import com.muchlis.inventaris.view_model.DashboardViewModel
+import com.muchlis.inventaris.views.view_model.DashboardViewModel
 import es.dmoral.toasty.Toasty
 
 class DashboardActivity : AppCompatActivity() {
@@ -39,8 +40,11 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard)
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
+        bd = ActivityDashboardBinding.inflate(layoutInflater)
+        val view = bd.root
+        setContentView(view)
+
+
         viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
 
         observeViewModel()
@@ -59,7 +63,10 @@ class DashboardActivity : AppCompatActivity() {
     private fun observeViewModel() {
 
         viewModel.run {
-            getHistoryData().observe(this@DashboardActivity, Observer { loadRecyclerView(it) })
+            getHistoryData().observe(this@DashboardActivity, Observer {
+                loadRecyclerView(it)
+                showLoadMoreButton(it.histories.count())
+            })
             isLoading.observe(this@DashboardActivity, Observer { showLoading(it) })
             messageError.observe(this@DashboardActivity, Observer { showErrorToast(it) })
         }
@@ -84,7 +91,7 @@ class DashboardActivity : AppCompatActivity() {
         menuAdapter = DashboardMenuAdapter(this, menuDataData) {
 
             when (it.id) {
-//                0 -> startActivity<ComputerListActivity>(DATA_INTENT_DASHBOARD_COMPUTER_LIST to "")
+                0 -> intentToComputerActivity()
 //                1 -> startActivity<StockListActivity>()
 //                2 -> startActivity<PrinterListActivity>()
 //                3 -> startActivity<ServerListActivity>()
@@ -95,6 +102,11 @@ class DashboardActivity : AppCompatActivity() {
         }
         bd.gvDashboardMenu.layoutAnimation = controller
         bd.gvDashboardMenu.adapter = menuAdapter
+    }
+
+    private fun intentToComputerActivity() {
+        val intent = Intent(this, ComputersActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setRecyclerView() {
@@ -126,10 +138,21 @@ class DashboardActivity : AppCompatActivity() {
         bd.rvHistoryDashboard.invalidate()
     }
 
+    private fun showLoadMoreButton(dataCount: Int){
+        if (dataCount != 0){
+            bd.btHistoryDashboard.visible()
+        }
+    }
+
     private fun setToolbarTitle() {
-        setSupportActionBar(bd.toolbarDashboard)
-        bd.toolbarDashboard.title = App.prefs.nameSave
-        bd.toolbarDashboard.subtitle = App.prefs.userBranchSave
+//        setSupportActionBar(bd.toolbarDashboard)
+//        bd.toolbarDashboard.title = App.prefs.nameSave
+//        bd.toolbarDashboard.subtitle = App.prefs.userBranchSave
+
+        bd.collapsingToolbar.title = App.prefs.nameSave
+        bd.collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsedAppBar);
+//        bd.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+
     }
 
     private fun showLoading(isLoading: Boolean) {
