@@ -1,13 +1,11 @@
 package com.muchlis.inventaris.services
 
 import com.muchlis.inventaris.data.request.LoginRequest
-import com.muchlis.inventaris.data.response.ComputerDetailResponse
-import com.muchlis.inventaris.data.response.ComputerListResponse
-import com.muchlis.inventaris.data.response.HistoryListResponse
-import com.muchlis.inventaris.data.response.LoginResponse
+import com.muchlis.inventaris.data.response.*
 import com.muchlis.inventaris.utils.App
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -53,12 +51,20 @@ interface ApiService {
         @Query("client_name") clientName: String = ""
     ): Call<ComputerListResponse>
 
+
     //{{url}}/api/computers/5ef05f051bbfc2b3db5d1159
     @GET("/api/computers/{id}")
     fun getComputerDetail(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<ComputerDetailResponse>
+
+
+    //{{url}}/api/options
+    @GET("/api/options")
+    fun getOptions(
+        @Header("Authorization") token: String
+    ): Call<ResponseBody>
 
     /*
     * @PUT("/api/containers/{id}")

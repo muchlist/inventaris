@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.response.HistoryListResponse
+import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,6 +80,35 @@ class DashboardViewModel : ViewModel() {
                 _isLoading.value = false
                 _messageError.value = t.message//"Gagal terhubung ke server"
             }
+        })
+    }
+
+
+    fun getOptions(){
+        apiService.getOptions(App.prefs.authTokenSave).enqueue(object : Callback<ResponseBody>{
+
+
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        //val result = response.body()
+                        App.prefs.optionsJson = response.body()?.string() ?: ""
+                        _isLoading.value = false
+                    }
+                    else -> {
+                        _messageError.value = response.code().toString()
+                        _isLoading.value = false
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                _messageError.value = t.message
+            }
+
         })
     }
 

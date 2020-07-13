@@ -58,6 +58,7 @@ class DashboardActivity : AppCompatActivity() {
         setRecyclerView()
 
         viewModel.findHistories(branch = App.prefs.userBranchSave,category = "", limit = 5)
+        viewModel.getOptions()
     }
 
     private fun observeViewModel() {
