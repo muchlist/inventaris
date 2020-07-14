@@ -7,27 +7,15 @@ import com.muchlis.inventaris.data.response.SelectOptionResponse
 class OptionsMarshaller {
 
     fun getOption(): SelectOptionResponse? {
-        var options = SelectOptionResponse(
-            listOf(),
-            listOf(),
-            listOf(),
-            listOf(),
-            listOf(),
-            listOf(),
-            listOf(),
-            listOf(),
-            listOf(),
-            listOf(),
-            0
-        )
         val json = App.prefs.optionsJson
         if (json.isNotEmpty()) {
-            try {
-                options = Gson().fromJson(json, SelectOptionResponse::class.java)
+            return try {
+                val options = Gson().fromJson(json, SelectOptionResponse::class.java)
+                options
             } catch (e: JsonParseException) {
-                return null
+                null
             }
         }
-        return options
+        return null
     }
 }

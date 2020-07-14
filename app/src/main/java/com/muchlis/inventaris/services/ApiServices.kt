@@ -42,6 +42,14 @@ interface ApiService {
     ): Call<HistoryListResponse>
 
 
+    //{{url}}/api/histories/5ef05f051bbfc2b3db5d1159
+    @GET("/api/histories/{id}")
+    fun getHistoryFromParent(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<HistoryListResponse>
+
+
     //{{url}}/api/computers?branch=banjarmasin&ip_address=&client_name=&deactive=no
     @GET("/api/computers")
     fun getComputerList(

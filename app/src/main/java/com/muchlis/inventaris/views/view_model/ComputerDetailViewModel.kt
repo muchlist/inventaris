@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
+import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
@@ -20,6 +21,18 @@ class ComputerDetailViewModel : ViewModel() {
     fun getComputerData(): MutableLiveData<ComputerDetailResponse> {
         return _computerData
     }
+
+    //Data untuk RecyclerView
+    private val _historyData: MutableLiveData<HistoryListResponse> = MutableLiveData()
+    fun getHistoryData(): MutableLiveData<HistoryListResponse> {
+        return _historyData
+    }
+
+    private var computerID: String = ""
+    fun setComputerId(id: String) {
+        computerID = id
+    }
+
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -39,7 +52,7 @@ class ComputerDetailViewModel : ViewModel() {
     }
 
 
-    fun getComputer(computerID : String) {
+    fun getComputer() {
         _isLoading.value = true
         _messageError.value = ""
         apiService.getComputerDetail(
@@ -69,6 +82,46 @@ class ComputerDetailViewModel : ViewModel() {
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
                 _isLoading.value = false
                 _messageError.value = "Gagal terhubung ke server"
+            }
+        })
+    }
+
+    fun findHistories() {
+        _isLoading.value = true
+        _messageError.value = ""
+        apiService.getHistoryFromParent(
+            token = App.prefs.authTokenSave,
+            id = computerID
+        ).enqueue(object : Callback<HistoryListResponse> {
+            override fun onResponse(
+                call: Call<HistoryListResponse>,
+                response: Response<HistoryListResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        val result = response.body()
+                        _historyData.postValue(result)
+                        _isLoading.value = false
+                    }
+                    response.code() == 400 -> {
+                        _messageError.value = "gagal memuat"
+                        _isLoading.value = false
+                    }
+                    response.code() == 422 -> {
+                        _messageError.value = "Token Expired"
+                        _isLoading.value = false
+                        App.prefs.authTokenSave = ""
+                    }
+                    else -> {
+                        _messageError.value = response.code().toString()
+                        _isLoading.value = false
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<HistoryListResponse>, t: Throwable) {
+                _isLoading.value = false
+                _messageError.value = t.message//"Gagal terhubung ke server"
             }
         })
     }

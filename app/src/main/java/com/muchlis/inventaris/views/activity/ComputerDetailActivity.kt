@@ -1,16 +1,13 @@
 package com.muchlis.inventaris.views.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
-import com.muchlis.inventaris.R
 import com.muchlis.inventaris.databinding.ActivityComputerDetailBinding
+import com.muchlis.inventaris.utils.INTENT_PC_TO_DETAIL
 import com.muchlis.inventaris.view_pager_adapter.ComputerPagerAdapter
 import com.muchlis.inventaris.views.view_model.ComputerDetailViewModel
-import com.muchlis.inventaris.views.view_model.ComputersViewModel
-import com.muchlis.inventaris.views.view_model.DashboardViewModel
 
 class ComputerDetailActivity : AppCompatActivity() {
 
@@ -19,12 +16,19 @@ class ComputerDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //bd = DataBindingUtil.setContentView(this, R.layout.activity_computer_detail)
         bd = ActivityComputerDetailBinding.inflate(layoutInflater)
         val view = bd.root
         setContentView(view)
 
         viewModel = ViewModelProvider(this).get(ComputerDetailViewModel::class.java)
+
+        //MENERIMA DATA DARI intent dan mengirim ke viewModel
+        val computerID = intent.getStringExtra(
+            INTENT_PC_TO_DETAIL
+        )
+        computerID?.let {
+            viewModel.setComputerId(it)
+        }
 
         initPager()
 

@@ -3,16 +3,14 @@ package com.muchlis.inventaris.views.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.ComputerListResponse
 import com.muchlis.inventaris.databinding.ActivityComputerBinding
-import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.recycler_adapter.ComputerAdapter
 import com.muchlis.inventaris.utils.App
+import com.muchlis.inventaris.utils.INTENT_PC_TO_DETAIL
 import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.visible
 import com.muchlis.inventaris.views.view_model.ComputersViewModel
@@ -53,20 +51,20 @@ class ComputersActivity : AppCompatActivity() {
         }
     }
 
-    private fun intentToComputerDetailActivity() {
-        val intent = Intent(this, ComputerDetailActivity::class.java)
-        startActivity(intent)
-    }
-
     private fun setRecyclerView() {
         bd.rvComputerlist.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         computerAdapter = ComputerAdapter(this, computerData) {
-            //TODO Click startActivity<HistoryDetailActivity>(DATA_INTENT_DASHBOARD_DETAIL_HISTORY to it)
-            intentToComputerDetailActivity()
+            intentToComputerDetailActivity(it.id)
         }
         bd.rvComputerlist.adapter = computerAdapter
         bd.rvComputerlist.setHasFixedSize(true)
+    }
+
+    private fun intentToComputerDetailActivity(computerID: String) {
+        val intent = Intent(this, ComputerDetailActivity::class.java)
+        intent.putExtra(INTENT_PC_TO_DETAIL, computerID)
+        startActivity(intent)
     }
 
     private fun loadRecyclerView(data: ComputerListResponse) {
@@ -89,7 +87,7 @@ class ComputersActivity : AppCompatActivity() {
         bd.rvComputerlist.invalidate()
     }
 
-    private fun setTotalComputerCount(total: Int){
+    private fun setTotalComputerCount(total: Int) {
         bd.tvComputerlistUnit.text = "Jumlah : $total unit"
     }
 
