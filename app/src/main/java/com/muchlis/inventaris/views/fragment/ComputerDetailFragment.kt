@@ -1,6 +1,7 @@
 package com.muchlis.inventaris.views.fragment
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.databinding.FragmentComputerDetailBinding
-import com.muchlis.inventaris.utils.App
-import com.muchlis.inventaris.utils.toDate
-import com.muchlis.inventaris.utils.toStringJustYear
+import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.ComputerDetailViewModel
+import com.muchlis.inventaris.views.activity.AppendHistoryActivity
+import com.muchlis.inventaris.views.activity.ComputerDetailActivity
 import es.dmoral.toasty.Toasty
 
 
@@ -56,6 +57,18 @@ class ComputerDetailFragment : Fragment() {
         bd.ivDetailDelete.setOnClickListener {
             deleteComputerDetail()
         }
+
+        bd.ivDetailAddHistory.setOnClickListener {
+            intentToAppendHistoryActivity(viewModel.getComputerData().value)
+        }
+    }
+
+    private fun intentToAppendHistoryActivity(data: ComputerDetailResponse?) {
+        val intent = Intent(requireActivity(), AppendHistoryActivity::class.java)
+        intent.putExtra(INTENT_TO_HISTORY_CREATE_ID, data?.id)
+        intent.putExtra(INTENT_TO_HISTORY_CREATE_CATEGORY, data?.tipe)
+        intent.putExtra(INTENT_TO_HISTORY_CREATE_NAME, data?.clientName)
+        startActivity(intent)
     }
 
     private fun observeViewModel() {

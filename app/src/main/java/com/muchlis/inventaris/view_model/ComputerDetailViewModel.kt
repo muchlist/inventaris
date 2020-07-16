@@ -34,6 +34,9 @@ class ComputerDetailViewModel : ViewModel() {
     fun setComputerId(id: String) {
         computerID = id
     }
+    fun getComputerId(): String {
+        return computerID
+    }
 
 
     private val _isLoading = MutableLiveData<Boolean>()

@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.services
 
+import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.data.request.LoginRequest
 import com.muchlis.inventaris.data.response.*
 import com.muchlis.inventaris.utils.App
@@ -30,6 +31,15 @@ interface ApiService {
         @Body args: LoginRequest,
         @Header("Content-Type") contentType: String = "application/json"
     ): Call<LoginResponse>
+
+
+    //{{url}}/api/histories/5ef05f051bbfc2b3db5d1159
+    @POST("/api/histories/{id}")
+    fun postHistory(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: HistoryRequest
+    ): Call<HistoryResponse>
 
 
     //{{url}}/api/histories?branch=BANJARMASIN&category=&limit=3
