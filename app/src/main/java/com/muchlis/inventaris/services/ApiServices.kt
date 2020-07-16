@@ -74,6 +74,12 @@ interface ApiService {
         @Path("id") id: String
     ): Call<ResponseBody>
 
+    //{{url}}/api/delete-history/5ef2d20fd72e1f6c75093643
+    @DELETE("/api/delete-history/{id}")
+    fun deleteComputerHistory(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ResponseBody>
 
     //{{url}}/api/options
     @GET("/api/options")

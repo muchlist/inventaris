@@ -17,6 +17,7 @@ import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.recycler_adapter.DashboardMenuAdapter
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.App
+import com.muchlis.inventaris.utils.INTENT_PC_TO_DETAIL
 import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.visible
 import com.muchlis.inventaris.view_model.DashboardViewModel
@@ -112,7 +113,7 @@ class DashboardActivity : AppCompatActivity() {
         bd.rvHistoryDashboard.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyAdapter = HistoryAdapter(this, historyData) {
-            //TODO Click startActivity<HistoryDetailActivity>(DATA_INTENT_DASHBOARD_DETAIL_HISTORY to it)
+            intentToComputerDetailActivity(parentID = it.parentId, category = it.category)
         }
         bd.rvHistoryDashboard.adapter = historyAdapter
         bd.rvHistoryDashboard.setHasFixedSize(true)
@@ -123,13 +124,19 @@ class DashboardActivity : AppCompatActivity() {
         historyData.addAll(data.histories)
         runLayoutAnimation()
         historyAdapter.notifyDataSetChanged()
+    }
 
-        //JIKA ITEMLIST KOSONG MUNCULKAN GAMBAR
-//        if (it.containers.count() == 0){
-//            view?.iv_level_one_empty?.visible()
-//        } else {
-//            view?.iv_level_one_empty?.invisible()
-//        }
+    private fun intentToComputerDetailActivity(parentID: String, category: String) {
+        when (category){
+            "PC" -> {
+                val intent = Intent(this, ComputerDetailActivity::class.java)
+                intent.putExtra(INTENT_PC_TO_DETAIL, parentID)
+                startActivity(intent)
+            }
+            else -> {
+                Toasty.error(this, "Category tidak valid", Toasty.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun runLayoutAnimation() {

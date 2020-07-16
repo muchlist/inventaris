@@ -50,7 +50,11 @@ class HistoryAdapter(
                 iv_circle_history.setImageResource(getImageResourceFromCategory(items.category))
 
                 //onClick
-                itemView.setOnClickListener { itemClick(items) }
+                itemView.setOnClickListener {}
+                itemView.setOnLongClickListener {
+                    itemClick(items)
+                    true
+                }
             }
         }
 

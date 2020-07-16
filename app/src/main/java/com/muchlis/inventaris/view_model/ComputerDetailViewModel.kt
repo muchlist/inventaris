@@ -56,6 +56,10 @@ class ComputerDetailViewModel : ViewModel() {
     val isdeleteSuccess: LiveData<Boolean>
         get() = _deleteSuccess
 
+    private val _deleteHistorySuccess = MutableLiveData<Boolean>()
+    val isDeleteHistorySuccess: LiveData<Boolean>
+        get() = _deleteHistorySuccess
+
     init {
         _isLoading.value = false
         _deleteSuccess.value = false
@@ -170,6 +174,41 @@ class ComputerDetailViewModel : ViewModel() {
             override fun onFailure(call: Call<HistoryListResponse>, t: Throwable) {
                 _isLoading.value = false
                 _messageHistoryError.value = t.message//"Gagal terhubung ke server"
+            }
+        })
+    }
+
+    fun deleteHistory(historyID : String) {
+        _isLoading.value = true
+        _messageHistoryError.value = ""
+        apiService.deleteComputerHistory(
+            token = App.prefs.authTokenSave,
+            id = historyID
+        ).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        _deleteHistorySuccess.value = true
+                        _isLoading.value = false
+                    }
+                    response.code() == 400 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        _messageHistoryError.value = JsonMarshaller().getError(responseBody)?.message
+                        _isLoading.value = false
+                    }
+                    else -> {
+                        _messageHistoryError.value = response.code().toString()
+                        _isLoading.value = false
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                _isLoading.value = false
+                _messageHistoryError.value = "Gagal terhubung ke server"
             }
         })
     }

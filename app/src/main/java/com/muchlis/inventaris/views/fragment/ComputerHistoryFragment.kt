@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.views.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -67,10 +68,27 @@ class ComputerHistoryFragment : Fragment() {
         bd.rvDetailComputerHistory.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         historyAdapter = HistoryAdapter(requireActivity(), historyData) {
-            //TODO Click
+            deleteComputerHistory(it.id)
         }
         bd.rvDetailComputerHistory.adapter = historyAdapter
         bd.rvDetailComputerHistory.setHasFixedSize(true)
+    }
+
+    private fun deleteComputerHistory(historyID: String) {
+        val builder = AlertDialog.Builder(requireActivity())
+
+        builder.setTitle("Mengahapus Riwayat")
+        builder.setMessage("Konfirmasi untuk menghapus riwayat, riwayat tidak dapat dihapus 2 jam setelah pembuatan!")
+
+        builder.setPositiveButton("Ya") { _, _ ->
+            viewModel.deleteHistory(historyID)
+        }
+        builder.setNeutralButton("Batal") { _, _ ->
+
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     private fun loadRecyclerView(data: HistoryListResponse) {
