@@ -78,31 +78,38 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_computerlist"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_computer_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:clipToPadding="false"
-            android:layoutAnimation="@anim/layout_animation_fall_down"
-            android:paddingTop="24dp"
             app:layout_constraintBottom_toTopOf="@+id/bt_computerlist_tambah"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_computerlist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:layoutAnimation="@anim/layout_animation_fall_down"
+                android:paddingTop="24dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
         <Button
+            android:id="@+id/bt_computerlist_tambah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_computerlist_tambah"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
             android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto"
             android:text="@string/tambah_komputer"
-            android:fontFamily="@font/roboto" />
+            app:icon="@drawable/ic_baseline_add_24px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:text="@string/jumlah"
@@ -114,16 +121,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/roboto" />
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/pb_computerlist"
-            android:visibility="gone" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

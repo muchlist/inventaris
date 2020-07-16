@@ -12,8 +12,9 @@ import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.databinding.FragmentComputerHistoryBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
-import com.muchlis.inventaris.utils.App
-import com.muchlis.inventaris.views.view_model.ComputerDetailViewModel
+import com.muchlis.inventaris.utils.invisible
+import com.muchlis.inventaris.utils.visible
+import com.muchlis.inventaris.view_model.ComputerDetailViewModel
 import es.dmoral.toasty.Toasty
 
 class ComputerHistoryFragment : Fragment() {
@@ -57,8 +58,7 @@ class ComputerHistoryFragment : Fragment() {
 
         viewModel.run {
             getHistoryData().observe(viewLifecycleOwner, Observer { loadRecyclerView(it) })
-            messageError.observe(viewLifecycleOwner, Observer { showErrorToast(it) })
-            messageSuccess.observe(viewLifecycleOwner, Observer { showSuccessToast(it) })
+            messageHistoryError.observe(viewLifecycleOwner, Observer { showErrorToast(it) })
             isLoading.observe(viewLifecycleOwner, Observer { showLoading(it) })
         }
     }
@@ -81,11 +81,12 @@ class ComputerHistoryFragment : Fragment() {
         historyAdapter.notifyDataSetChanged()
 
         //JIKA ITEMLIST KOSONG MUNCULKAN GAMBAR
-//        if (it.containers.count() == 0){
-//            view?.iv_level_one_empty?.visible()
-//        } else {
-//            view?.iv_level_one_empty?.invisible()
-//        }
+        if (data.histories.count() == 0){
+            bd.ivEmptyList.visible()
+        } else {
+            bd.ivEmptyList.invisible()
+        }
+
     }
 
 
@@ -95,11 +96,6 @@ class ComputerHistoryFragment : Fragment() {
         }
     }
 
-    private fun showSuccessToast(text: String) {
-        if (text.isNotEmpty()) {
-            Toasty.success(requireActivity(), text, Toasty.LENGTH_LONG).show()
-        }
-    }
 
     private fun showLoading(isLoading: Boolean) {
         bd.refreshDetailComputerHistory.isRefreshing = isLoading

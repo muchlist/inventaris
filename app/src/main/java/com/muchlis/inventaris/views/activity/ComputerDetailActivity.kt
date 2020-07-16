@@ -7,7 +7,7 @@ import androidx.viewpager.widget.ViewPager
 import com.muchlis.inventaris.databinding.ActivityComputerDetailBinding
 import com.muchlis.inventaris.utils.INTENT_PC_TO_DETAIL
 import com.muchlis.inventaris.view_pager_adapter.ComputerPagerAdapter
-import com.muchlis.inventaris.views.view_model.ComputerDetailViewModel
+import com.muchlis.inventaris.view_model.ComputerDetailViewModel
 
 class ComputerDetailActivity : AppCompatActivity() {
 

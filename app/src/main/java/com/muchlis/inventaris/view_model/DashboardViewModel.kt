@@ -1,38 +1,26 @@
-package com.muchlis.inventaris.views.view_model
+package com.muchlis.inventaris.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ComputerDetailViewModel : ViewModel() {
+class DashboardViewModel : ViewModel() {
 
     private val apiService: ApiService = Api.retrofitService
-
-    //Data untuk detail
-    private val _computerData: MutableLiveData<ComputerDetailResponse> = MutableLiveData()
-    fun getComputerData(): MutableLiveData<ComputerDetailResponse> {
-        return _computerData
-    }
 
     //Data untuk RecyclerView
     private val _historyData: MutableLiveData<HistoryListResponse> = MutableLiveData()
     fun getHistoryData(): MutableLiveData<HistoryListResponse> {
         return _historyData
     }
-
-    private var computerID: String = ""
-    fun setComputerId(id: String) {
-        computerID = id
-    }
-
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -52,46 +40,14 @@ class ComputerDetailViewModel : ViewModel() {
     }
 
 
-    fun getComputer() {
+    fun findHistories(branch: String, category: String, limit: Int) {
         _isLoading.value = true
         _messageError.value = ""
-        apiService.getComputerDetail(
+        apiService.getHistory(
             token = App.prefs.authTokenSave,
-            id = computerID
-        ).enqueue(object : Callback<ComputerDetailResponse> {
-            override fun onResponse(
-                call: Call<ComputerDetailResponse>,
-                response: Response<ComputerDetailResponse>
-            ) {
-                when {
-                    response.isSuccessful -> {
-                        _computerData.postValue(response.body())
-                        _isLoading.value = false
-                    }
-                    response.code() == 400 -> {
-                        _messageError.value = "gagal memuat"
-                        _isLoading.value = false
-                    }
-                    else -> {
-                        _messageError.value = response.code().toString()
-                        _isLoading.value = false
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
-                _isLoading.value = false
-                _messageError.value = "Gagal terhubung ke server"
-            }
-        })
-    }
-
-    fun findHistories() {
-        _isLoading.value = true
-        _messageError.value = ""
-        apiService.getHistoryFromParent(
-            token = App.prefs.authTokenSave,
-            id = computerID
+            branch = branch,
+            category = category,
+            limit = limit
         ).enqueue(object : Callback<HistoryListResponse> {
             override fun onResponse(
                 call: Call<HistoryListResponse>,
@@ -123,6 +79,33 @@ class ComputerDetailViewModel : ViewModel() {
                 _isLoading.value = false
                 _messageError.value = t.message//"Gagal terhubung ke server"
             }
+        })
+    }
+
+
+    fun getOptions(){
+        apiService.getOptions(App.prefs.authTokenSave).enqueue(object : Callback<ResponseBody>{
+
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        App.prefs.optionsJson = response.body()?.string() ?: ""
+                        _isLoading.value = false
+                    }
+                    else -> {
+                        _messageError.value = response.code().toString()
+                        _isLoading.value = false
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                _messageError.value = t.message
+            }
+
         })
     }
 

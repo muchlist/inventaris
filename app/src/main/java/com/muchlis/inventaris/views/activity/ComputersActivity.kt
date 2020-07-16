@@ -11,9 +11,7 @@ import com.muchlis.inventaris.databinding.ActivityComputerBinding
 import com.muchlis.inventaris.recycler_adapter.ComputerAdapter
 import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.INTENT_PC_TO_DETAIL
-import com.muchlis.inventaris.utils.invisible
-import com.muchlis.inventaris.utils.visible
-import com.muchlis.inventaris.views.view_model.ComputersViewModel
+import com.muchlis.inventaris.view_model.ComputersViewModel
 import es.dmoral.toasty.Toasty
 
 class ComputersActivity : AppCompatActivity() {
@@ -36,8 +34,19 @@ class ComputersActivity : AppCompatActivity() {
         observeViewModel()
 
         setRecyclerView()
+        bd.refreshComputerList.setOnRefreshListener {
+            viewModel.findComputers(
+                branch = App.prefs.userBranchSave,
+                ipAddress = "",
+                clientName = ""
+            )
+        }
 
         viewModel.findComputers(branch = App.prefs.userBranchSave, ipAddress = "", clientName = "")
+
+        //HIDE KEYBOARD
+        bd.etComputerlistSearchbar.isFocusable = false
+        bd.etComputerlistSearchbar.clearFocus()
     }
 
     private fun observeViewModel() {
@@ -93,11 +102,7 @@ class ComputersActivity : AppCompatActivity() {
 
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            bd.pbComputerlist.visible()
-        } else {
-            bd.pbComputerlist.invisible()
-        }
+        bd.refreshComputerList.isRefreshing = isLoading
     }
 
     private fun showErrorToast(text: String) {

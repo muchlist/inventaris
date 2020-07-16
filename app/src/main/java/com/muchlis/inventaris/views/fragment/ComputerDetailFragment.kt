@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.views.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,15 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.gson.Gson
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
-import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.databinding.FragmentComputerDetailBinding
 import com.muchlis.inventaris.utils.App
-import com.muchlis.inventaris.utils.OptionsMarshaller
 import com.muchlis.inventaris.utils.toDate
 import com.muchlis.inventaris.utils.toStringJustYear
-import com.muchlis.inventaris.views.view_model.ComputerDetailViewModel
+import com.muchlis.inventaris.view_model.ComputerDetailViewModel
 import es.dmoral.toasty.Toasty
 
 
@@ -54,6 +52,10 @@ class ComputerDetailFragment : Fragment() {
 
         viewModel.getComputer()
 
+
+        bd.ivDetailDelete.setOnClickListener {
+            deleteComputerDetail()
+        }
     }
 
     private fun observeViewModel() {
@@ -96,6 +98,23 @@ class ComputerDetailFragment : Fragment() {
         if (text.isNotEmpty()) {
             Toasty.success(requireActivity(), text, Toasty.LENGTH_LONG).show()
         }
+    }
+
+    private fun deleteComputerDetail() {
+        val builder = AlertDialog.Builder(requireActivity())
+
+        builder.setTitle("Mengahapus Komputer")
+        builder.setMessage("Konfirmasi untuk menghapus komputer, komputer tidak dapat dihapus 2 jam setelah pembuatan!")
+
+        builder.setPositiveButton("Ya") { _, _ ->
+            viewModel.deleteComputer()
+        }
+        builder.setNeutralButton("Batal") { _, _ ->
+
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     override fun onDestroyView() {

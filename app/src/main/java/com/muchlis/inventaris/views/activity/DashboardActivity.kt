@@ -6,7 +6,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.GridLayoutAnimationController
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,14 +13,13 @@ import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.MenuData
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
-import com.muchlis.inventaris.databinding.ActivityComputerDetailBinding
 import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.recycler_adapter.DashboardMenuAdapter
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.visible
-import com.muchlis.inventaris.views.view_model.DashboardViewModel
+import com.muchlis.inventaris.view_model.DashboardViewModel
 import es.dmoral.toasty.Toasty
 
 class DashboardActivity : AppCompatActivity() {

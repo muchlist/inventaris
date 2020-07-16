@@ -67,6 +67,13 @@ interface ApiService {
         @Path("id") id: String
     ): Call<ComputerDetailResponse>
 
+    //{{url}}/api/computers/5ef05f051bbfc2b3db5d1159
+    @DELETE("/api/computers/{id}")
+    fun deleteComputerDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ResponseBody>
+
 
     //{{url}}/api/options
     @GET("/api/options")

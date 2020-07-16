@@ -384,6 +384,5 @@
     <string name="nama_server">Nama Server</string>
     <string name="kategori_dot">Kategori .........................</string>
     <string name="ubah_server">Ubah Server</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Memuat &#8230;</string>
 </resources>

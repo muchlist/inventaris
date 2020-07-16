@@ -4,16 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.request.LoginRequest
-import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.databinding.ActivityLoginBinding
 import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.visible
-import com.muchlis.inventaris.views.view_model.LoginViewModel
+import com.muchlis.inventaris.view_model.LoginViewModel
 import es.dmoral.toasty.Toasty
 
 class LoginActivity : AppCompatActivity(){
