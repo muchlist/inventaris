@@ -8,7 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.muchlis.inventaris.R
-import com.muchlis.inventaris.data.MenuData
+import com.muchlis.inventaris.data.dto.MenuData
 
 class DashboardMenuAdapter (
     private var c: Context?,

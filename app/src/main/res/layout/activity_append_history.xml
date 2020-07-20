@@ -9,6 +9,16 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/iv_apply_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_check_circle_24px" />
+
+        <ImageView
             android:id="@+id/iv_back_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -93,7 +103,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:text="Tambahkan"
-                app:icon="@drawable/ic_baseline_add_24px" />
+                app:icon="@drawable/ic_baseline_check_box_24px" />
 
         </LinearLayout>
 

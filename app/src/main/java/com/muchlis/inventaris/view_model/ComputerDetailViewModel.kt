@@ -5,18 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
-import com.muchlis.inventaris.services.Api
-import com.muchlis.inventaris.services.ApiService
-import com.muchlis.inventaris.utils.App
-import com.muchlis.inventaris.utils.JsonMarshaller
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.muchlis.inventaris.repository.ComputerRepository
+import com.muchlis.inventaris.repository.HistoryRepository
 
 class ComputerDetailViewModel : ViewModel() {
 
-    private val apiService: ApiService = Api.retrofitService
+    private val historyRepo = HistoryRepository()
+    private val computerRepo = ComputerRepository()
 
     //Data untuk detail
     private val _computerData: MutableLiveData<ComputerDetailResponse> = MutableLiveData()
@@ -34,9 +29,6 @@ class ComputerDetailViewModel : ViewModel() {
     fun setComputerId(id: String) {
         computerID = id
     }
-    fun getComputerId(): String {
-        return computerID
-    }
 
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -51,13 +43,17 @@ class ComputerDetailViewModel : ViewModel() {
     val messageHistoryError: LiveData<String>
         get() = _messageHistoryError
 
-    private val _messageSuccess = MutableLiveData<String>()
-    val messageSuccess: LiveData<String>
-        get() = _messageSuccess
+    private val _messageDeleteHistorySuccess = MutableLiveData<String>()
+    val messageDeleteHistorySuccess: LiveData<String>
+        get() = _messageDeleteHistorySuccess
 
-    private val _deleteSuccess = MutableLiveData<Boolean>()
-    val isdeleteSuccess: LiveData<Boolean>
-        get() = _deleteSuccess
+    private val _messageDeleteComputerSuccess = MutableLiveData<String>()
+    val messageDeleteComputerSuccess: LiveData<String>
+        get() = _messageDeleteComputerSuccess
+
+    private val _deleteComputerSuccess = MutableLiveData<Boolean>()
+    val isdeleteComputerSuccess: LiveData<Boolean>
+        get() = _deleteComputerSuccess
 
     private val _deleteHistorySuccess = MutableLiveData<Boolean>()
     val isDeleteHistorySuccess: LiveData<Boolean>
@@ -65,155 +61,77 @@ class ComputerDetailViewModel : ViewModel() {
 
     init {
         _isLoading.value = false
-        _deleteSuccess.value = false
+        _deleteComputerSuccess.value = false
         _messageError.value = ""
-        _messageSuccess.value = ""
+        _messageDeleteComputerSuccess.value = ""
     }
 
 
-    fun getComputer() {
+    fun getComputerFromServer() {
         _isLoading.value = true
         _messageError.value = ""
-        apiService.getComputerDetail(
-            token = App.prefs.authTokenSave,
-            id = computerID
-        ).enqueue(object : Callback<ComputerDetailResponse> {
-            override fun onResponse(
-                call: Call<ComputerDetailResponse>,
-                response: Response<ComputerDetailResponse>
-            ) {
-                when {
-                    response.isSuccessful -> {
-                        _computerData.postValue(response.body())
-                        _isLoading.value = false
-                    }
-                    response.code() == 400 -> {
-                        _messageError.value = "gagal memuat"
-                        _isLoading.value = false
-                    }
-                    response.code() == 422 -> {
-                        _messageError.value = "Token Expired"
-                        _isLoading.value = false
-                        App.prefs.authTokenSave = ""
-                    }
-                    else -> {
-                        _messageError.value = response.code().toString()
-                        _isLoading.value = false
-                    }
-                }
-            }
 
-            override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
-                _isLoading.value = false
-                _messageError.value = "Gagal terhubung ke server"
+        computerRepo.getComputer(computerID = computerID) { response, error ->
+            if (error.isNotEmpty()) {
+                _messageError.value = error
+                return@getComputer
             }
-        })
+            response.let {
+                _computerData.postValue(it)
+            }
+        }
+
+        _isLoading.value = false
     }
 
 
-    fun deleteComputer() {
+    fun deleteComputerFromServer() {
         _isLoading.value = true
         _messageError.value = ""
-        apiService.deleteComputerDetail(
-            token = App.prefs.authTokenSave,
-            id = computerID
-        ).enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
-                when {
-                    response.isSuccessful -> {
-                        _deleteSuccess.value = true
-                        _isLoading.value = false
-                    }
-                    response.code() == 400 -> {
-                        val responseBody = response.errorBody()?.string() ?: ""
-                        _messageError.value = JsonMarshaller().getError(responseBody)?.message
-                        _isLoading.value = false
-                    }
-                    else -> {
-                        _messageError.value = response.code().toString()
-                        _isLoading.value = false
-                    }
-                }
-            }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                _isLoading.value = false
-                _messageError.value = "Gagal terhubung ke server"
+        computerRepo.deleteComputer(computerID = computerID) { success, error ->
+            if (error.isNotEmpty()) {
+                _messageError.value = error
+                return@deleteComputer
             }
-        })
+            if (success.isNotEmpty()) {
+                _deleteComputerSuccess.value = true
+                _messageDeleteComputerSuccess.value = success
+            }
+        }
+        _isLoading.value = false
     }
 
-    fun findHistories() {
+    fun findHistoriesFromServer() {
         _isLoading.value = true
         _messageHistoryError.value = ""
-        apiService.getHistoryFromParent(
-            token = App.prefs.authTokenSave,
-            id = computerID
-        ).enqueue(object : Callback<HistoryListResponse> {
-            override fun onResponse(
-                call: Call<HistoryListResponse>,
-                response: Response<HistoryListResponse>
-            ) {
-                when {
-                    response.isSuccessful -> {
-                        val result = response.body()
-                        _historyData.postValue(result)
-                        _isLoading.value = false
-                    }
-                    response.code() == 400 -> {
-                        _messageHistoryError.value = "gagal memuat"
-                        _isLoading.value = false
-                    }
-                    else -> {
-                        _messageHistoryError.value = response.code().toString()
-                        _isLoading.value = false
-                    }
-                }
-            }
 
-            override fun onFailure(call: Call<HistoryListResponse>, t: Throwable) {
-                _isLoading.value = false
-                _messageHistoryError.value = t.message//"Gagal terhubung ke server"
+        historyRepo.findHistoriesForParent(parentID = computerID) { response, error ->
+            if (error.isNotEmpty()) {
+                _messageHistoryError.value = error
+                return@findHistoriesForParent
             }
-        })
+            response.let {
+                _historyData.postValue(it)
+            }
+        }
+        _isLoading.value = false
     }
 
-    fun deleteHistory(historyID : String) {
+    fun deleteHistoryFromServer(historyID: String) {
         _isLoading.value = true
         _messageHistoryError.value = ""
-        apiService.deleteComputerHistory(
-            token = App.prefs.authTokenSave,
-            id = historyID
-        ).enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
-                when {
-                    response.isSuccessful -> {
-                        _deleteHistorySuccess.value = true
-                        _isLoading.value = false
-                    }
-                    response.code() == 400 -> {
-                        val responseBody = response.errorBody()?.string() ?: ""
-                        _messageHistoryError.value = JsonMarshaller().getError(responseBody)?.message
-                        _isLoading.value = false
-                    }
-                    else -> {
-                        _messageHistoryError.value = response.code().toString()
-                        _isLoading.value = false
-                    }
-                }
+        historyRepo.deleteHistory(historyID = historyID) { success, error ->
+            if (error.isNotEmpty()) {
+                _messageHistoryError.value = error
+                return@deleteHistory
             }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                _isLoading.value = false
-                _messageHistoryError.value = "Gagal terhubung ke server"
+            if (success.isNotEmpty()) {
+                _messageDeleteHistorySuccess.value = "Berhasil menghapus history"
+                _deleteHistorySuccess.value = true
             }
-        })
+        }
+        _isLoading.value = false
     }
 
 }

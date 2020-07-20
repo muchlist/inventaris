@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
-import com.muchlis.inventaris.data.MenuData
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.utils.toDate
 import com.muchlis.inventaris.utils.toStringJustDate

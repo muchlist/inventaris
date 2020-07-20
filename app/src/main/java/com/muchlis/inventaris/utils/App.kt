@@ -6,6 +6,10 @@ class App : Application() {
 
     companion object {
         lateinit var prefs: SharedPrefs
+
+        var activityDashboardMustBeRefresh : Boolean = false
+        var fragmentDetailComputerMustBeRefresh : Boolean = false
+        var fragmentHistoryComputerMustBeRefresh : Boolean = false
     }
 
     override fun onCreate() {

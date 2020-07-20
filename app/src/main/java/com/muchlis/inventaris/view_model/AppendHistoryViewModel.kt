@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.data.response.HistoryResponse
+import com.muchlis.inventaris.repository.HistoryRepository
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
@@ -16,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AppendHistoryViewModel : ViewModel() {
-    private val apiService: ApiService = Api.retrofitService
+    private val historyRepo = HistoryRepository()
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -42,41 +43,21 @@ class AppendHistoryViewModel : ViewModel() {
         _messageSuccess.value = ""
     }
 
-    fun createHistory(parentID : String, args: HistoryRequest) {
+    fun appendHistory(parentID : String, args: HistoryRequest) {
         _isLoading.value = true
         _isHistoryCreated.value = false
-        apiService.postHistory(
-            token = App.prefs.authTokenSave,
-            id = parentID,
-            args = args
-        ).enqueue(object : Callback<HistoryResponse> {
-            override fun onResponse(
-                call: Call<HistoryResponse>,
-                response: Response<HistoryResponse>
-            ) {
-                when {
-                    response.isSuccessful -> {
-                        _isLoading.value = false
-                        _messageSuccess.value = "Menambahkan riwayat berhasil"
-                        _isHistoryCreated.value = true
-                    }
-                    response.code() == 400 -> {
-                        val responseBody = response.errorBody()?.string() ?: ""
-                        _messageError.value =
-                            JsonMarshaller().getError(responseBody)?.message ?: ERR_JSON_PARSING
-                        _isLoading.value = false
-                    }
-                    else -> {
-                        _messageError.value = response.code().toString()
-                        _isLoading.value = false
-                    }
-                }
+        historyRepo.createHistory(parentID = parentID,
+            args = args){
+            response, error ->
+            if (error.isNotEmpty()){
+                _messageError.value = error
+                return@createHistory
             }
-
-            override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
-                _isLoading.value = false
-                _messageError.value = ERR_CONN
+            response.let {
+                _messageSuccess.value = "Menambahkan riwayat berhasil"
+                _isHistoryCreated.value = true
             }
-        })
+        }
+        _isLoading.value = false
     }
 }

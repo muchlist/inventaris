@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.muchlis.inventaris.data.dto.FindComputersDto
 import com.muchlis.inventaris.data.response.ComputerListResponse
 import com.muchlis.inventaris.databinding.ActivityComputerBinding
 import com.muchlis.inventaris.recycler_adapter.ComputerAdapter
@@ -35,14 +36,10 @@ class ComputersActivity : AppCompatActivity() {
 
         setRecyclerView()
         bd.refreshComputerList.setOnRefreshListener {
-            viewModel.findComputers(
-                branch = App.prefs.userBranchSave,
-                ipAddress = "",
-                clientName = ""
-            )
+            findComputers()
         }
 
-        viewModel.findComputers(branch = App.prefs.userBranchSave, ipAddress = "", clientName = "")
+        findComputers()
 
         //HIDE KEYBOARD
         bd.etComputerlistSearchbar.isFocusable = false
@@ -58,6 +55,16 @@ class ComputersActivity : AppCompatActivity() {
             isLoading.observe(this@ComputersActivity, Observer { showLoading(it) })
             messageError.observe(this@ComputersActivity, Observer { showErrorToast(it) })
         }
+    }
+
+    private fun findComputers() {
+        viewModel.findComputersFromServer(
+            FindComputersDto(
+                branch = App.prefs.userBranchSave,
+                ipAddress = "",
+                clientName = ""
+            )
+        )
     }
 
     private fun setRecyclerView() {

@@ -14,7 +14,6 @@ import com.muchlis.inventaris.databinding.FragmentComputerDetailBinding
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.ComputerDetailViewModel
 import com.muchlis.inventaris.views.activity.AppendHistoryActivity
-import com.muchlis.inventaris.views.activity.ComputerDetailActivity
 import es.dmoral.toasty.Toasty
 
 
@@ -51,7 +50,7 @@ class ComputerDetailFragment : Fragment() {
 //            locationString = locationString + "$location\n"
 //        }
 
-        viewModel.getComputer()
+        viewModel.getComputerFromServer()
 
 
         bd.ivDetailDelete.setOnClickListener {
@@ -74,14 +73,18 @@ class ComputerDetailFragment : Fragment() {
     private fun observeViewModel() {
 
         viewModel.run {
-            getComputerData().observe(viewLifecycleOwner, Observer { setDataToDetailComputerView(it) })
-            messageError.observe(viewLifecycleOwner, Observer { showErrorToast(it) })
-            messageSuccess.observe(viewLifecycleOwner, Observer { showSuccessToast(it) })
+            getComputerData().observe(
+                viewLifecycleOwner,
+                Observer { setDataToDetailComputerView(it) })
+            messageError.observe(viewLifecycleOwner, Observer { showToast(it, true) })
+            messageDeleteComputerSuccess.observe(
+                viewLifecycleOwner,
+                Observer { showToast(it) })
         }
     }
 
 
-    private fun setDataToDetailComputerView(data : ComputerDetailResponse){
+    private fun setDataToDetailComputerView(data: ComputerDetailResponse) {
         bd.tvDetailClientName.text = data.clientName
         bd.tvDetailHostname.text = data.hostname
         bd.tvDetailIpAddress.text = data.ipAddress
@@ -90,9 +93,14 @@ class ComputerDetailFragment : Fragment() {
         bd.tvDetailDivision.text = data.division
         bd.tvDetailLocation.text = data.location
 
-        val categoryMerkyear = "${data.tipe} - ${data.merk} - ${data.year.toDate().toStringJustYear()}"
+        val categoryMerkyear =
+            "${data.tipe} - ${data.merk} - ${data.year.toDate().toStringJustYear()}"
         bd.tvDetailFullPc.text = categoryMerkyear
-        bd.tvDetailSeatManajemen.text = if (data.seatManagement) {"true"} else {"false"}
+        bd.tvDetailSeatManajemen.text = if (data.seatManagement) {
+            "true"
+        } else {
+            "false"
+        }
         bd.tvDetailOs.text = data.operationSystem
         bd.tvDetailProsessor.text = data.spec.processor.toString()
         bd.tvDetailRam.text = data.spec.ram.toString()
@@ -101,15 +109,13 @@ class ComputerDetailFragment : Fragment() {
         bd.tvDetailNote.text = data.note
     }
 
-    private fun showErrorToast(text: String) {
+    private fun showToast(text: String, isError: Boolean = false) {
         if (text.isNotEmpty()) {
-            Toasty.error(requireActivity(), text, Toasty.LENGTH_LONG).show()
-        }
-    }
-
-    private fun showSuccessToast(text: String) {
-        if (text.isNotEmpty()) {
-            Toasty.success(requireActivity(), text, Toasty.LENGTH_LONG).show()
+            if (isError) {
+                Toasty.error(requireActivity(), text, Toasty.LENGTH_LONG).show()
+            } else {
+                Toasty.success(requireActivity(), text, Toasty.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -120,7 +126,7 @@ class ComputerDetailFragment : Fragment() {
         builder.setMessage("Konfirmasi untuk menghapus komputer, komputer tidak dapat dihapus 2 jam setelah pembuatan!")
 
         builder.setPositiveButton("Ya") { _, _ ->
-            viewModel.deleteComputer()
+            viewModel.deleteComputerFromServer()
         }
         builder.setNeutralButton("Batal") { _, _ ->
 
@@ -128,6 +134,14 @@ class ComputerDetailFragment : Fragment() {
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (App.fragmentDetailComputerMustBeRefresh) {
+            viewModel.getComputerFromServer()
+            App.fragmentDetailComputerMustBeRefresh = false
+        }
     }
 
     override fun onDestroyView() {

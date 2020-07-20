@@ -10,7 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.muchlis.inventaris.R
-import com.muchlis.inventaris.data.MenuData
+import com.muchlis.inventaris.data.dto.MenuData
+import com.muchlis.inventaris.data.dto.FindHistoryDto
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.databinding.ActivityDashboardBinding
@@ -56,8 +57,8 @@ class DashboardActivity : AppCompatActivity() {
 
         setRecyclerView()
 
-        viewModel.findHistories(branch = App.prefs.userBranchSave,category = "", limit = 5)
-        viewModel.getOptions()
+        findHistories()
+        viewModel.getOption()
     }
 
     private fun observeViewModel() {
@@ -75,11 +76,41 @@ class DashboardActivity : AppCompatActivity() {
     private fun setMenuDataForListMenu() {
         menuDataData.apply {
             clear()
-            add(MenuData(0, "Komputer", R.drawable.ic_029_computer))
-            add(MenuData(1, "Stok", R.drawable.ic_049_stock))
-            add(MenuData(2, "Printer", R.drawable.ic_041_printer))
-            add(MenuData(3, "Server", R.drawable.ic_047_server))
-            add(MenuData(4, "CCTV", R.drawable.ic_018_cctv))
+            add(
+                MenuData(
+                    0,
+                    "Komputer",
+                    R.drawable.ic_029_computer
+                )
+            )
+            add(
+                MenuData(
+                    1,
+                    "Stok",
+                    R.drawable.ic_049_stock
+                )
+            )
+            add(
+                MenuData(
+                    2,
+                    "Printer",
+                    R.drawable.ic_041_printer
+                )
+            )
+            add(
+                MenuData(
+                    3,
+                    "Server",
+                    R.drawable.ic_047_server
+                )
+            )
+            add(
+                MenuData(
+                    4,
+                    "CCTV",
+                    R.drawable.ic_018_cctv
+                )
+            )
         }
     }
 
@@ -127,7 +158,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun intentToComputerDetailActivity(parentID: String, category: String) {
-        when (category){
+        when (category) {
             "PC" -> {
                 val intent = Intent(this, ComputerDetailActivity::class.java)
                 intent.putExtra(INTENT_PC_TO_DETAIL, parentID)
@@ -144,21 +175,25 @@ class DashboardActivity : AppCompatActivity() {
         bd.rvHistoryDashboard.invalidate()
     }
 
-    private fun showLoadMoreButton(dataCount: Int){
-        if (dataCount != 0){
+    private fun findHistories() {
+        viewModel.findHistories(
+            FindHistoryDto(
+                branch = App.prefs.userBranchSave,
+                category = "",
+                limit = 5
+            )
+        )
+    }
+
+    private fun showLoadMoreButton(dataCount: Int) {
+        if (dataCount != 0) {
             bd.btHistoryDashboard.visible()
         }
     }
 
     private fun setToolbarTitle() {
-//        setSupportActionBar(bd.toolbarDashboard)
-//        bd.toolbarDashboard.title = App.prefs.nameSave
-//        bd.toolbarDashboard.subtitle = App.prefs.userBranchSave
-
         bd.collapsingToolbar.title = App.prefs.nameSave
-        bd.collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsedAppBar);
-//        bd.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
-
+        bd.collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsedAppBar)
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -172,6 +207,14 @@ class DashboardActivity : AppCompatActivity() {
     private fun showErrorToast(text: String) {
         if (text.isNotEmpty()) {
             Toasty.error(this, text, Toasty.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (App.activityDashboardMustBeRefresh) {
+            findHistories()
+            App.fragmentHistoryComputerMustBeRefresh = false
         }
     }
 }

@@ -46,11 +46,18 @@ class AppendHistoryActivity : AppCompatActivity() {
         setAutoTextStatus(optionJsonObject.history)
 
         bd.btSave.setOnClickListener {
-            sendDataToServer(parentID = parentID, parentCategory = parentCategory)
+            sendDataToServer(
+                parentID = parentID,
+                parentCategory = parentCategory
+            )
         }
-        bd.ivBackButton.setOnClickListener {
-            onBackPressed()
+        bd.ivApplyButton.setOnClickListener {
+            sendDataToServer(
+                parentID = parentID,
+                parentCategory = parentCategory
+            )
         }
+        bd.ivBackButton.setOnClickListener { onBackPressed() }
     }
 
     private fun setAutoTextStatus(status: List<String>) {
@@ -75,7 +82,7 @@ class AppendHistoryActivity : AppCompatActivity() {
         )
 
         if (args.isValid()) {
-            viewModel.createHistory(parentID ?: "", args)
+            viewModel.appendHistory(parentID ?: "", args)
         } else {
             Toasty.error(this, "Harap lengkapi formulir").show()
         }
@@ -95,7 +102,9 @@ class AppendHistoryActivity : AppCompatActivity() {
 
     private fun killActivityIfHistoryCreated(isCreated: Boolean) {
         if (isCreated) {
-            //TODO singleton to update history listview
+            App.activityDashboardMustBeRefresh = true
+            App.fragmentDetailComputerMustBeRefresh = true
+            App.fragmentHistoryComputerMustBeRefresh = true
             finish()
         }
     }
