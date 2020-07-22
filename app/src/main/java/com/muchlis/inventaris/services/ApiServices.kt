@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.services
 
+import com.muchlis.inventaris.data.request.ComputerRequest
 import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.data.request.LoginRequest
 import com.muchlis.inventaris.data.response.*
@@ -58,6 +59,14 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<HistoryListResponse>
+
+
+    //{{url}}/api/computers
+    @POST("/api/computers")
+    fun postComputer(
+        @Header("Authorization") token: String,
+        @Body args: ComputerRequest
+    ): Call<ComputerCreatedResponse>
 
 
     //{{url}}/api/computers?branch=banjarmasin&ip_address=&client_name=&deactive=no

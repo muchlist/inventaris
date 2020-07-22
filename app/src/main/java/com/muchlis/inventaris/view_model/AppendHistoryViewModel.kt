@@ -17,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AppendHistoryViewModel : ViewModel() {
-    private val historyRepo = HistoryRepository()
+    private val historyRepo = HistoryRepository
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>

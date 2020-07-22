@@ -1,9 +1,12 @@
 package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindComputersDto
+import com.muchlis.inventaris.data.request.ComputerRequest
+import com.muchlis.inventaris.data.response.ComputerCreatedResponse
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.data.response.ComputerListResponse
 import com.muchlis.inventaris.services.Api
+import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.ERR_CONN
 import com.muchlis.inventaris.utils.ERR_JSON_PARSING
@@ -13,8 +16,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ComputerRepository {
-    private var apiService = Api.retrofitService
+object ComputerRepository {
+    private val apiService: ApiService = Api.retrofitService
 
     fun getComputer(
         computerID: String,
@@ -32,12 +35,12 @@ class ComputerRepository {
                     response.isSuccessful -> {
                         callback(response.body(), "")
                     }
-                    response.code() == 400 -> {
-                        callback(null, "Gagal memuat data")
-                    }
-                    response.code() == 422 -> {
-                        callback(null, "Token Expired")
-                        App.prefs.authTokenSave = ""
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
                     }
                     else -> {
                         callback(null, response.code().toString())
@@ -69,8 +72,16 @@ class ComputerRepository {
                     response.isSuccessful -> {
                         callback(response.body(), "")
                     }
-                    response.code() == 400 -> {
-                        callback(null, "Gagal memuat data")
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    response.code() == 422 || response.code() == 401 -> {
+                        callback(null, "Token Expired")
+                        App.prefs.authTokenSave = ""
                     }
                     else -> {
                         callback(null, response.code().toString())
@@ -79,6 +90,41 @@ class ComputerRepository {
             }
 
             override fun onFailure(call: Call<ComputerListResponse>, t: Throwable) {
+                callback(null, ERR_CONN)
+            }
+        })
+    }
+
+    fun createComputer(
+        args: ComputerRequest,
+        callback: (response: ComputerCreatedResponse?, error: String) -> Unit
+    ) {
+        apiService.postComputer(
+            token = App.prefs.authTokenSave,
+            args = args
+        ).enqueue(object : Callback<ComputerCreatedResponse> {
+            override fun onResponse(
+                call: Call<ComputerCreatedResponse>,
+                response: Response<ComputerCreatedResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ComputerCreatedResponse>, t: Throwable) {
                 callback(null, ERR_CONN)
             }
         })
@@ -101,9 +147,12 @@ class ComputerRepository {
                     response.isSuccessful -> {
                         callback("Komputer berhasil dihapus", "")
                     }
-                    response.code() == 400 -> {
+                    response.code() == 400 || response.code() == 500 -> {
                         val responseBody = response.errorBody()?.string() ?: ""
-                        callback("", JsonMarshaller().getError(responseBody)?.message?: ERR_JSON_PARSING)
+                        callback(
+                            "",
+                            getMsgFromJson(responseBody)
+                        )
                     }
                     else -> {
                         callback("", response.code().toString())
@@ -116,4 +165,10 @@ class ComputerRepository {
             }
         })
     }
+
+    private fun getMsgFromJson(errorBody: String): String {
+        val jsonMarshaller = JsonMarshaller()
+        return jsonMarshaller.getError(errorBody)?.msg ?: ERR_JSON_PARSING
+    }
+
 }

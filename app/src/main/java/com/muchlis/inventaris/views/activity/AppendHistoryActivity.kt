@@ -40,7 +40,7 @@ class AppendHistoryActivity : AppCompatActivity() {
         if (JsonMarshaller().getOption() != null) {
             optionJsonObject = JsonMarshaller().getOption()!!
         } else {
-            Toasty.error(this, "Dropdown status tidak berhasil di load", Toasty.LENGTH_LONG).show()
+            Toasty.error(this, ERR_DROPDOWN_NOT_LOAD, Toasty.LENGTH_LONG).show()
         }
 
         setAutoTextStatus(optionJsonObject.history)
@@ -84,7 +84,7 @@ class AppendHistoryActivity : AppCompatActivity() {
         if (args.isValid()) {
             viewModel.appendHistory(parentID ?: "", args)
         } else {
-            Toasty.error(this, "Harap lengkapi formulir").show()
+            Toasty.error(this, ERR_FORM_NOT_VALID).show()
         }
     }
 
@@ -95,8 +95,8 @@ class AppendHistoryActivity : AppCompatActivity() {
                 killActivityIfHistoryCreated(it)
             })
             isLoading.observe(this@AppendHistoryActivity, Observer { showLoading(it) })
-            messageError.observe(this@AppendHistoryActivity, Observer { showErrorToast(it) })
-            messageSuccess.observe(this@AppendHistoryActivity, Observer { showSuccessToast(it) })
+            messageError.observe(this@AppendHistoryActivity, Observer { showToast(it, true) })
+            messageSuccess.observe(this@AppendHistoryActivity, Observer { showToast(it, false) })
         }
     }
 
@@ -110,18 +110,22 @@ class AppendHistoryActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        // TODO bd.refreshComputerList.isRefreshing = isLoading
-    }
-
-    private fun showErrorToast(text: String) {
-        if (text.isNotEmpty()) {
-            Toasty.error(this, text, Toasty.LENGTH_LONG).show()
+        if (isLoading) {
+            bd.btSave.invisible()
+            bd.ivApplyButton.invisible()
+        } else {
+            bd.btSave.visible()
+            bd.ivApplyButton.visible()
         }
     }
 
-    private fun showSuccessToast(text: String) {
+    private fun showToast(text: String, isError: Boolean = false) {
         if (text.isNotEmpty()) {
-            Toasty.success(this, text, Toasty.LENGTH_LONG).show()
+            if (isError) {
+                Toasty.error(this, text, Toasty.LENGTH_LONG).show()
+            } else {
+                Toasty.success(this, text, Toasty.LENGTH_LONG).show()
+            }
         }
     }
 }

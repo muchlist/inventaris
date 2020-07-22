@@ -10,8 +10,8 @@ import com.muchlis.inventaris.repository.HistoryRepository
 
 class ComputerDetailViewModel : ViewModel() {
 
-    private val historyRepo = HistoryRepository()
-    private val computerRepo = ComputerRepository()
+    private val historyRepo = HistoryRepository
+    private val computerRepo = ComputerRepository
 
     //Data untuk detail
     private val _computerData: MutableLiveData<ComputerDetailResponse> = MutableLiveData()

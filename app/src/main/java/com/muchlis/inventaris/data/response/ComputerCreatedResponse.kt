@@ -3,7 +3,7 @@ package com.muchlis.inventaris.data.response
 
 import com.squareup.moshi.Json
 
-data class ComputerDetailResponse(
+data class ComputerCreatedResponse(
     @Json(name = "author")
     val author: String,
     @Json(name = "branch")

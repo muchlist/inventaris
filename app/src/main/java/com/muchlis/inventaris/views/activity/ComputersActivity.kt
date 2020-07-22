@@ -41,6 +41,10 @@ class ComputersActivity : AppCompatActivity() {
 
         findComputers()
 
+        bd.btComputerlistTambah.setOnClickListener {
+            intentToComputerAppendActivity()
+        }
+
         //HIDE KEYBOARD
         bd.etComputerlistSearchbar.isFocusable = false
         bd.etComputerlistSearchbar.clearFocus()
@@ -83,6 +87,11 @@ class ComputersActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun intentToComputerAppendActivity() {
+        val intent = Intent(this, AppendComputerActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun loadRecyclerView(data: ComputerListResponse) {
         computerData.clear()
         computerData.addAll(data.computers)
@@ -115,6 +124,14 @@ class ComputersActivity : AppCompatActivity() {
     private fun showErrorToast(text: String) {
         if (text.isNotEmpty()) {
             Toasty.error(this, text, Toasty.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (App.activityComputerListMustBeRefresh){
+            findComputers()
+            App.activityComputerListMustBeRefresh = false
         }
     }
 }

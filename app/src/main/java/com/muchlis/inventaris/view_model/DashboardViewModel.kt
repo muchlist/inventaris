@@ -11,8 +11,8 @@ import com.muchlis.inventaris.utils.App
 
 class DashboardViewModel : ViewModel() {
 
-    private val historyRepo = HistoryRepository()
-    private val optionRepo = OptionSelectorRepository()
+    private val historyRepo = HistoryRepository
+    private val optionRepo = OptionSelectorRepository
 
     //Data untuk RecyclerView
     private val _historyData: MutableLiveData<HistoryListResponse> = MutableLiveData()

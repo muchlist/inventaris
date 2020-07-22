@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activity.AppendHistoryActivity"></activity>
+        <activity
+            android:name=".views.activity.AppendComputerActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity android:name=".views.activity.AppendHistoryActivity" />
         <activity android:name=".views.activity.ComputerDetailActivity" />
         <activity android:name=".views.activity.ComputersActivity" />
         <activity android:name=".views.activity.DashboardActivity" />

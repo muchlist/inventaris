@@ -8,6 +8,7 @@ class App : Application() {
         lateinit var prefs: SharedPrefs
 
         var activityDashboardMustBeRefresh : Boolean = false
+        var activityComputerListMustBeRefresh : Boolean = false
         var fragmentDetailComputerMustBeRefresh : Boolean = false
         var fragmentHistoryComputerMustBeRefresh : Boolean = false
     }

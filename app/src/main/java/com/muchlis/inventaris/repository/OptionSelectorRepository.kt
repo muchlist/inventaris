@@ -7,8 +7,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class OptionSelectorRepository {
-    private var apiService = Api.retrofitService
+object OptionSelectorRepository {
+    private val apiService = Api.retrofitService
 
     fun getOptions(callback: (response: String, error: String) -> Unit) {
         apiService.getOptions(App.prefs.authTokenSave).enqueue(object : Callback<ResponseBody> {

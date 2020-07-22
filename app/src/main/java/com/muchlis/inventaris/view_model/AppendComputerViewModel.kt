@@ -3,23 +3,20 @@ package com.muchlis.inventaris.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.muchlis.inventaris.data.dto.FindComputersDto
-import com.muchlis.inventaris.data.response.ComputerListResponse
+import com.muchlis.inventaris.data.request.ComputerRequest
+import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.repository.ComputerRepository
 
-class ComputersViewModel : ViewModel() {
-
+class AppendComputerViewModel : ViewModel() {
     private val computerRepo = ComputerRepository
-
-    //Data untuk RecyclerView
-    private val _computerData: MutableLiveData<ComputerListResponse> = MutableLiveData()
-    fun getComputerData(): MutableLiveData<ComputerListResponse> {
-        return _computerData
-    }
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
         get() = _isLoading
+
+    private val _isComputerCreated = MutableLiveData<Boolean>()
+    val isComputerCreated: LiveData<Boolean>
+        get() = _isComputerCreated
 
     private val _messageError = MutableLiveData<String>()
     val messageError: LiveData<String>
@@ -29,26 +26,29 @@ class ComputersViewModel : ViewModel() {
     val messageSuccess: LiveData<String>
         get() = _messageSuccess
 
+
     init {
         _isLoading.value = false
+        _isComputerCreated.value = false
         _messageError.value = ""
+        _messageSuccess.value = ""
     }
 
-
-    fun findComputersFromServer(data: FindComputersDto) {
+    fun appendComputer(args: ComputerRequest) {
         _isLoading.value = true
-        _messageError.value = ""
-
-        computerRepo.findComputers(data) { response, error ->
+        _isComputerCreated.value = false
+        computerRepo.createComputer(
+            args = args
+        ) { response, error ->
             if (error.isNotEmpty()) {
                 _messageError.value = error
-                return@findComputers
+                return@createComputer
             }
             response.let {
-                _computerData.postValue(it)
+                _messageSuccess.value = "Menambahkan komputer berhasil"
+                _isComputerCreated.value = true
             }
         }
         _isLoading.value = false
     }
-
 }

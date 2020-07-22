@@ -14,8 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HistoryRepository {
-    private var apiService = Api.retrofitService
+object HistoryRepository {
+    private val apiService = Api.retrofitService
 
     fun getHistories(
         data: FindHistoryDto,
@@ -36,8 +36,12 @@ class HistoryRepository {
                         val result = response.body()
                         callback(result, "")
                     }
-                    response.code() == 400 -> {
-                        callback(null, "Gagal memuat")
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
                     }
                     response.code() == 422 || response.code() == 401 -> {
                         callback(null, "Token Expired")
@@ -73,11 +77,11 @@ class HistoryRepository {
                     response.isSuccessful -> {
                         callback(response.body(), "")
                     }
-                    response.code() == 400 -> {
-                        val errorBody = response.errorBody()?.string() ?: ""
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
                         callback(
                             null,
-                            JsonMarshaller().getError(errorBody)?.message ?: ERR_JSON_PARSING
+                            getMsgFromJson(responseBody)
                         )
                     }
                     else -> {
@@ -108,8 +112,12 @@ class HistoryRepository {
                     response.isSuccessful -> {
                         callback(response.body(), "")
                     }
-                    response.code() == 400 -> {
-                        callback(response.body(), "Gagal memuat")
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
                     }
                     else -> {
                         callback(response.body(), response.code().toString())
@@ -140,11 +148,11 @@ class HistoryRepository {
                     response.isSuccessful -> {
                         callback("Berhasil menghapus history", "")
                     }
-                    response.code() == 400 -> {
-                        val errorBody = response.errorBody()?.string() ?: ""
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
                         callback(
                             "",
-                            JsonMarshaller().getError(errorBody)?.message ?: ERR_JSON_PARSING
+                            getMsgFromJson(responseBody)
                         )
                     }
                     else -> {
@@ -157,6 +165,11 @@ class HistoryRepository {
                 callback("", ERR_CONN)
             }
         })
+    }
+
+    private fun getMsgFromJson(errorBody: String): String {
+        val jsonMarshaller = JsonMarshaller()
+        return jsonMarshaller.getError(errorBody)?.msg ?: ERR_JSON_PARSING
     }
 
 }

@@ -102,7 +102,7 @@ class ComputerHistoryFragment : Fragment() {
     private fun intentToAppendHistoryActivity(data: ComputerDetailResponse?) {
         val intent = Intent(requireActivity(), AppendHistoryActivity::class.java)
         intent.putExtra(INTENT_TO_HISTORY_CREATE_ID, data?.id)
-        intent.putExtra(INTENT_TO_HISTORY_CREATE_CATEGORY, data?.tipe)
+        intent.putExtra(INTENT_TO_HISTORY_CREATE_CATEGORY, CATEGORY_PC)
         intent.putExtra(INTENT_TO_HISTORY_CREATE_NAME, data?.clientName)
         startActivity(intent)
     }
