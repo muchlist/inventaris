@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.muchlis.inventaris">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
     <application
         android:name=".utils.App"
@@ -12,15 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".views.activity.AppendComputerActivity"
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
+        <activity
+            android:name=".views.activity.computer.AppendComputerActivity"
             android:windowSoftInputMode="adjustResize|stateVisible" />
-        <activity android:name=".views.activity.AppendHistoryActivity" />
-        <activity android:name=".views.activity.ComputerDetailActivity" />
-        <activity android:name=".views.activity.ComputersActivity" />
-        <activity android:name=".views.activity.DashboardActivity" />
-        <activity android:name=".views.activity.LoginActivity" />
+        <activity android:name=".views.activity.history.AppendHistoryActivity" />
+        <activity android:name=".views.activity.computer.ComputerDetailActivity" />
+        <activity android:name=".views.activity.computer.ComputersActivity" />
+        <activity android:name=".views.activity.dashboard.DashboardActivity" />
+        <activity android:name=".views.activity.login.LoginActivity" />
         <activity android:name=".MainEmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

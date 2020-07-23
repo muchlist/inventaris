@@ -1,5 +1,6 @@
-package com.muchlis.inventaris.views.activity
+package com.muchlis.inventaris.views.activity.dashboard
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.Animation
@@ -9,20 +10,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.zxing.integration.android.IntentIntegrator
 import com.muchlis.inventaris.R
-import com.muchlis.inventaris.data.dto.MenuData
 import com.muchlis.inventaris.data.dto.FindHistoryDto
+import com.muchlis.inventaris.data.dto.MenuData
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.recycler_adapter.DashboardMenuAdapter
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
-import com.muchlis.inventaris.utils.App
-import com.muchlis.inventaris.utils.INTENT_PC_TO_DETAIL
-import com.muchlis.inventaris.utils.invisible
-import com.muchlis.inventaris.utils.visible
+import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.DashboardViewModel
+import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
+import com.muchlis.inventaris.views.activity.computer.ComputersActivity
 import es.dmoral.toasty.Toasty
+import java.util.*
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -111,6 +113,12 @@ class DashboardActivity : AppCompatActivity() {
                     R.drawable.ic_018_cctv
                 )
             )
+            add(
+                MenuData(
+                    5, "QR Scan",
+                    R.drawable.ic_qr_code_24px
+                )
+            )
         }
     }
 
@@ -123,7 +131,7 @@ class DashboardActivity : AppCompatActivity() {
 
             when (it.id) {
                 0 -> intentToComputerActivity()
-//                1 -> startActivity<StockListActivity>()
+                5 -> intentToQrCode()
 //                2 -> startActivity<PrinterListActivity>()
 //                3 -> startActivity<ServerListActivity>()
 //                4 -> startActivity<CctvListActivity>()
@@ -137,6 +145,52 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun intentToComputerActivity() {
         val intent = Intent(this, ComputersActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun intentToQrCode() {
+        val scanner = IntentIntegrator(this)
+        scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        scanner.setBeepEnabled(false)
+        scanner.initiateScan()
+    }
+
+    //ON RESULT SCAN QR CODE
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+
+            //CODING FROM LIBRARY XZINK START
+            val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+            if (result != null) {
+                if (result.contents == null) {
+                    //CANCEL QR SCAN
+                    showErrorToast("Scan QR dibatalkan")
+                } else {
+                    //SUCCESS QR SCAN = result.contents
+                    detectCategoryScannedByQRCode(result.contents)
+                }
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+            //CODING FROM LIBRARY XZINK END
+        }
+    }
+
+    private fun detectCategoryScannedByQRCode(scannedText: String){
+        val textList = scannedText.split(" ")
+        if (textList.count() == 2){
+            when (textList[0].toUpperCase(Locale.ROOT)){
+                CATEGORY_PC -> intentToComputerDetailActivity(textList[1])
+                else -> showErrorToast("QR Code tidak dikenali")
+            }
+        } else {
+            showErrorToast("QR Code tidak dikenali")
+        }
+    }
+
+    private fun intentToComputerDetailActivity(computerID: String) {
+        val intent = Intent(this, ComputerDetailActivity::class.java)
+        intent.putExtra(INTENT_PC_TO_DETAIL, computerID)
         startActivity(intent)
     }
 
@@ -214,7 +268,7 @@ class DashboardActivity : AppCompatActivity() {
         super.onResume()
         if (App.activityDashboardMustBeRefresh) {
             findHistories()
-            App.fragmentHistoryComputerMustBeRefresh = false
+            App.activityDashboardMustBeRefresh = false
         }
     }
 }

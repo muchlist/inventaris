@@ -1,8 +1,9 @@
-package com.muchlis.inventaris.views.activity
+package com.muchlis.inventaris.views.activity.computer
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,8 +11,7 @@ import com.muchlis.inventaris.data.dto.FindComputersDto
 import com.muchlis.inventaris.data.response.ComputerListResponse
 import com.muchlis.inventaris.databinding.ActivityComputerBinding
 import com.muchlis.inventaris.recycler_adapter.ComputerAdapter
-import com.muchlis.inventaris.utils.App
-import com.muchlis.inventaris.utils.INTENT_PC_TO_DETAIL
+import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.ComputersViewModel
 import es.dmoral.toasty.Toasty
 
@@ -23,6 +23,9 @@ class ComputersActivity : AppCompatActivity() {
     //recyclerview
     private lateinit var computerAdapter: ComputerAdapter
     private var computerData: MutableList<ComputerListResponse.Computer> = mutableListOf()
+
+    //first time animation
+    private var isFirstTimeLoad = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +39,17 @@ class ComputersActivity : AppCompatActivity() {
 
         setRecyclerView()
         bd.refreshComputerList.setOnRefreshListener {
+            //jika direfresh akan mereset firsttime load supaya muncul animasi
+            isFirstTimeLoad = true
+            //menghapus text di pencarian
+            bd.etComputerlistSearchbar.setQuery("", false)
             findComputers()
         }
 
+        //init computers
         findComputers()
+
+        setSearchBarListener()
 
         bd.btComputerlistTambah.setOnClickListener {
             intentToComputerAppendActivity()
@@ -61,14 +71,39 @@ class ComputersActivity : AppCompatActivity() {
         }
     }
 
-    private fun findComputers() {
-        viewModel.findComputersFromServer(
-            FindComputersDto(
-                branch = App.prefs.userBranchSave,
-                ipAddress = "",
-                clientName = ""
+    private fun findComputers(search: String = "") {
+        if (search.isEmpty()) {
+            viewModel.findComputersFromServer(
+                FindComputersDto(
+                    branch = App.prefs.userBranchSave,
+                    ipAddress = "",
+                    clientName = "",
+                    deactive = ""
+                )
             )
-        )
+        } else {
+            if (Validation().isIPAddressValid(search)) {
+                //Valid IP Address
+                viewModel.findComputersFromServer(
+                    FindComputersDto(
+                        branch = App.prefs.userBranchSave,
+                        ipAddress = search,
+                        clientName = "",
+                        deactive = ""
+                    )
+                )
+            } else {
+                //Not Valid IP Address mean search for name
+                viewModel.findComputersFromServer(
+                    FindComputersDto(
+                        branch = App.prefs.userBranchSave,
+                        ipAddress = "",
+                        clientName = search,
+                        deactive = ""
+                    )
+                )
+            }
+        }
     }
 
     private fun setRecyclerView() {
@@ -79,6 +114,22 @@ class ComputersActivity : AppCompatActivity() {
         }
         bd.rvComputerlist.adapter = computerAdapter
         bd.rvComputerlist.setHasFixedSize(true)
+    }
+
+    private fun setSearchBarListener(){
+        bd.etComputerlistSearchbar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (query.isNotEmpty()){
+                    findComputers(search = query)
+                }
+                return false
+            }
+
+        })
     }
 
     private fun intentToComputerDetailActivity(computerID: String) {
@@ -95,15 +146,20 @@ class ComputersActivity : AppCompatActivity() {
     private fun loadRecyclerView(data: ComputerListResponse) {
         computerData.clear()
         computerData.addAll(data.computers)
-        runLayoutAnimation()
+        if (isFirstTimeLoad) {
+            //Jika aktifity dimuat pertama kali akan melakukan animasi
+            runLayoutAnimation()
+            isFirstTimeLoad = false
+        }
         computerAdapter.notifyDataSetChanged()
 
         //JIKA ITEMLIST KOSONG MUNCULKAN GAMBAR
-//        if (it.containers.count() == 0){
-//            view?.iv_level_one_empty?.visible()
-//        } else {
-//            view?.iv_level_one_empty?.invisible()
-//        }
+        if (data.computers.count() == 0){
+            bd.ivEmptyList.visible()
+        } else {
+            bd.ivEmptyList.invisible()
+        }
+
         setTotalComputerCount(data.computers.count())
     }
 
@@ -129,7 +185,7 @@ class ComputersActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (App.activityComputerListMustBeRefresh){
+        if (App.activityComputerListMustBeRefresh) {
             findComputers()
             App.activityComputerListMustBeRefresh = false
         }

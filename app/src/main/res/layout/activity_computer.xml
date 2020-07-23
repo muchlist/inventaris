@@ -7,6 +7,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/iv_empty_list"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="@string/empty_box"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/refresh_computer_list"
+            app:layout_constraintEnd_toEndOf="@+id/refresh_computer_list"
+            app:layout_constraintStart_toStartOf="@+id/refresh_computer_list"
+            app:layout_constraintTop_toTopOf="@+id/refresh_computer_list"
+            app:srcCompat="@drawable/ic_box_yellow" />
+
         <LinearLayout
             android:id="@+id/linear_layout_container"
             android:layout_width="match_parent"

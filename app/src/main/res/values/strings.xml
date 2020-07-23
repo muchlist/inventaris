@@ -385,4 +385,5 @@
     <string name="kategori_dot">Kategori .........................</string>
     <string name="ubah_server">Ubah Server</string>
     <string name="loading">Memuat &#8230;</string>
+    <string name="empty_box">empty box</string>
 </resources>

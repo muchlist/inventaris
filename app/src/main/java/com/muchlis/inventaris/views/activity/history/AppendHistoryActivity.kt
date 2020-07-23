@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.views.activity
+package com.muchlis.inventaris.views.activity.history
 
 import android.R.layout.simple_spinner_dropdown_item
 import android.os.Bundle

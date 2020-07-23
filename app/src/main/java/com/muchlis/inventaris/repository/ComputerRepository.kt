@@ -62,7 +62,8 @@ object ComputerRepository {
             token = App.prefs.authTokenSave,
             branch = data.branch,
             ipAddress = data.ipAddress,
-            clientName = data.clientName
+            clientName = data.clientName,
+            deactive = data.deactive
         ).enqueue(object : Callback<ComputerListResponse> {
             override fun onResponse(
                 call: Call<ComputerListResponse>,
@@ -115,7 +116,8 @@ object ComputerRepository {
                         val responseBody = response.errorBody()?.string() ?: ""
                         callback(
                             null,
-                            getMsgFromJson(responseBody)
+                            //getMsgFromJson(responseBody)
+                            responseBody
                         )
                     }
                     else -> {

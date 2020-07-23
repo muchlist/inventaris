@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.views.activity
+package com.muchlis.inventaris.views.activity.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import com.muchlis.inventaris.databinding.ActivityLoginBinding
 import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.visible
 import com.muchlis.inventaris.view_model.LoginViewModel
+import com.muchlis.inventaris.views.activity.dashboard.DashboardActivity
 import es.dmoral.toasty.Toasty
 
 class LoginActivity : AppCompatActivity(){

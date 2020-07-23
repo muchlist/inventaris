@@ -75,7 +75,8 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("branch") branch: String = "",
         @Query("ip_address") ipAddress: String = "",
-        @Query("client_name") clientName: String = ""
+        @Query("client_name") clientName: String = "",
+        @Query("deactive") deactive: String = ""
     ): Call<ComputerListResponse>
 
 

@@ -1,6 +1,6 @@
-package com.muchlis.inventaris.views.activity
+package com.muchlis.inventaris.views.activity.computer
 
-import android.R
+import android.R.layout.simple_spinner_dropdown_item
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -32,7 +32,8 @@ class AppendComputerActivity : AppCompatActivity() {
         setContentView(bd.root)
 
         viewModel = ViewModelProvider(this).get(AppendComputerViewModel::class.java)
-        observeViewModel()
+
+        bd.etfComputerBranch.editText?.setText(App.prefs.userBranchSave)
 
         validateJsonStringInSharedPrefsForDropdown()
 
@@ -46,9 +47,14 @@ class AppendComputerActivity : AppCompatActivity() {
             createComputer()
         }
 
+        bd.etComputerYear.setOnClickListener {
+            showDatePicker()
+        }
         bd.etfComputerYear.setOnClickListener {
             showDatePicker()
         }
+
+        observeViewModel()
 
     }
 
@@ -99,7 +105,7 @@ class AppendComputerActivity : AppCompatActivity() {
     private fun setAutoTextForm(view: AutoCompleteTextView, stringDropDown: List<String>) {
         val adapter: ArrayAdapter<String> = ArrayAdapter(
             this,
-            R.layout.simple_spinner_dropdown_item,
+            simple_spinner_dropdown_item,
             stringDropDown
         )
         view.setAdapter(adapter)
@@ -122,9 +128,9 @@ class AppendComputerActivity : AppCompatActivity() {
                 showToast(error, true)
                 return@formValidation
             }
-//            data.let {
-//                // viewModel.appendComputer(args = args)
-//            }
+            data?.let {
+                viewModel.appendComputer(args = it)
+            }
         }
     }
 
@@ -133,6 +139,7 @@ class AppendComputerActivity : AppCompatActivity() {
 
         val clientName = bd.etfComputerName.editText?.text.toString()
         val division = bd.atComputerDivisi.text.toString()
+        var location = bd.atComputerLocation.text.toString()
         var ipAddress = bd.etfComputerIpAddress.editText?.text.toString()
         var year = bd.etfComputerYear.editText?.text.toString()
         var operationSystem = bd.atComputerOs.text.toString()
@@ -154,6 +161,13 @@ class AppendComputerActivity : AppCompatActivity() {
             error++
         }
 
+        if (location.isNotEmpty()){
+            if (location !in optionJsonObject.locations){
+                bd.containerComputerLocation.error = "Lokasi salah!"
+                error++
+            }
+        }
+
         if (ipAddress.isEmpty()) {
             ipAddress = "0.0.0.0"
         } else {
@@ -163,8 +177,10 @@ class AppendComputerActivity : AppCompatActivity() {
             }
         }
 
-        if (year.isEmpty()) {
-            year = dateTimeNowCalander.time.toStringJustYear()
+        year = if (year.isEmpty()) {
+            dateTimeNowCalander.time.toStringInputDate()
+        } else {
+            year.toDate().toStringInputDate()
         }
 
         if (operationSystem.isEmpty()) {
@@ -200,7 +216,7 @@ class AppendComputerActivity : AppCompatActivity() {
                 hostname = bd.etfHostComputerName.editText?.text.toString(),
                 inventoryNumber = bd.etfInventarisComputerName.editText?.text.toString(),
                 ipAddress = ipAddress,
-                location = bd.atComputerLocation.text.toString(),
+                location = location,
                 merk = bd.etfComputerMerk.editText?.text.toString(),
                 year = year,
                 note = bd.etfHistoryNote.editText?.text.toString(),

@@ -4,8 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.muchlis.inventaris.utils.App
-import com.muchlis.inventaris.views.activity.DashboardActivity
-import com.muchlis.inventaris.views.activity.LoginActivity
+import com.muchlis.inventaris.views.activity.dashboard.DashboardActivity
+import com.muchlis.inventaris.views.activity.login.LoginActivity
 
 class MainEmptyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

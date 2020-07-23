@@ -13,7 +13,7 @@ import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.databinding.FragmentComputerDetailBinding
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.ComputerDetailViewModel
-import com.muchlis.inventaris.views.activity.AppendHistoryActivity
+import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
 import es.dmoral.toasty.Toasty
 
 
@@ -80,9 +80,11 @@ class ComputerDetailFragment : Fragment() {
             messageDeleteComputerSuccess.observe(
                 viewLifecycleOwner,
                 Observer { showToast(it) })
+            isdeleteComputerSuccess.observe(viewLifecycleOwner, Observer {
+                computerDeletedKillActivity(it)
+            })
         }
     }
-
 
     private fun setDataToDetailComputerView(data: ComputerDetailResponse) {
         bd.tvDetailClientName.text = data.clientName
@@ -122,8 +124,8 @@ class ComputerDetailFragment : Fragment() {
     private fun deleteComputerDetail() {
         val builder = AlertDialog.Builder(requireActivity())
 
-        builder.setTitle("Mengahapus Komputer")
-        builder.setMessage("Konfirmasi untuk menghapus komputer, komputer tidak dapat dihapus 2 jam setelah pembuatan!")
+        builder.setTitle("Konfirmasi")
+        builder.setMessage("Yakin ingin menghapus komputer?")
 
         builder.setPositiveButton("Ya") { _, _ ->
             viewModel.deleteComputerFromServer()
@@ -134,6 +136,13 @@ class ComputerDetailFragment : Fragment() {
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
+    }
+
+    private fun computerDeletedKillActivity(isDeleted: Boolean){
+        if (isDeleted){
+            requireActivity().finish()
+            App.activityComputerListMustBeRefresh = true
+        }
     }
 
     override fun onResume() {

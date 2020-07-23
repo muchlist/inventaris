@@ -17,7 +17,7 @@ import com.muchlis.inventaris.databinding.FragmentComputerHistoryBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.ComputerDetailViewModel
-import com.muchlis.inventaris.views.activity.AppendHistoryActivity
+import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
 import es.dmoral.toasty.Toasty
 
 class ComputerHistoryFragment : Fragment() {
@@ -85,8 +85,8 @@ class ComputerHistoryFragment : Fragment() {
     private fun deleteComputerHistory(historyID: String) {
         val builder = AlertDialog.Builder(requireActivity())
 
-        builder.setTitle("Mengahapus Riwayat")
-        builder.setMessage("Konfirmasi untuk menghapus riwayat, riwayat tidak dapat dihapus 2 jam setelah pembuatan!")
+        builder.setTitle("Konfirmasi")
+        builder.setMessage("Yakin ingin menghapus riwayat?")
 
         builder.setPositiveButton("Ya") { _, _ ->
             viewModel.deleteHistoryFromServer(historyID)

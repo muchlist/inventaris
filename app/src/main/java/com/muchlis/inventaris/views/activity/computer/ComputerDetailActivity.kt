@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.views.activity
+package com.muchlis.inventaris.views.activity.computer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
