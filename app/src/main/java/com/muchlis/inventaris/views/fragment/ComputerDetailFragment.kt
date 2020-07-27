@@ -14,6 +14,7 @@ import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.databinding.FragmentComputerDetailBinding
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.ComputerDetailViewModel
+import com.muchlis.inventaris.views.activity.computer.EditComputerActivity
 import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
 import es.dmoral.toasty.Toasty
 
@@ -65,6 +66,12 @@ class ComputerDetailFragment : Fragment() {
         bd.ivDetailDeactive.setOnClickListener {
             switchActiveComputerDetail()
         }
+
+        bd.ivDetailEdit.setOnClickListener {
+            viewModel.getComputerData().value?.let {
+                intentToEditComputerActivity(it)
+            }
+        }
     }
 
     private fun intentToAppendHistoryActivity(data: ComputerDetailResponse?) {
@@ -73,6 +80,12 @@ class ComputerDetailFragment : Fragment() {
         intent.putExtra(INTENT_TO_HISTORY_CREATE_CATEGORY, CATEGORY_PC)
         intent.putExtra(INTENT_TO_HISTORY_CREATE_NAME, data?.clientName)
         startActivity(intent)
+    }
+
+    private fun intentToEditComputerActivity(data: ComputerDetailResponse){
+            val intent = Intent(this.activity, EditComputerActivity::class.java)
+            intent.putExtra(INTENT_TO_EDIT_COMPUTER, data)
+            startActivity(intent)
     }
 
     private fun observeViewModel() {

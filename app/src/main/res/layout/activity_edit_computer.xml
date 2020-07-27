@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/quicksand_bold"
-                        android:text="Tambah Komputer"
+                        android:text="Edit Komputer"
                         android:textSize="24sp" />
 
                     <LinearLayout

@@ -44,3 +44,14 @@ fun String.toDate(): Date {
     }
     return date
 }
+
+fun String.fromStringJustDatetoDate(): Date {
+    var date = Date()
+    val format = SimpleDateFormat("dd MMM yyyy", Locale.US)
+    try {
+        date = format.parse(this)
+    } catch (e: ParseException) {
+        //DATE FAILED HANDLE
+    }
+    return date
+}

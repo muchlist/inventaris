@@ -1,25 +1,28 @@
 package com.muchlis.inventaris.views.activity.computer
 
-import android.R.layout.simple_spinner_dropdown_item
 import android.app.DatePickerDialog
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.muchlis.inventaris.R
+import com.muchlis.inventaris.data.request.ComputerEditRequest
 import com.muchlis.inventaris.data.request.ComputerRequest
+import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.databinding.ActivityAppendComputerBinding
+import com.muchlis.inventaris.databinding.ActivityEditComputerBinding
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.AppendComputerViewModel
+import com.muchlis.inventaris.view_model.EditComputerViewModel
 import es.dmoral.toasty.Toasty
 import java.util.*
 
-class AppendComputerActivity : AppCompatActivity() {
+class EditComputerActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: AppendComputerViewModel
-    private lateinit var bd: ActivityAppendComputerBinding
+    private lateinit var viewModel: EditComputerViewModel
+    private lateinit var bd: ActivityEditComputerBinding
 
     private lateinit var optionJsonObject: SelectOptionResponse
 
@@ -28,18 +31,21 @@ class AppendComputerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bd = ActivityAppendComputerBinding.inflate(layoutInflater)
+        bd = ActivityEditComputerBinding.inflate(layoutInflater)
         setContentView(bd.root)
 
-        viewModel = ViewModelProvider(this).get(AppendComputerViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(EditComputerViewModel::class.java)
 
-        bd.etfComputerBranch.editText?.setText(App.prefs.userBranchSave)
+        //GET DATA FROM ANOTHER ACTIVITY
+        val dataFromIntent: ComputerDetailResponse = intent.getParcelableExtra(INTENT_TO_EDIT_COMPUTER) as ComputerDetailResponse
+        viewModel.setComputerData(dataFromIntent)
 
         validateJsonStringInSharedPrefsForDropdown()
 
         //Init date
         dateTimeNowCalander = Calendar.getInstance()
 
+        setAllFormValue(dataFromIntent)
         setAllDropdownForAutoText()
 
         //CLICK HANDLE
@@ -57,6 +63,7 @@ class AppendComputerActivity : AppCompatActivity() {
         observeViewModel()
 
     }
+
 
     private fun validateJsonStringInSharedPrefsForDropdown() {
         if (JsonMarshaller().getOption() != null) {
@@ -110,20 +117,40 @@ class AppendComputerActivity : AppCompatActivity() {
     private fun setAutoTextForm(view: AutoCompleteTextView, stringDropDown: List<String>) {
         val adapter: ArrayAdapter<String> = ArrayAdapter(
             this,
-            simple_spinner_dropdown_item,
+            android.R.layout.simple_spinner_dropdown_item,
             stringDropDown
         )
         view.setAdapter(adapter)
     }
 
+    private fun setAllFormValue(data: ComputerDetailResponse){
+        bd.etfComputerName.editText?.setText(data.clientName)
+        bd.etfHostComputerName.editText?.setText(data.hostname)
+        bd.etfComputerIpAddress.editText?.setText(data.ipAddress)
+        bd.etfInventarisComputerName.editText?.setText(data.inventoryNumber)
+        bd.etfComputerBranch.editText?.setText(App.prefs.userBranchSave)
+        bd.atComputerDivisi.setText(data.division)
+        bd.atComputerLocation.setText(data.location)
+        bd.atComputerTipe.setText(data.tipe)
+        bd.etfComputerMerk.editText?.setText(data.merk)
+        bd.etComputerYear.setText(data.year.toDate().toStringJustDate())
+        bd.atComputerSeatManajemen.setText(if (data.seatManagement) "YA" else "TIDAK")
+        bd.etfHistoryNote.editText?.setText(data.note)
+
+        bd.atComputerOs.setText(data.operationSystem)
+        bd.atComputerProcessor.setText(data.spec.processor)
+        bd.atComputerRam.setText(data.spec.ram.toString())
+        bd.atComputerHardisk.setText(data.spec.hardisk.toString())
+    }
+
     private fun observeViewModel() {
         viewModel.run {
-            isComputerCreated.observe(this@AppendComputerActivity, Observer {
+            isComputerEdited.observe(this@EditComputerActivity, androidx.lifecycle.Observer {
                 killActivityIfComputerCreated(it)
             })
-            isLoading.observe(this@AppendComputerActivity, Observer { showLoading(it) })
-            messageError.observe(this@AppendComputerActivity, Observer { showToast(it, true) })
-            messageSuccess.observe(this@AppendComputerActivity, Observer { showToast(it, false) })
+            isLoading.observe(this@EditComputerActivity, androidx.lifecycle.Observer { showLoading(it) })
+            messageError.observe(this@EditComputerActivity, androidx.lifecycle.Observer { showToast(it, true) })
+            messageSuccess.observe(this@EditComputerActivity, androidx.lifecycle.Observer { showToast(it, false) })
         }
     }
 
@@ -134,12 +161,12 @@ class AppendComputerActivity : AppCompatActivity() {
                 return@formValidation
             }
             data?.let {
-                viewModel.appendComputer(args = it)
+                viewModel.editComputerFromServer(args = it)
             }
         }
     }
 
-    private fun formValidation(callback: (data: ComputerRequest?, error: String) -> Unit) {
+    private fun formValidation(callback: (data: ComputerEditRequest?, error: String) -> Unit) {
         var error = 0
 
         val clientName = bd.etfComputerName.editText?.text.toString()
@@ -215,7 +242,7 @@ class AppendComputerActivity : AppCompatActivity() {
         if (error > 0) {
             callback(null, "Form tidak valid")
         } else {
-            val data = ComputerRequest(
+            val data = ComputerEditRequest(
                 clientName = clientName,
                 division = division,
                 hostname = bd.etfHostComputerName.editText?.text.toString(),
@@ -231,7 +258,8 @@ class AppendComputerActivity : AppCompatActivity() {
                 processor = processor,
                 ram = ramInt,
                 tipe = tipe,
-                deactive = false
+                deactive = false,
+                timestamp = viewModel.getComputerData().value?.updatedAt ?: ""
             )
 
             callback(
@@ -240,7 +268,6 @@ class AppendComputerActivity : AppCompatActivity() {
         }
 
     }
-
 
     private fun showDatePicker() {
 
@@ -275,7 +302,7 @@ class AppendComputerActivity : AppCompatActivity() {
 
     private fun killActivityIfComputerCreated(isCreated: Boolean) {
         if (isCreated) {
-            App.activityComputerListMustBeRefresh = true
+            App.fragmentDetailComputerMustBeRefresh = true
             finish()
         }
     }

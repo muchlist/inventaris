@@ -1,9 +1,6 @@
 package com.muchlis.inventaris.services
 
-import com.muchlis.inventaris.data.request.ComputerRequest
-import com.muchlis.inventaris.data.request.HistoryRequest
-import com.muchlis.inventaris.data.request.JustTimeStampRequest
-import com.muchlis.inventaris.data.request.LoginRequest
+import com.muchlis.inventaris.data.request.*
 import com.muchlis.inventaris.data.response.*
 import com.muchlis.inventaris.utils.App
 import com.squareup.moshi.Moshi
@@ -61,7 +58,6 @@ interface ApiService {
         @Path("id") id: String
     ): Call<HistoryListResponse>
 
-
     //{{url}}/api/computers
     @POST("/api/computers")
     fun postComputer(
@@ -88,11 +84,20 @@ interface ApiService {
     ): Call<ComputerDetailResponse>
 
     //{{url}}/api/computers/5ef05f051bbfc2b3db5d1159
+    @PUT("/api/computers/{id}")
+    fun editComputerDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: ComputerEditRequest
+    ): Call<ComputerDetailResponse>
+
+    //{{url}}/api/computers/5ef05f051bbfc2b3db5d1159
     @DELETE("/api/computers/{id}")
     fun deleteComputerDetail(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<ResponseBody>
+
 
     //{{url}}/api/delete-history/5ef2d20fd72e1f6c75093643
     @DELETE("/api/delete-history/{id}")

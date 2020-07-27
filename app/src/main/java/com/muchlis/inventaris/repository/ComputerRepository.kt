@@ -1,6 +1,7 @@
 package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindComputersDto
+import com.muchlis.inventaris.data.request.ComputerEditRequest
 import com.muchlis.inventaris.data.request.ComputerRequest
 import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
@@ -102,6 +103,44 @@ object ComputerRepository {
     ) {
         apiService.postComputer(
             token = App.prefs.authTokenSave,
+            args = args
+        ).enqueue(object : Callback<ComputerDetailResponse> {
+            override fun onResponse(
+                call: Call<ComputerDetailResponse>,
+                response: Response<ComputerDetailResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            //getMsgFromJson(responseBody)
+                            responseBody
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
+                callback(null, ERR_CONN)
+            }
+        })
+    }
+
+    fun editComputer(
+        computerID: String,
+        args: ComputerEditRequest,
+        callback: (response: ComputerDetailResponse?, error: String) -> Unit
+    ) {
+        apiService.editComputerDetail(
+            token = App.prefs.authTokenSave,
+            id = computerID,
             args = args
         ).enqueue(object : Callback<ComputerDetailResponse> {
             override fun onResponse(

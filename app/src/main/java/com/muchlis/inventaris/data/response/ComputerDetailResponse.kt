@@ -1,8 +1,11 @@
 package com.muchlis.inventaris.data.response
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ComputerDetailResponse(
     @Json(name = "author")
     val author: String,
@@ -44,7 +47,8 @@ data class ComputerDetailResponse(
     val updatedAt: String,
     @Json(name = "year")
     val year: String
-) {
+) : Parcelable {
+    @Parcelize
     data class Spec(
         @Json(name = "hardisk")
         val hardisk: Int,
@@ -54,5 +58,5 @@ data class ComputerDetailResponse(
         val ram: Int,
         @Json(name = "score")
         val score: Int
-    )
+    ): Parcelable
 }
