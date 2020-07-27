@@ -3,6 +3,7 @@ package com.muchlis.inventaris.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.repository.ComputerRepository
@@ -129,6 +130,32 @@ class ComputerDetailViewModel : ViewModel() {
             if (success.isNotEmpty()) {
                 _messageDeleteHistorySuccess.value = "Berhasil menghapus history"
                 _deleteHistorySuccess.value = true
+            }
+        }
+        _isLoading.value = false
+    }
+
+    private fun switchStatusComputer(): String{
+        return if (_computerData.value?.deactive == true){
+            "ACTIVE"
+        } else {
+            "DEACTIVE"
+        }
+    }
+
+    fun changeComputerStatusFromServer(){
+        _isLoading.value = true
+        val args = JustTimeStampRequest(
+            timeStamp = _computerData.value?.updatedAt ?: ""
+        )
+        computerRepo.changeStatusComputer(computerID = computerID, statusActive = switchStatusComputer(),args = args){
+            response, error ->
+            if (error.isNotEmpty()) {
+                _messageError.value = error
+                return@changeStatusComputer
+            }
+            response?.let {
+                _computerData.postValue(it)
             }
         }
         _isLoading.value = false

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.databinding.FragmentComputerDetailBinding
 import com.muchlis.inventaris.utils.*
@@ -60,6 +61,10 @@ class ComputerDetailFragment : Fragment() {
         bd.ivDetailAddHistory.setOnClickListener {
             intentToAppendHistoryActivity(viewModel.getComputerData().value)
         }
+
+        bd.ivDetailDeactive.setOnClickListener {
+            switchActiveComputerDetail()
+        }
     }
 
     private fun intentToAppendHistoryActivity(data: ComputerDetailResponse?) {
@@ -109,6 +114,16 @@ class ComputerDetailFragment : Fragment() {
         bd.tvDetailHardisk.text = data.spec.hardisk.toString()
         bd.tvDetailStatus.text = data.lastStatus
         bd.tvDetailNote.text = data.note
+
+        //Status deactive
+        if (data.deactive){
+            bd.tvDeactiveStatus.visible()
+            bd.ivDetailDeactive.setImageResource(R.drawable.icons8_show)
+        } else {
+            bd.tvDeactiveStatus.invisible()
+            bd.ivDetailDeactive.setImageResource(R.drawable.icons8_remove)
+        }
+
     }
 
     private fun showToast(text: String, isError: Boolean = false) {
@@ -129,6 +144,30 @@ class ComputerDetailFragment : Fragment() {
 
         builder.setPositiveButton("Ya") { _, _ ->
             viewModel.deleteComputerFromServer()
+        }
+        builder.setNeutralButton("Batal") { _, _ ->
+
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    private fun switchActiveComputerDetail() {
+        val builder = AlertDialog.Builder(requireActivity())
+
+        val statusExisting = viewModel.getComputerData().value?.deactive ?: false
+
+        builder.setTitle("Konfirmasi")
+
+        if (statusExisting){
+            builder.setMessage("Komputer akan diaktifkan")
+        } else {
+            builder.setMessage("Yakin ingin menonaktifkan komputer?\nKomputer ini akan hilang dari daftar komputer aktif!")
+        }
+
+        builder.setPositiveButton("Ya") { _, _ ->
+            viewModel.changeComputerStatusFromServer()
         }
         builder.setNeutralButton("Batal") { _, _ ->
 

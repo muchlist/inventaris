@@ -2,6 +2,7 @@ package com.muchlis.inventaris.services
 
 import com.muchlis.inventaris.data.request.ComputerRequest
 import com.muchlis.inventaris.data.request.HistoryRequest
+import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.request.LoginRequest
 import com.muchlis.inventaris.data.response.*
 import com.muchlis.inventaris.utils.App
@@ -66,8 +67,7 @@ interface ApiService {
     fun postComputer(
         @Header("Authorization") token: String,
         @Body args: ComputerRequest
-    ): Call<ComputerCreatedResponse>
-
+    ): Call<ComputerDetailResponse>
 
     //{{url}}/api/computers?branch=banjarmasin&ip_address=&client_name=&deactive=no
     @GET("/api/computers")
@@ -100,6 +100,18 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<ResponseBody>
+
+
+    //{{url}}/api/computers/5ef2d20fd72e1f6c75093643/(active atau deactive)
+    @POST("/api/computers/{id}/{active}")
+    fun changeStatusActive(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Path("active") active: String,
+        @Body args: JustTimeStampRequest
+    ): Call<ComputerDetailResponse>
+
+
 
     //{{url}}/api/options
     @GET("/api/options")

@@ -2,7 +2,7 @@ package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindComputersDto
 import com.muchlis.inventaris.data.request.ComputerRequest
-import com.muchlis.inventaris.data.response.ComputerCreatedResponse
+import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.data.response.ComputerListResponse
 import com.muchlis.inventaris.services.Api
@@ -98,15 +98,15 @@ object ComputerRepository {
 
     fun createComputer(
         args: ComputerRequest,
-        callback: (response: ComputerCreatedResponse?, error: String) -> Unit
+        callback: (response: ComputerDetailResponse?, error: String) -> Unit
     ) {
         apiService.postComputer(
             token = App.prefs.authTokenSave,
             args = args
-        ).enqueue(object : Callback<ComputerCreatedResponse> {
+        ).enqueue(object : Callback<ComputerDetailResponse> {
             override fun onResponse(
-                call: Call<ComputerCreatedResponse>,
-                response: Response<ComputerCreatedResponse>
+                call: Call<ComputerDetailResponse>,
+                response: Response<ComputerDetailResponse>
             ) {
                 when {
                     response.isSuccessful -> {
@@ -126,7 +126,7 @@ object ComputerRepository {
                 }
             }
 
-            override fun onFailure(call: Call<ComputerCreatedResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
                 callback(null, ERR_CONN)
             }
         })
@@ -167,6 +167,48 @@ object ComputerRepository {
             }
         })
     }
+
+
+    fun changeStatusComputer(
+        computerID: String,
+        statusActive: String,
+        args: JustTimeStampRequest,
+        callback: (response: ComputerDetailResponse?, error: String) -> Unit
+    ) {
+        apiService.changeStatusActive(
+            token = App.prefs.authTokenSave,
+            id = computerID,
+            active = statusActive,
+            args = args
+        ).enqueue(object : Callback<ComputerDetailResponse> {
+            override fun onResponse(
+                call: Call<ComputerDetailResponse>,
+                response: Response<ComputerDetailResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            //getMsgFromJson(responseBody)
+                            responseBody
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
+                callback(null, ERR_CONN)
+            }
+        })
+    }
+
 
     private fun getMsgFromJson(errorBody: String): String {
         val jsonMarshaller = JsonMarshaller()
