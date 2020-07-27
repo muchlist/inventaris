@@ -7,6 +7,7 @@ class Validation {
             if (ipAddressList.count() != 4) {
                 return false
             }
+
             if (isIPUnitValid(ipAddressList[0])) {
                 if (isIPUnitValid(ipAddressList[1])) {
                     if (isIPUnitValid(ipAddressList[2])) {
@@ -21,14 +22,12 @@ class Validation {
     }
 
     private fun isIPUnitValid(ip_unit: String): Boolean {
-        val ipUnitInt: Int = try {
-            ip_unit.toInt()
-        } catch (r: Error) {
-            -1
+        val ipUnitInt: Int? = ip_unit.toIntOrNull()
+
+        ipUnitInt?.let {
+            return !(it > 254 || it < 0)
         }
-        if (ipUnitInt > 254 || ipUnitInt < 0) {
-            return false
-        }
-        return true
+
+        return false
     }
 }
