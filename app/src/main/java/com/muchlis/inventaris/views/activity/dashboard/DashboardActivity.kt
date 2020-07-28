@@ -23,6 +23,7 @@ import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.DashboardViewModel
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
+import com.muchlis.inventaris.views.activity.stock.StocksActivity
 import es.dmoral.toasty.Toasty
 import java.util.*
 
@@ -131,6 +132,7 @@ class DashboardActivity : AppCompatActivity() {
 
             when (it.id) {
                 0 -> intentToComputerActivity()
+                1 -> intentToStockActivity()
                 5 -> intentToQrCode()
 //                2 -> startActivity<PrinterListActivity>()
 //                3 -> startActivity<ServerListActivity>()
@@ -145,6 +147,11 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun intentToComputerActivity() {
         val intent = Intent(this, ComputersActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun intentToStockActivity() {
+        val intent = Intent(this, StocksActivity::class.java)
         startActivity(intent)
     }
 

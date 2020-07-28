@@ -117,6 +117,22 @@ interface ApiService {
     ): Call<ComputerDetailResponse>
 
 
+    //STOCK
+    //{{url}}/api/stock?branch=banjarmasin&ip_address=&stock_name=&deactive=no
+    @GET("/api/stocks")
+    fun getStockList(
+        @Header("Authorization") token: String,
+        @Query("branch") branch: String = "",
+        @Query("stock_name") stockName: String = "",
+        @Query("deactive") deactive: String = ""
+    ): Call<StockListResponse>
+
+    //{{url}}/api/stocks/5ef4025f59fce41c604218f5
+    @GET("/api/stocks/{id}")
+    fun getStockDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<StockDetailResponse>
 
     //{{url}}/api/options
     @GET("/api/options")

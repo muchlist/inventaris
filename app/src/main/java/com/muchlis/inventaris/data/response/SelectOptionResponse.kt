@@ -17,6 +17,9 @@ data class SelectOptionResponse(
     @SerializedName("locations")
     @Json(name = "locations")
     val locations: List<String>,
+    @SerializedName("stock_location")
+    @Json(name = "stock_location")
+    val stockLocations: List<String>,
     @SerializedName("operation_system")
     @Json(name = "operation_system")
     val operationSystem: List<String>,

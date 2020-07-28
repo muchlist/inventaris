@@ -38,6 +38,7 @@ class ComputersActivity : AppCompatActivity() {
         observeViewModel()
 
         setRecyclerView()
+
         bd.refreshComputerList.setOnRefreshListener {
             //jika direfresh akan mereset firsttime load supaya muncul animasi
             isFirstTimeLoad = true
