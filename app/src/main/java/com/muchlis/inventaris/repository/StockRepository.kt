@@ -1,11 +1,10 @@
 package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindStocksDto
-import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.data.request.JustTimeStampRequest
+import com.muchlis.inventaris.data.request.StockEditRequest
+import com.muchlis.inventaris.data.request.StockRequest
 import com.muchlis.inventaris.data.request.StockUseRequest
-import com.muchlis.inventaris.data.response.ComputerDetailResponse
-import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.data.response.StockListResponse
 import com.muchlis.inventaris.services.Api
@@ -93,6 +92,79 @@ object StockRepository {
             }
 
             override fun onFailure(call: Call<StockListResponse>, t: Throwable) {
+                callback(null, ERR_CONN)
+            }
+        })
+    }
+
+    fun createStock(
+        args: StockRequest,
+        callback: (response: StockDetailResponse?, error: String) -> Unit
+    ) {
+        apiService.postStock(
+            token = App.prefs.authTokenSave,
+            args = args
+        ).enqueue(object : Callback<StockDetailResponse> {
+            override fun onResponse(
+                call: Call<StockDetailResponse>,
+                response: Response<StockDetailResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
+                callback(null, ERR_CONN)
+            }
+        })
+    }
+
+
+    fun editStock(
+        stockID: String,
+        args: StockEditRequest,
+        callback: (response: StockDetailResponse?, error: String) -> Unit
+    ) {
+        apiService.editStockDetail(
+            token = App.prefs.authTokenSave,
+            id = stockID,
+            args = args
+        ).enqueue(object : Callback<StockDetailResponse> {
+            override fun onResponse(
+                call: Call<StockDetailResponse>,
+                response: Response<StockDetailResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 callback(null, ERR_CONN)
             }
         })

@@ -77,7 +77,7 @@ class AppendHistoryActivity : AppCompatActivity() {
         val args = HistoryRequest(
             category = parentCategory ?: "",
             date = dateText,
-            note = bd.etfHistoryNote.editText?.text.toString(),
+            note = bd.etfNote.editText?.text.toString(),
             status = bd.atHistoryStatus.text.toString()
         )
 

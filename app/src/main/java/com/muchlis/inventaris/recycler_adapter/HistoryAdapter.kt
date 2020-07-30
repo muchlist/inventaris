@@ -63,6 +63,7 @@ class HistoryAdapter(
                 "Printer" -> R.drawable.ic_041_printer
                 "Server" -> R.drawable.ic_047_server
                 "CCTV" -> R.drawable.ic_018_cctv
+                "STOCK" -> R.drawable.ic_049_stock
                 else -> R.drawable.ic_029_computer
             }
         }

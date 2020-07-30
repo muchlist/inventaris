@@ -272,9 +272,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_marginTop="24dp"
-                        android:layout_marginBottom="64dp"
                         android:src="@drawable/deletedocument64"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_detail_deactive"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -290,6 +288,59 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_detail_delete"
                         app:layout_constraintTop_toTopOf="@+id/iv_detail_delete" />
+
+                    <ImageView
+                        android:id="@+id/iv_detail_increment"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="64dp"
+                        android:src="@drawable/icons8_add_64"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_detail_deactive"
+                        app:layout_constraintStart_toEndOf="@+id/iv_detail_delete"
+                        app:layout_constraintStart_toStartOf="@+id/iv_detail_delete"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_detail_delete" />
+
+                    <ImageView
+                        android:id="@+id/iv_detail_decrement"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/icons8_minus_64"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_detail_increment"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_detail_edit"
+                        app:layout_constraintStart_toEndOf="@+id/iv_detail_deactive"
+                        app:layout_constraintStart_toStartOf="@+id/iv_detail_deactive"
+                        app:layout_constraintTop_toTopOf="@+id/iv_detail_increment" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tambah"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_detail_increment"
+                        app:layout_constraintStart_toStartOf="@+id/iv_detail_increment"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_detail_increment" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kurangi"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_detail_decrement"
+                        app:layout_constraintStart_toEndOf="@+id/iv_detail_decrement"
+                        app:layout_constraintStart_toStartOf="@+id/iv_detail_decrement"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_detail_decrement" />
+
+                    <ImageView
+                        android:id="@+id/iv_detail_load"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:src="@drawable/ic_sync_24px"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>

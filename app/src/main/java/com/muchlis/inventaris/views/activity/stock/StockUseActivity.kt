@@ -39,17 +39,19 @@ class StockUseActivity : AppCompatActivity() {
         }
         bd.etfStockName.editText?.setText(parentName)
 
-        bd.btSave.setOnClickListener {
+        bd.btSave.setOnLongClickListener {
             sendDataToServer(
                 parentID = parentID,
                 mode = mode
             )
+            return@setOnLongClickListener false
         }
-        bd.ivApplyButton.setOnClickListener {
+        bd.ivApplyButton.setOnLongClickListener {
             sendDataToServer(
                 parentID = parentID,
                 mode = mode
             )
+            return@setOnLongClickListener false
         }
         bd.ivBackButton.setOnClickListener { onBackPressed() }
     }
@@ -77,7 +79,7 @@ class StockUseActivity : AppCompatActivity() {
 
         viewModel.run {
             isStockUseCreated.observe(this@StockUseActivity, androidx.lifecycle.Observer {
-                if (it){
+                if (it) {
                     intentSetResult(viewModel.retrieveStockDetail())
                     killActivityIfHistoryCreated()
                 }
@@ -96,11 +98,12 @@ class StockUseActivity : AppCompatActivity() {
     }
 
     private fun killActivityIfHistoryCreated() {
-            App.activityStockListMustBeRefresh = true
-            finish()
+        App.activityStockListMustBeRefresh = true
+        App.activityDashboardMustBeRefresh = true
+        finish()
     }
 
-    private fun intentSetResult(data: StockDetailResponse){
+    private fun intentSetResult(data: StockDetailResponse) {
         val intent = Intent()
         intent.putExtra(INTENT_RESULT_STOCK, data)
         setResult(Activity.RESULT_OK, intent)

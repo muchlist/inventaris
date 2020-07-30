@@ -43,7 +43,7 @@ class SharedPrefs(context: Context) {
         set(value) = prefs.edit().putString(_optionsJson, value).apply()
 
     var optionsJsonVersion: Int
-        get() = prefs.getInt(_optionsJsonVersion, 0) ?: 0
+        get() = prefs.getInt(_optionsJsonVersion, 0)
         set(value) = prefs.edit().putInt(_optionsJsonVersion, value).apply()
 
     var isAdmin: Boolean

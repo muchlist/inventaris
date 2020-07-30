@@ -245,7 +245,7 @@
     <string name="ram_">RAM ..................................</string>
     <string name="prosessor_">Prosessor ..................................</string>
     <string name="seat_management_">Seat Management :</string>
-    <string name="history">--RIWAYAT--</string>
+    <string name="history">--LOG--</string>
     <string name="reload">RELOAD</string>
     <string name="tambah_komputer">Tambah Komputer</string>
     <string name="jumlah">Jumlah : &#8212;</string>

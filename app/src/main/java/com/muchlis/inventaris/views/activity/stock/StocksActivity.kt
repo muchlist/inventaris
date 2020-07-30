@@ -55,7 +55,7 @@ class StocksActivity : AppCompatActivity() {
         setSearchBarListener()
 
         bd.btListTambah.setOnClickListener {
-            intentToComputerAppendActivity()
+            intentToStockAppendActivity()
         }
 
         //HIDE KEYBOARD
@@ -127,14 +127,8 @@ class StocksActivity : AppCompatActivity() {
         }
     }
 
-    private fun intentToComputerDetailActivity(computerID: String) {
-        val intent = Intent(this, ComputerDetailActivity::class.java)
-        intent.putExtra(INTENT_PC_TO_DETAIL, computerID)
-        startActivity(intent)
-    }
-
-    private fun intentToComputerAppendActivity() {
-        val intent = Intent(this, AppendComputerActivity::class.java)
+    private fun intentToStockAppendActivity() {
+        val intent = Intent(this, AppendStockActivity::class.java)
         startActivity(intent)
     }
 

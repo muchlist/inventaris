@@ -60,6 +60,10 @@ class ComputerDetailFragment : Fragment() {
                 intentToEditComputerActivity(it)
             }
         }
+
+        bd.ivDetailLoad.setOnClickListener {
+            viewModel.getComputerFromServer()
+        }
     }
 
     private fun intentToAppendHistoryActivity(data: ComputerDetailResponse?) {

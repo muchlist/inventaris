@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activity.stock.StockUseActivity"></activity>
+        <activity android:name=".views.activity.stock.EditStockActivity"></activity>
+        <activity android:name=".views.activity.stock.AppendStockActivity" />
+        <activity android:name=".views.activity.stock.StockUseActivity" />
         <activity android:name=".views.activity.stock.StockDetailActivity" />
         <activity android:name=".views.activity.stock.StocksActivity" />
         <activity android:name=".views.activity.computer.EditComputerActivity" />

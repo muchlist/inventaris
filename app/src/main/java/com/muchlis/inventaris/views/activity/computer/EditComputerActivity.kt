@@ -135,7 +135,7 @@ class EditComputerActivity : AppCompatActivity() {
         bd.etfComputerMerk.editText?.setText(data.merk)
         bd.etComputerYear.setText(data.year.toDate().toStringJustDate())
         bd.atComputerSeatManajemen.setText(if (data.seatManagement) "YA" else "TIDAK")
-        bd.etfHistoryNote.editText?.setText(data.note)
+        bd.etfNote.editText?.setText(data.note)
 
         bd.atComputerOs.setText(data.operationSystem)
         bd.atComputerProcessor.setText(data.spec.processor)
@@ -251,7 +251,7 @@ class EditComputerActivity : AppCompatActivity() {
                 location = location,
                 merk = bd.etfComputerMerk.editText?.text.toString(),
                 year = year,
-                note = bd.etfHistoryNote.editText?.text.toString(),
+                note = bd.etfNote.editText?.text.toString(),
                 operationSystem = operationSystem,
                 seatManagement = bd.atComputerSeatManajemen.text.toString() == "YA",
                 hardisk = hardiskInt,

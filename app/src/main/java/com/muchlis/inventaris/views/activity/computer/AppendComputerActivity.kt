@@ -166,7 +166,10 @@ class AppendComputerActivity : AppCompatActivity() {
             error++
         }
 
-        if (location.isNotEmpty()) {
+        if (location.isEmpty()) {
+            bd.containerComputerLocation.error = "Lokasi tidak boleh kosong!"
+            error++
+        } else {
             if (location !in optionJsonObject.locations) {
                 bd.containerComputerLocation.error = "Lokasi salah!"
                 error++
@@ -224,7 +227,7 @@ class AppendComputerActivity : AppCompatActivity() {
                 location = location,
                 merk = bd.etfComputerMerk.editText?.text.toString(),
                 year = year,
-                note = bd.etfHistoryNote.editText?.text.toString(),
+                note = bd.etfNote.editText?.text.toString(),
                 operationSystem = operationSystem,
                 seatManagement = bd.atComputerSeatManajemen.text.toString() == "YA",
                 hardisk = hardiskInt,

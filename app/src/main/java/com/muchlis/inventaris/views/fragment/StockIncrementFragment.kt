@@ -68,8 +68,7 @@ class StockIncrementFragment : Fragment() {
 
     private fun setRecyclerView() {
         stockAdapter = StockIncrementDecrementAdapter(requireActivity(), stockData) {
-            //deleteComputerHistory(it.id)
-            //TODO what happen when click
+
         }
         bd.rvDetailStockIncrement.apply {
             layoutManager =

@@ -115,6 +115,12 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="** Perubahan stok tidak dapat dibatalkan, harap periksa ulang barang, kuantitas serta mode yang digunakan (penambahan atau pengurangan)!"/>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_save"
                 android:layout_width="wrap_content"

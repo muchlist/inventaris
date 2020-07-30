@@ -24,8 +24,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 
     buildTypes {
@@ -82,11 +82,4 @@ dependencies {
     //coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0-M1'
-
-    //Shimmer Loading
-    implementation 'io.supercharge:shimmerlayout:2.1.0'
-
-    //CIRCLE IMAGE
-    //implementation 'de.hdodenhof:circleimageview:2.2.0'
-
 }

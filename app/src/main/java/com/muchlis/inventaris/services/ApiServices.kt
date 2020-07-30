@@ -127,6 +127,21 @@ interface ApiService {
         @Query("deactive") deactive: String = ""
     ): Call<StockListResponse>
 
+    //{{url}}/api/stocks
+    @POST("/api/stocks")
+    fun postStock(
+        @Header("Authorization") token: String,
+        @Body args: StockRequest
+    ): Call<StockDetailResponse>
+
+    //{{url}}/api/computers/5ef05f051bbfc2b3db5d1159
+    @PUT("/api/stocks/{id}")
+    fun editStockDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: StockEditRequest
+    ): Call<StockDetailResponse>
+
     //{{url}}/api/stocks/5ef4025f59fce41c604218f5
     @GET("/api/stocks/{id}")
     fun getStockDetail(

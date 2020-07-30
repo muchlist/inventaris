@@ -23,6 +23,7 @@ import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.DashboardViewModel
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
+import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StocksActivity
 import es.dmoral.toasty.Toasty
 import java.util.*
@@ -62,6 +63,10 @@ class DashboardActivity : AppCompatActivity() {
 
         findHistories()
         viewModel.getOption()
+
+        bd.ivReload.setOnClickListener {
+            findHistories()
+        }
     }
 
     private fun observeViewModel() {
@@ -205,7 +210,7 @@ class DashboardActivity : AppCompatActivity() {
         bd.rvHistoryDashboard.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyAdapter = HistoryAdapter(this, historyData) {
-            intentToComputerDetailActivity(parentID = it.parentId, category = it.category)
+            intentToDetailActivity(parentID = it.parentId, category = it.category)
         }
         bd.rvHistoryDashboard.adapter = historyAdapter
         bd.rvHistoryDashboard.setHasFixedSize(true)
@@ -218,11 +223,16 @@ class DashboardActivity : AppCompatActivity() {
         historyAdapter.notifyDataSetChanged()
     }
 
-    private fun intentToComputerDetailActivity(parentID: String, category: String) {
+    private fun intentToDetailActivity(parentID: String, category: String) {
         when (category) {
             "PC" -> {
                 val intent = Intent(this, ComputerDetailActivity::class.java)
                 intent.putExtra(INTENT_PC_TO_DETAIL, parentID)
+                startActivity(intent)
+            }
+            "STOCK" -> {
+                val intent = Intent(this, StockDetailActivity::class.java)
+                intent.putExtra(INTENT_STOCK_TO_DETAIL, parentID)
                 startActivity(intent)
             }
             else -> {

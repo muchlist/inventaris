@@ -462,6 +462,16 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_detail_delete"
                         app:layout_constraintTop_toTopOf="@+id/iv_detail_delete" />
+
+                    <ImageView
+                        android:id="@+id/iv_detail_load"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:src="@drawable/ic_sync_24px"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
