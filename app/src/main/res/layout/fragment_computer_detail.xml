@@ -34,7 +34,7 @@
                         app:srcCompat="@drawable/ic_baseline_cancel_24px" />
 
                     <TextView
-                        android:id="@+id/tv_detail_client_name"
+                        android:id="@+id/tv_detail_header"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
@@ -57,7 +57,7 @@
                         android:fontFamily="@font/quicksand"
                         android:text="@string/loading"
                         android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_client_name"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_header"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -85,7 +85,7 @@
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/quicksand"
                         android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_client_name"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_header"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toTopOf="@+id/textView7"
                         tools:text="2018-SPT-BTW" />
@@ -145,7 +145,7 @@
                         tools:text="Trisakti" />
 
                     <TextView
-                        android:id="@+id/tv_detail_full_pc"
+                        android:id="@+id/tv_detail_sub_header"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
@@ -156,7 +156,7 @@
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_client_name"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
                         app:layout_constraintTop_toBottomOf="@+id/tv_detail_location" />
 
                     <TextView
@@ -168,8 +168,8 @@
                         android:fontFamily="@font/quicksand"
                         android:text="@string/seat_management_"
                         android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_full_pc"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_full_pc" />
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_sub_header" />
 
                     <TextView
                         android:id="@+id/tv_detail_seat_manajemen"
@@ -212,7 +212,7 @@
                         android:text="@string/prosessor_"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_full_pc"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
                         app:layout_constraintTop_toBottomOf="@+id/tv_detail_os" />
 
                     <TextView
@@ -238,7 +238,7 @@
                         android:text="@string/ram_"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_full_pc"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
                         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
                     <TextView
@@ -264,7 +264,7 @@
                         android:text="@string/harddisk_"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_full_pc"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
                         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
                     <TextView
@@ -290,7 +290,7 @@
                         android:text="@string/os_"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_full_pc"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
                         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
                     <TextView
@@ -319,7 +319,7 @@
                         android:text="@string/status_dot"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_full_pc"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
                         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
                     <TextView
@@ -390,8 +390,8 @@
                         android:text="@string/host"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_client_name"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_client_name" />
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_header" />
 
                     <TextView
                         android:id="@+id/textView6"
@@ -404,7 +404,7 @@
                         android:text="@string/ip"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_client_name"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
                         app:layout_constraintTop_toBottomOf="@+id/tv_detail_hostname" />
 
                     <TextView
@@ -440,7 +440,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_detail_deactive"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_full_pc"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
                         app:layout_constraintTop_toBottomOf="@+id/tv_detail_note" />
 
                     <ImageView
@@ -448,7 +448,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:src="@drawable/addproperty64"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_full_pc"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_detail_edit"
                         app:layout_constraintTop_toTopOf="@+id/iv_detail_edit" />

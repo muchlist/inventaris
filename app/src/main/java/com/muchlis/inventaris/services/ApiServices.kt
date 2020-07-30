@@ -134,6 +134,31 @@ interface ApiService {
         @Path("id") id: String
     ): Call<StockDetailResponse>
 
+    //{{url}}/api/stocks/5ef4025f59fce41c604218f5
+    @DELETE("/api/stocks/{id}")
+    fun deleteStockDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ResponseBody>
+
+    //{{url}}/api/computers/5ef2d20fd72e1f6c75093643/(active atau deactive)
+    @POST("/api/stocks/{id}/{active}")
+    fun changeStatusActiveStock(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Path("active") active: String,
+        @Body args: JustTimeStampRequest
+    ): Call<StockDetailResponse>
+
+    //{{url}}/api/use-stock/5ef4025f59fce41c604218f5
+    @POST("/api/use-stock/{id}")
+    fun useStock(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: StockUseRequest
+    ): Call<StockDetailResponse>
+
+
     //{{url}}/api/options
     @GET("/api/options")
     fun getOptions(

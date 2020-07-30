@@ -4,33 +4,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.JustTimeStampRequest
-import com.muchlis.inventaris.data.response.ComputerDetailResponse
-import com.muchlis.inventaris.data.response.HistoryListResponse
-import com.muchlis.inventaris.repository.ComputerRepository
-import com.muchlis.inventaris.repository.HistoryRepository
+import com.muchlis.inventaris.data.response.StockDetailResponse
+import com.muchlis.inventaris.repository.StockRepository
+import com.muchlis.inventaris.utils.toStringView
+import java.math.BigDecimal
+import java.math.RoundingMode
 
-class StockDetailViewModel: ViewModel() {
+class StockDetailViewModel : ViewModel() {
 
-    private val historyRepo = HistoryRepository
-    private val computerRepo = ComputerRepository
+    private val stockRepo = StockRepository
 
     //Data untuk detail
-    private val _computerData: MutableLiveData<ComputerDetailResponse> = MutableLiveData()
-    fun getComputerData(): MutableLiveData<ComputerDetailResponse> {
-        return _computerData
+    private val _stockData: MutableLiveData<StockDetailResponse> = MutableLiveData()
+    fun getStockData(): MutableLiveData<StockDetailResponse> {
+        return _stockData
     }
-
-    //Data untuk RecyclerView
-    private val _historyData: MutableLiveData<HistoryListResponse> = MutableLiveData()
-    fun getHistoryData(): MutableLiveData<HistoryListResponse> {
-        return _historyData
+    fun setStockData(data: StockDetailResponse){
+        _stockData.value = data
     }
 
     private var stockID: String = ""
     fun setStockId(id: String) {
         stockID = id
     }
-
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -40,125 +36,102 @@ class StockDetailViewModel: ViewModel() {
     val messageError: LiveData<String>
         get() = _messageError
 
-    private val _messageHistoryError = MutableLiveData<String>()
-    val messageHistoryError: LiveData<String>
-        get() = _messageHistoryError
+    private val _messageDeleteStockSuccess = MutableLiveData<String>()
+    val messageDeleteStockSuccess: LiveData<String>
+        get() = _messageDeleteStockSuccess
 
-    private val _messageDeleteHistorySuccess = MutableLiveData<String>()
-    val messageDeleteHistorySuccess: LiveData<String>
-        get() = _messageDeleteHistorySuccess
+    private val _deleteStockSuccess = MutableLiveData<Boolean>()
+    val isdeleteStockSuccess: LiveData<Boolean>
+        get() = _deleteStockSuccess
 
-    private val _messageDeleteComputerSuccess = MutableLiveData<String>()
-    val messageDeleteComputerSuccess: LiveData<String>
-        get() = _messageDeleteComputerSuccess
-
-    private val _deleteComputerSuccess = MutableLiveData<Boolean>()
-    val isdeleteComputerSuccess: LiveData<Boolean>
-        get() = _deleteComputerSuccess
-
-    private val _deleteHistorySuccess = MutableLiveData<Boolean>()
-    val isDeleteHistorySuccess: LiveData<Boolean>
-        get() = _deleteHistorySuccess
 
     init {
         _isLoading.value = false
-        _deleteComputerSuccess.value = false
+        _deleteStockSuccess.value = false
         _messageError.value = ""
-        _messageDeleteComputerSuccess.value = ""
+        _messageDeleteStockSuccess.value = ""
     }
 
 
-    fun getComputerFromServer() {
+    fun getStockFromServer() {
         _isLoading.value = true
         _messageError.value = ""
 
-        computerRepo.getComputer(computerID = stockID) { response, error ->
+        stockRepo.getStock(computerID = stockID) { response, error ->
             if (error.isNotEmpty()) {
                 _messageError.value = error
-                return@getComputer
+                return@getStock
             }
             response.let {
-                _computerData.postValue(it)
+                _stockData.postValue(it)
             }
         }
 
         _isLoading.value = false
     }
 
-
-    fun deleteComputerFromServer() {
+    fun deleteStockFromServer() {
         _isLoading.value = true
         _messageError.value = ""
 
-        computerRepo.deleteComputer(computerID = stockID) { success, error ->
+        stockRepo.deleteStock(stockID = stockID) { success, error ->
             if (error.isNotEmpty()) {
                 _messageError.value = error
-                return@deleteComputer
+                return@deleteStock
             }
             if (success.isNotEmpty()) {
-                _deleteComputerSuccess.value = true
-                _messageDeleteComputerSuccess.value = success
-            }
-        }
-        _isLoading.value = false
-    }
-
-    fun findHistoriesFromServer() {
-        _isLoading.value = true
-        _messageHistoryError.value = ""
-
-        historyRepo.findHistoriesForParent(parentID = stockID) { response, error ->
-            if (error.isNotEmpty()) {
-                _messageHistoryError.value = error
-                return@findHistoriesForParent
-            }
-            response.let {
-                _historyData.postValue(it)
-            }
-        }
-        _isLoading.value = false
-    }
-
-    fun deleteHistoryFromServer(historyID: String) {
-        _isLoading.value = true
-        _messageHistoryError.value = ""
-        historyRepo.deleteHistory(historyID = historyID) { success, error ->
-            if (error.isNotEmpty()) {
-                _messageHistoryError.value = error
-                return@deleteHistory
-            }
-            if (success.isNotEmpty()) {
-                _messageDeleteHistorySuccess.value = "Berhasil menghapus history"
-                _deleteHistorySuccess.value = true
+                _deleteStockSuccess.value = true
+                _messageDeleteStockSuccess.value = success
             }
         }
         _isLoading.value = false
     }
 
     private fun switchStatusComputer(): String{
-        return if (_computerData.value?.deactive == true){
+        return if (_stockData.value?.deactive == true){
             "ACTIVE"
         } else {
             "DEACTIVE"
         }
     }
 
-    fun changeComputerStatusFromServer(){
+    fun changeStockStatusFromServer(){
         _isLoading.value = true
         val args = JustTimeStampRequest(
-            timeStamp = _computerData.value?.updatedAt ?: ""
+            timeStamp = _stockData.value?.updatedAt ?: ""
         )
-        computerRepo.changeStatusComputer(computerID = stockID, statusActive = switchStatusComputer(),args = args){
+        stockRepo.changeStatusStock(stockID = stockID, statusActive = switchStatusComputer(),args = args){
                 response, error ->
             if (error.isNotEmpty()) {
                 _messageError.value = error
-                return@changeStatusComputer
+                return@changeStatusStock
             }
             response?.let {
-                _computerData.postValue(it)
+                _stockData.postValue(it)
             }
         }
         _isLoading.value = false
+    }
+
+    fun getTotalIncrement(): String{
+        var total = 0.0
+        val listIncrement = _stockData.value?.increment ?: emptyList()
+        for (inc in listIncrement){
+            total += inc.qty
+        }
+
+        return total.toStringView()
+    }
+
+
+    fun getTotalDecrement(): String{
+        var total = 0.0
+        val listIncrement = _stockData.value?.decrement ?: emptyList()
+        for (inc in listIncrement){
+            total += inc.qty
+        }
+
+        return total.toStringView()
     }
 
 }

@@ -11,6 +11,9 @@ class App : Application() {
         var activityComputerListMustBeRefresh : Boolean = false
         var fragmentDetailComputerMustBeRefresh : Boolean = false
         var fragmentHistoryComputerMustBeRefresh : Boolean = false
+
+        var activityStockListMustBeRefresh : Boolean = false
+        var fragmentDetailStockMustBeRefresh : Boolean = false
     }
 
     override fun onCreate() {

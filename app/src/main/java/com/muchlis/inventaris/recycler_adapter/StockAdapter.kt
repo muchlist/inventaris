@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.StockListResponse
 import com.muchlis.inventaris.utils.invisible
+import com.muchlis.inventaris.utils.toStringView
 import com.muchlis.inventaris.utils.visible
 import kotlinx.android.synthetic.main.item_stock.view.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class StockAdapter (
     private val context: Context?,
@@ -42,7 +45,7 @@ class StockAdapter (
                 tv_stock_location.text = items.branch
                 tv_stock_category.text = items.category
                 tv_stock_name.text = items.stockName
-                tv_stock_sisa_value.text = items.qty.toString() + " " + items.unit
+                tv_stock_sisa_value.text = items.qty.toStringView() + " " + items.unit
                 tv_stock_note.text = items.location
 
                 if (items.qty - items.threshold <= 0.0){

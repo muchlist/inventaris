@@ -1,60 +1,125 @@
 package com.muchlis.inventaris.views.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.muchlis.inventaris.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.muchlis.inventaris.data.response.StockDetailResponse
+import com.muchlis.inventaris.databinding.FragmentStockIncrementBinding
+import com.muchlis.inventaris.recycler_adapter.StockIncrementDecrementAdapter
+import com.muchlis.inventaris.utils.*
+import com.muchlis.inventaris.view_model.StockDetailViewModel
+import com.muchlis.inventaris.views.activity.stock.StockUseActivity
+import es.dmoral.toasty.Toasty
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [StockIncrementFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StockIncrementFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentStockIncrementBinding? = null
+    private val bd get() = _binding!!
+
+    private lateinit var viewModel: StockDetailViewModel
+
+    //recyclerview
+    private lateinit var stockAdapter: StockIncrementDecrementAdapter
+    private var stockData: MutableList<StockDetailResponse.IncrementDecrement> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stock_increment, container, false)
+        _binding = FragmentStockIncrementBinding.inflate(inflater, container, false)
+        return bd.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StockIncrementFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StockIncrementFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity()).get(StockDetailViewModel::class.java)
+
+        observeViewModel()
+
+        setRecyclerView()
+
+        bd.refreshDetailStockIncrement.setOnRefreshListener {
+            viewModel.getStockFromServer()
+        }
+
+        bd.fabDetailStockIncrement.setOnClickListener {
+            viewModel.getStockData().value?.let {
+                intentToStockUseActivity(it)
             }
+        }
+
     }
+
+    private fun observeViewModel() {
+
+        viewModel.run {
+            getStockData().observe(viewLifecycleOwner, Observer { loadRecyclerView(it) })
+            isLoading.observe(viewLifecycleOwner, Observer { showLoading(it) })
+        }
+    }
+
+    private fun setRecyclerView() {
+        stockAdapter = StockIncrementDecrementAdapter(requireActivity(), stockData) {
+            //deleteComputerHistory(it.id)
+            //TODO what happen when click
+        }
+        bd.rvDetailStockIncrement.apply {
+            layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+            adapter = stockAdapter
+            setHasFixedSize(true)
+        }
+    }
+
+    private fun intentToStockUseActivity(data: StockDetailResponse) {
+        val intent = Intent(requireActivity(), StockUseActivity::class.java)
+        intent.putExtra(INTENT_TO_STOCK_USE_CREATE_ID, data.id)
+        intent.putExtra(INTENT_TO_STOCK_USE_MODE, INCREMENT_MODE)
+        intent.putExtra(INTENT_TO_STOCK_USE_NAME, data.stockName)
+        startActivityForResult(intent, 400)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 400) {
+            if (resultCode == Activity.RESULT_OK) {
+                val dataResult: StockDetailResponse? = data?.getParcelableExtra(INTENT_RESULT_STOCK)
+                dataResult?.let { viewModel.setStockData(it) }
+            }
+        }
+    }
+
+    private fun loadRecyclerView(data: StockDetailResponse) {
+        stockData.clear()
+        stockData.addAll(data.increment.reversed())
+        bd.rvDetailStockIncrement.scheduleLayoutAnimation()
+        bd.rvDetailStockIncrement.invalidate()
+        stockAdapter.notifyDataSetChanged()
+
+        //JIKA ITEMLIST KOSONG MUNCULKAN GAMBAR
+        if (data.increment.count() == 0) {
+            bd.ivEmptyList.visible()
+        } else {
+            bd.ivEmptyList.invisible()
+        }
+
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        bd.refreshDetailStockIncrement.isRefreshing = isLoading
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

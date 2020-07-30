@@ -8,8 +8,8 @@ import com.muchlis.inventaris.views.fragment.*
 class StockPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
         StockDetailFragment(),
-        StockIncrementFragment(),
-        StockDecrementFragment()
+        StockDecrementFragment(),
+        StockIncrementFragment()
     )
 
     override fun getItem(position: Int): Fragment {
@@ -23,8 +23,8 @@ class StockPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position){
             0 -> "Detail"
-            1 -> "Penambahan"
-            else -> "Pengurangan"
+            1 -> "Pengurangan"
+            else -> "Penambahan"
         }
     }
 

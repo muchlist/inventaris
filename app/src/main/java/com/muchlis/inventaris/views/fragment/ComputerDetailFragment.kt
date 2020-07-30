@@ -40,18 +40,6 @@ class ComputerDetailFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(ComputerDetailViewModel::class.java)
         observeViewModel()
 
-//        val options = OptionsMarshaller().getOption()
-//        if (options == null){
-//            Toasty.error(requireActivity(),"Error Saat Mendapatkan Option",Toasty.LENGTH_LONG).show()
-//        }
-//
-//        val locations = options!!.locations
-//
-//        var locationString = ""
-//        for (location in locations){
-//            locationString = locationString + "$location\n"
-//        }
-
         viewModel.getComputerFromServer()
 
 
@@ -105,7 +93,7 @@ class ComputerDetailFragment : Fragment() {
     }
 
     private fun setDataToDetailComputerView(data: ComputerDetailResponse) {
-        bd.tvDetailClientName.text = data.clientName
+        bd.tvDetailHeader.text = data.clientName
         bd.tvDetailHostname.text = data.hostname
         bd.tvDetailIpAddress.text = data.ipAddress
         bd.tvDetailNoInventory.text = data.inventoryNumber
@@ -115,7 +103,7 @@ class ComputerDetailFragment : Fragment() {
 
         val categoryMerkyear =
             "${data.tipe} - ${data.merk} - ${data.year.toDate().toStringJustYear()}"
-        bd.tvDetailFullPc.text = categoryMerkyear
+        bd.tvDetailSubHeader.text = categoryMerkyear
         bd.tvDetailSeatManajemen.text = if (data.seatManagement) {
             "true"
         } else {

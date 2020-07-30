@@ -173,9 +173,9 @@ class StocksActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (App.activityComputerListMustBeRefresh) {
+        if (App.activityStockListMustBeRefresh) {
             findStocks()
-            App.activityComputerListMustBeRefresh = false
+            App.activityStockListMustBeRefresh = false
         }
     }
 }

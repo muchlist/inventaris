@@ -117,8 +117,7 @@ object ComputerRepository {
                         val responseBody = response.errorBody()?.string() ?: ""
                         callback(
                             null,
-                            //getMsgFromJson(responseBody)
-                            responseBody
+                            getMsgFromJson(responseBody)
                         )
                     }
                     else -> {
@@ -155,8 +154,7 @@ object ComputerRepository {
                         val responseBody = response.errorBody()?.string() ?: ""
                         callback(
                             null,
-                            //getMsgFromJson(responseBody)
-                            responseBody
+                            getMsgFromJson(responseBody)
                         )
                     }
                     else -> {
@@ -232,8 +230,7 @@ object ComputerRepository {
                         val responseBody = response.errorBody()?.string() ?: ""
                         callback(
                             null,
-                            //getMsgFromJson(responseBody)
-                            responseBody
+                            getMsgFromJson(responseBody)
                         )
                     }
                     else -> {

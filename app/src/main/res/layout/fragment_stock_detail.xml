@@ -1,14 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragment.StockDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:id="@+id/iv_detail_back"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:contentDescription="@string/dot"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_cancel_24px" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_header"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="@string/loading"
+                        android:textColor="@color/grey_80"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_detail_back" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/quicksand"
+                        android:text="@string/loading"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_header"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_branch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/button_color_second"
+                        android:fontFamily="@font/quicksand"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:text="@string/loading"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/quicksand"
+                        android:maxLines="1"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_category"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toTopOf="@+id/textView7"
+                        tools:text="@string/loading" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_update"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/quicksand"
+                        android:maxLines="1"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_category"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toTopOf="@+id/textView9"
+                        tools:text="@string/loading" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_detail_edit"
+                        app:layout_constraintGuide_percent="0.4"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_detail_delete" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_sub_header"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="@string/loading"
+                        android:textColor="@color/grey_80"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/quicksand"
+                        android:maxLines="1"
+                        android:text="Ditambah ............"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_sub_header" />
+
+                    <TextView
+                        android:id="@+id/tv_decrement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/quicksand"
+                        android:text="@string/loading"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toTopOf="@+id/textView21"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_increment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/quicksand"
+                        android:text="@string/loading"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/quicksand"
+                        android:maxLines="1"
+                        android:text="Terpakai ..............."
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_note"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="48dp"
+                        android:fontFamily="@font/quicksand"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView21"
+                        app:layout_constraintTop_toBottomOf="@+id/textView21"
+                        tools:text="NOTE NOTE NOTE" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/quicksand"
+                        android:maxLines="1"
+                        android:text="Kategori ........................."
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_header" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/quicksand"
+                        android:maxLines="1"
+                        android:text="@string/cabang_"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_category" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/quicksand"
+                        android:maxLines="1"
+                        android:text="@string/lokasi"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                        app:layout_constraintStart_toStartOf="@+id/textView6"
+                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/quicksand"
+                        android:maxLines="1"
+                        android:text="Update ........................."
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                    <ImageView
+                        android:id="@+id/iv_detail_edit"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/editproperty64"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_detail_delete"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_detail_deactive"
+                        app:layout_constraintTop_toTopOf="@+id/iv_detail_delete" />
+
+                    <ImageView
+                        android:id="@+id/iv_detail_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="64dp"
+                        android:src="@drawable/deletedocument64"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_detail_deactive"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_note" />
+
+                    <ImageView
+                        android:id="@+id/iv_detail_deactive"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/icons8_remove"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_detail_delete"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_detail_edit"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_detail_delete"
+                        app:layout_constraintTop_toTopOf="@+id/iv_detail_delete" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/tv_deactive_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="false"
+            android:background="#FFAB91"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Unit Status Nonaktif"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</layout>
