@@ -17,12 +17,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activity.stock.EditStockActivity"></activity>
-        <activity android:name=".views.activity.stock.AppendStockActivity" />
-        <activity android:name=".views.activity.stock.StockUseActivity" />
+        <activity
+            android:name=".views.activity.stock.EditStockActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity
+            android:name=".views.activity.stock.AppendStockActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity
+            android:name=".views.activity.stock.StockUseActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity android:name=".views.activity.stock.StockDetailActivity" />
         <activity android:name=".views.activity.stock.StocksActivity" />
-        <activity android:name=".views.activity.computer.EditComputerActivity" />
+        <activity
+            android:name=".views.activity.computer.EditComputerActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
@@ -30,11 +38,15 @@
         <activity
             android:name=".views.activity.computer.AppendComputerActivity"
             android:windowSoftInputMode="adjustResize|stateVisible" />
-        <activity android:name=".views.activity.history.AppendHistoryActivity" />
+        <activity
+            android:name=".views.activity.history.AppendHistoryActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity android:name=".views.activity.computer.ComputerDetailActivity" />
         <activity android:name=".views.activity.computer.ComputersActivity" />
         <activity android:name=".views.activity.dashboard.DashboardActivity" />
-        <activity android:name=".views.activity.login.LoginActivity" />
+        <activity
+            android:name=".views.activity.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity android:name=".MainEmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

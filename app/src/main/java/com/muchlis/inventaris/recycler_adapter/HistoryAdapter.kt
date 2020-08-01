@@ -57,8 +57,8 @@ class HistoryAdapter(
             }
         }
 
-        private fun getImageResourceFromCategory(category: String): Int{
-            return when (category){
+        private fun getImageResourceFromCategory(category: String): Int {
+            return when (category) {
                 "PC" -> R.drawable.ic_029_computer
                 "Printer" -> R.drawable.ic_041_printer
                 "Server" -> R.drawable.ic_047_server
