@@ -127,7 +127,9 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("branch") branch: String = "",
         @Query("stock_name") stockName: String = "",
-        @Query("deactive") deactive: String = ""
+        @Query("location") location: String = "",
+        @Query("category") category: String = "",
+        @Query("deactive") deactive: String = "" //yes no
     ): Call<StockListResponse>
 
     //{{url}}/api/stocks

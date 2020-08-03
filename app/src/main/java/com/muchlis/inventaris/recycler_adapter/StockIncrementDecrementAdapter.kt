@@ -9,6 +9,7 @@ import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.utils.toDate
 import com.muchlis.inventaris.utils.toStringJustDate
+import com.muchlis.inventaris.utils.toStringView
 import kotlinx.android.synthetic.main.item_stock_consume.view.*
 
 class StockIncrementDecrementAdapter(
@@ -43,7 +44,7 @@ class StockIncrementDecrementAdapter(
                 tv_stock_con_nomer.text =
                     if (items.baNumber.isNotEmpty()) items.baNumber else items.dummyId.toString()
                 tv_stock_con_note.text = items.note
-                tv_stock_con_value.text = items.qty.toString()
+                tv_stock_con_value.text = items.qty.toStringView()
 
                 //onClick
                 itemView.setOnClickListener {}

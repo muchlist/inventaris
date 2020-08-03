@@ -101,7 +101,7 @@ class ComputersActivity : AppCompatActivity() {
         location: String = "",
         division: String = "",
         seat: String = "", //no or yes
-        deactive: String = "no" //no or yes
+        deactive: String = NO //no or yes
     ) {
         if (search.isEmpty()) {
             viewModel.findComputersFromServer(
@@ -228,14 +228,14 @@ class ComputersActivity : AppCompatActivity() {
         lateinit var locationDropdown: Spinner
 
         //mengisi semua opsi untuk spinner
-        val branchDropdownOption = listOf("BANJARMASIN", "BAGENDANG")//TODO sediakan cabang di json
+        val branchDropdownOption = optionJsonObject.kalimantan
         val locationDropdownOption: MutableList<String> = mutableListOf()
 
         val divisionDropdownOption: MutableList<String> = mutableListOf()
         divisionDropdownOption.addAll(optionJsonObject.divisions)
-        divisionDropdownOption.add(0, "SEMUA")
-        val seatManajemenDropdownOption = listOf("SEMUA", "YA", "TIDAK")
-        val statusDropdownOption = listOf("AKTIF", "NONAKTIF", "SEMUA")
+        divisionDropdownOption.add(0, SEMUA)
+        val seatManajemenDropdownOption = listOf(SEMUA, YA, TIDAK)
+        val statusDropdownOption = listOf(AKTIF, NONAKTIF, SEMUA)
 
         //Mendapatkan index dari isian awal
         val branchIndexStart = branchDropdownOption.indexOf(App.prefs.userBranchSave)
@@ -277,10 +277,10 @@ class ComputersActivity : AppCompatActivity() {
                 branchSelected = branchDropdownOption[position]
                 locationDropdownOption.clear()
                 val locationFiltered = optionJsonObject.locations.filter { s ->
-                    s.contains(branchSelected) || s.contains("LAINNYA")
+                    s.contains(branchSelected) || s.contains(LAINNYA)
                 }
                 locationDropdownOption.addAll(locationFiltered)
-                locationDropdownOption.add(0, "SEMUA")
+                locationDropdownOption.add(0, SEMUA)
                 locationDropdown.adapter =
                     ArrayAdapter<String>(
                         this@ComputersActivity,
@@ -379,20 +379,20 @@ class ComputersActivity : AppCompatActivity() {
         buttonComputerDialogFilter.setOnClickListener {
 
             //VALIDASI
-            if (divisionSelected == "SEMUA") {
+            if (divisionSelected == SEMUA) {
                 divisionSelected = ""
             }
-            if (locationSelected == "SEMUA") {
+            if (locationSelected == SEMUA) {
                 locationSelected = ""
             }
             seatSelected = when (seatSelected) {
-                "YA" -> "yes"
-                "TIDAK" -> "no"
+                YA -> YES
+                TIDAK -> NO
                 else -> ""
             }
             statusSelected = when (statusSelected) {
-                "NONAKTIF" -> "yes"
-                "AKTIF" -> "no"
+                NONAKTIF -> YES
+                AKTIF -> NO
                 else -> ""
             }
 

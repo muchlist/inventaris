@@ -64,7 +64,9 @@ object StockRepository {
             token = App.prefs.authTokenSave,
             branch = data.branch,
             stockName = data.stockName,
-            deactive = data.deactive
+            deactive = data.deactive,
+            category = data.category,
+            location = data.location
         ).enqueue(object : Callback<StockListResponse> {
             override fun onResponse(
                 call: Call<StockListResponse>,

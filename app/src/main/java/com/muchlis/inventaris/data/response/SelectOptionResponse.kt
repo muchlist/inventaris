@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 
 data class SelectOptionResponse(
+    @SerializedName("kalimantan")
+    @Json(name = "kalimantan")
+    val kalimantan: List<String>,
     @SerializedName("cctv_devices_type")
     @Json(name = "cctv_devices_type")
     val cctvDevicesType: List<String>,
