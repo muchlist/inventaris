@@ -50,14 +50,15 @@ class AppendHistoryViewModel : ViewModel() {
             args = args){
             response, error ->
             if (error.isNotEmpty()){
+                _isLoading.value = false
                 _messageError.value = error
                 return@createHistory
             }
             response.let {
+                _isLoading.value = false
                 _messageSuccess.value = "Menambahkan riwayat berhasil"
                 _isHistoryCreated.value = true
             }
         }
-        _isLoading.value = false
     }
 }

@@ -41,14 +41,15 @@ class StocksViewModel : ViewModel() {
 
         stockRepo.findStocks(data) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@findStocks
             }
             response.let {
+                _isLoading.value = false
                 _stockData.postValue(it)
             }
         }
-        _isLoading.value = false
     }
 
 }

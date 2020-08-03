@@ -74,15 +74,15 @@ class ComputerDetailViewModel : ViewModel() {
 
         computerRepo.getComputer(computerID = computerID) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@getComputer
             }
             response.let {
+                _isLoading.value = false
                 _computerData.postValue(it)
             }
         }
-
-        _isLoading.value = false
     }
 
 
@@ -92,15 +92,16 @@ class ComputerDetailViewModel : ViewModel() {
 
         computerRepo.deleteComputer(computerID = computerID) { success, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@deleteComputer
             }
             if (success.isNotEmpty()) {
+                _isLoading.value = false
                 _deleteComputerSuccess.value = true
                 _messageDeleteComputerSuccess.value = success
             }
         }
-        _isLoading.value = false
     }
 
     fun findHistoriesFromServer() {
@@ -109,14 +110,15 @@ class ComputerDetailViewModel : ViewModel() {
 
         historyRepo.findHistoriesForParent(parentID = computerID) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageHistoryError.value = error
                 return@findHistoriesForParent
             }
             response.let {
+                _isLoading.value = false
                 _historyData.postValue(it)
             }
         }
-        _isLoading.value = false
     }
 
     fun deleteHistoryFromServer(historyID: String) {
@@ -124,15 +126,16 @@ class ComputerDetailViewModel : ViewModel() {
         _messageHistoryError.value = ""
         historyRepo.deleteHistory(historyID = historyID) { success, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageHistoryError.value = error
                 return@deleteHistory
             }
             if (success.isNotEmpty()) {
+                _isLoading.value = false
                 _messageDeleteHistorySuccess.value = "Berhasil menghapus history"
                 _deleteHistorySuccess.value = true
             }
         }
-        _isLoading.value = false
     }
 
     private fun switchStatusComputer(): String{
@@ -151,14 +154,15 @@ class ComputerDetailViewModel : ViewModel() {
         computerRepo.changeStatusComputer(computerID = computerID, statusActive = switchStatusComputer(),args = args){
             response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@changeStatusComputer
             }
             response?.let {
+                _isLoading.value = false
                 _computerData.postValue(it)
             }
         }
-        _isLoading.value = false
     }
 
 }

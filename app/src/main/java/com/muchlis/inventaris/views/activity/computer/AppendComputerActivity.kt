@@ -308,8 +308,10 @@ class AppendComputerActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             bd.btSave.invisible()
+            bd.btSaveContinue.invisible()
         } else {
             bd.btSave.visible()
+            bd.btSaveContinue.visible()
         }
     }
 

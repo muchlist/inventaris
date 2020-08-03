@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -162,11 +163,33 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/bt_save_continue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Simpan Lanjutkan" />
+
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/bt_save"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="Simpan Selesai"
+                        app:backgroundTint="@color/red_400" />
+
+                    <TextView
+                        android:id="@+id/tv_append_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="64dp"
-                        android:text="Simpan" />
+                        android:background="#C8E6C9"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textAlignment="viewStart"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tool:text="Menambahkan SURYA berhasil" />
 
                 </LinearLayout>
 

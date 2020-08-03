@@ -51,14 +51,15 @@ class EditComputerViewModel : ViewModel() {
             args = args
         ) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@editComputer
             }
             response.let {
+                _isLoading.value = false
                 _messageSuccess.value = "Merubah komputer berhasil"
                 _isComputerEdited.value = true
             }
         }
-        _isLoading.value = false
     }
 }

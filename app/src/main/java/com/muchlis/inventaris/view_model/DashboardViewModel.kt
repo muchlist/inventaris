@@ -39,14 +39,15 @@ class DashboardViewModel : ViewModel() {
         historyRepo.getHistories(data) { response, error ->
             if (error.isNotEmpty()) {
                 //Ada pesan error
+                _isLoading.value = false
                 _messageError.value = error
                 return@getHistories
             }
             response.let {
+                _isLoading.value = false
                 _historyData.postValue(response)
             }
         }
-        _isLoading.value = false
     }
 
     fun getOption() {

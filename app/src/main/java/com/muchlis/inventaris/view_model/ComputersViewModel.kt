@@ -43,17 +43,16 @@ class ComputersViewModel : ViewModel() {
 
         computerRepo.findComputers(data) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
-
                 return@findComputers
             }
             response.let {
+                _isLoading.value = false
                 _computerData.postValue(it)
+                _isLoading.value = false
             }
         }
-
-        _isLoading.value = false
-
     }
 
 }

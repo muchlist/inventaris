@@ -13,9 +13,13 @@ class AppendStockViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    private val _isStockCreated = MutableLiveData<Boolean>()
-    val isStockCreated: LiveData<Boolean>
-        get() = _isStockCreated
+    private val _isStockCreatedAndFinish = MutableLiveData<Boolean>()
+    val isStockCreatedAndFinish: LiveData<Boolean>
+        get() = _isStockCreatedAndFinish
+
+    private val _stockCreatedContinue = MutableLiveData<String>()
+    val stockCreatedContinue: LiveData<String>
+        get() = _stockCreatedContinue
 
     private val _messageError = MutableLiveData<String>()
     val messageError: LiveData<String>
@@ -28,26 +32,32 @@ class AppendStockViewModel : ViewModel() {
 
     init {
         _isLoading.value = false
-        _isStockCreated.value = false
+        _isStockCreatedAndFinish.value = false
         _messageError.value = ""
         _messageSuccess.value = ""
+        _stockCreatedContinue.value = ""
     }
 
-    fun appendStock(args: StockRequest) {
+    fun appendStock(args: StockRequest, isContinue: Boolean) {
         _isLoading.value = true
-        _isStockCreated.value = false
+        _isStockCreatedAndFinish.value = false
         stockRepo.createStock(
             args = args
         ) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@createStock
             }
             response.let {
+                _isLoading.value = false
                 _messageSuccess.value = "Menambahkan stok berhasil"
-                _isStockCreated.value = true
+                if (isContinue){
+                    _stockCreatedContinue.value = _stockCreatedContinue.value + it?.stockName + " Ditambahkan\n"
+                } else {
+                    _isStockCreatedAndFinish.value = true
+                }
             }
         }
-        _isLoading.value = false
     }
 }

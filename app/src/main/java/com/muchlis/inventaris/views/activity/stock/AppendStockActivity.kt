@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.muchlis.inventaris.data.request.StockRequest
 import com.muchlis.inventaris.data.response.SelectOptionResponse
@@ -33,6 +34,10 @@ class AppendStockActivity : AppCompatActivity() {
         //CLICK HANDLE
         bd.btSave.setOnClickListener {
             createStock()
+        }
+
+        bd.btSaveContinue.setOnClickListener {
+            createStock(continueAfterSave = true)
         }
 
         bd.ivBackButton.setOnClickListener {
@@ -78,7 +83,7 @@ class AppendStockActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.run {
-            isStockCreated.observe(this@AppendStockActivity, androidx.lifecycle.Observer {
+            isStockCreatedAndFinish.observe(this@AppendStockActivity, androidx.lifecycle.Observer {
                 killActivityIfStockCreated(it)
             })
             isLoading.observe(
@@ -90,17 +95,31 @@ class AppendStockActivity : AppCompatActivity() {
             messageSuccess.observe(
                 this@AppendStockActivity,
                 androidx.lifecycle.Observer { showToast(it, false) })
+            stockCreatedContinue.observe(
+                this@AppendStockActivity,
+                Observer { showMessageCreated(it) })
         }
     }
 
-    private fun createStock() {
+    private fun showMessageCreated(message: String) {
+        if (message.isNotEmpty()) {
+            bd.tvAppendStatus.visible()
+            bd.tvAppendStatus.text = message
+
+            bd.etfStockName.editText?.setText("")
+        } else {
+            bd.tvAppendStatus.invisible()
+        }
+    }
+
+    private fun createStock(continueAfterSave: Boolean = false) {
         formValidation { data, error ->
             if (error.isNotEmpty()) {
                 showToast(error, true)
                 return@formValidation
             }
             data?.let {
-                viewModel.appendStock(args = it)
+                viewModel.appendStock(args = it, isContinue = continueAfterSave)
             }
         }
     }
@@ -187,8 +206,10 @@ class AppendStockActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             bd.btSave.invisible()
+            bd.btSaveContinue.invisible()
         } else {
             bd.btSave.visible()
+            bd.btSaveContinue.visible()
         }
     }
 

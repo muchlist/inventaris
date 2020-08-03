@@ -59,15 +59,15 @@ class StockDetailViewModel : ViewModel() {
 
         stockRepo.getStock(computerID = stockID) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@getStock
             }
             response.let {
+                _isLoading.value = false
                 _stockData.postValue(it)
             }
         }
-
-        _isLoading.value = false
     }
 
     fun deleteStockFromServer() {
@@ -76,15 +76,16 @@ class StockDetailViewModel : ViewModel() {
 
         stockRepo.deleteStock(stockID = stockID) { success, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@deleteStock
             }
             if (success.isNotEmpty()) {
+                _isLoading.value = false
                 _deleteStockSuccess.value = true
                 _messageDeleteStockSuccess.value = success
             }
         }
-        _isLoading.value = false
     }
 
     private fun switchStatusComputer(): String{
@@ -103,14 +104,15 @@ class StockDetailViewModel : ViewModel() {
         stockRepo.changeStatusStock(stockID = stockID, statusActive = switchStatusComputer(),args = args){
                 response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@changeStatusStock
             }
             response?.let {
+                _isLoading.value = false
                 _stockData.postValue(it)
             }
         }
-        _isLoading.value = false
     }
 
     fun getTotalIncrement(): String{

@@ -45,10 +45,12 @@ class AppendComputerViewModel : ViewModel() {
             args = args
         ) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@createComputer
             }
             response.let {
+                _isLoading.value = false
                 _messageSuccess.value = "Menambahkan komputer berhasil"
                 if (isContinue){
                     _computerCreatedAndContinue.value = _computerCreatedAndContinue.value + it?.clientName + " Ditambahkan\n"
@@ -57,6 +59,5 @@ class AppendComputerViewModel : ViewModel() {
                 }
             }
         }
-        _isLoading.value = false
     }
 }

@@ -46,15 +46,16 @@ class StockUseViewModel : ViewModel() {
             args = args){
                 response, error ->
             if (error.isNotEmpty()){
+                _isLoading.value = false
                 _messageError.value = error
                 return@useStock
             }
             response?.let {
+                _isLoading.value = false
                 stockDetail = it
                 _messageSuccess.value = "Perubahan stok berhasil"
                 _isStockUseCreated.value = true
             }
         }
-        _isLoading.value = false
     }
 }

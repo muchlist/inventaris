@@ -51,14 +51,15 @@ class EditStockViewModel : ViewModel() {
             args = args
         ) { response, error ->
             if (error.isNotEmpty()) {
+                _isLoading.value = false
                 _messageError.value = error
                 return@editStock
             }
             response.let {
+                _isLoading.value = false
                 _messageSuccess.value = "Merubah stok berhasil"
                 _isStockEdited.value = true
             }
         }
-        _isLoading.value = false
     }
 }
