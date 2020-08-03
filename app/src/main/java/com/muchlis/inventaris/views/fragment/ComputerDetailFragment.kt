@@ -64,6 +64,10 @@ class ComputerDetailFragment : Fragment() {
         bd.ivDetailLoad.setOnClickListener {
             viewModel.getComputerFromServer()
         }
+
+        bd.ivDetailBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 
     private fun intentToAppendHistoryActivity(data: ComputerDetailResponse?) {

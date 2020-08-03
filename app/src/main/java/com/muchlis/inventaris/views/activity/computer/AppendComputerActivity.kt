@@ -47,11 +47,19 @@ class AppendComputerActivity : AppCompatActivity() {
             createComputer()
         }
 
+        bd.btSaveContinue.setOnClickListener {
+            createComputer(continueAfterSave = true)
+        }
+
         bd.etComputerYear.setOnClickListener {
             showDatePicker()
         }
         bd.etfComputerYear.setOnClickListener {
             showDatePicker()
+        }
+
+        bd.ivBackButton.setOnClickListener {
+            onBackPressed()
         }
 
         observeViewModel()
@@ -118,23 +126,37 @@ class AppendComputerActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.run {
-            isComputerCreated.observe(this@AppendComputerActivity, Observer {
+            isComputerCreatedAndFinish.observe(this@AppendComputerActivity, Observer {
                 killActivityIfComputerCreated(it)
             })
             isLoading.observe(this@AppendComputerActivity, Observer { showLoading(it) })
             messageError.observe(this@AppendComputerActivity, Observer { showToast(it, true) })
             messageSuccess.observe(this@AppendComputerActivity, Observer { showToast(it, false) })
+            computerCreatedAndContinue.observe(
+                this@AppendComputerActivity,
+                Observer { showMessageCreated(it) })
         }
     }
 
-    private fun createComputer() {
+    private fun showMessageCreated(message: String) {
+        if (message.isNotEmpty()) {
+            bd.tvAppendStatus.visible()
+            bd.tvAppendStatus.text = message
+
+            bd.etfComputerName.editText?.setText("")
+        } else {
+            bd.tvAppendStatus.invisible()
+        }
+    }
+
+    private fun createComputer(continueAfterSave: Boolean = false) {
         formValidation { data, error ->
             if (error.isNotEmpty()) {
                 showToast(error, true)
                 return@formValidation
             }
             data?.let {
-                viewModel.appendComputer(args = it)
+                viewModel.appendComputer(args = it, isContinue = continueAfterSave)
             }
         }
     }

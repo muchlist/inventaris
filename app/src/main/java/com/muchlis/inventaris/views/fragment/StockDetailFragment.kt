@@ -68,6 +68,10 @@ class StockDetailFragment : Fragment() {
         bd.ivDetailDecrement.setOnClickListener {
             intentToStockUseActivity(viewModel.getStockData().value, DECREMENT_MODE)
         }
+
+        bd.ivDetailBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 
     private fun intentToStockUseActivity(data: StockDetailResponse?, mode: String) {

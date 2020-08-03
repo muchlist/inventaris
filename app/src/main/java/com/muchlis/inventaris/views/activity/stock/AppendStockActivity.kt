@@ -35,6 +35,10 @@ class AppendStockActivity : AppCompatActivity() {
             createStock()
         }
 
+        bd.ivBackButton.setOnClickListener {
+            onBackPressed()
+        }
+
         observeViewModel()
 
     }
