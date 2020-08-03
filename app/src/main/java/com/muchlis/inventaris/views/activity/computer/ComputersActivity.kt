@@ -95,14 +95,24 @@ class ComputersActivity : AppCompatActivity() {
         }
     }
 
-    private fun findComputers(search: String = "") {
+    private fun findComputers(
+        search: String = "",
+        branch: String = App.prefs.userBranchSave,
+        location: String = "",
+        division: String = "",
+        seat: String = "", //no or yes
+        deactive: String = "no" //no or yes
+    ) {
         if (search.isEmpty()) {
             viewModel.findComputersFromServer(
                 FindComputersDto(
-                    branch = App.prefs.userBranchSave,
+                    branch = branch,
                     ipAddress = "",
                     clientName = "",
-                    deactive = ""
+                    deactive = deactive,
+                    location = location,
+                    division = division,
+                    seat = seat
                 )
             )
         } else {
@@ -113,7 +123,10 @@ class ComputersActivity : AppCompatActivity() {
                         branch = App.prefs.userBranchSave,
                         ipAddress = search,
                         clientName = "",
-                        deactive = ""
+                        deactive = deactive,
+                        location = location,
+                        division = division,
+                        seat = seat
                     )
                 )
             } else {
@@ -123,7 +136,10 @@ class ComputersActivity : AppCompatActivity() {
                         branch = App.prefs.userBranchSave,
                         ipAddress = "",
                         clientName = search,
-                        deactive = ""
+                        deactive = deactive,
+                        location = location,
+                        division = division,
+                        seat = seat
                     )
                 )
             }
@@ -223,7 +239,6 @@ class ComputersActivity : AppCompatActivity() {
 
         //Mendapatkan index dari isian awal
         val branchIndexStart = branchDropdownOption.indexOf(App.prefs.userBranchSave)
-        val locationIndexStart = 0
         val divisionIndexStart = 0
         val seatIndexStart = 0
         val statusIndexStart = 0
@@ -364,13 +379,32 @@ class ComputersActivity : AppCompatActivity() {
         buttonComputerDialogFilter.setOnClickListener {
 
             //VALIDASI
-
+            if (divisionSelected == "SEMUA") {
+                divisionSelected = ""
+            }
+            if (locationSelected == "SEMUA") {
+                locationSelected = ""
+            }
+            seatSelected = when (seatSelected) {
+                "YA" -> "yes"
+                "TIDAK" -> "no"
+                else -> ""
+            }
+            statusSelected = when (statusSelected) {
+                "NONAKTIF" -> "yes"
+                "AKTIF" -> "no"
+                else -> ""
+            }
 
             //CALL SERVER
-
-
-            //TOAST
-            showErrorToast("${searchText.editText?.text ?: ""} $branchSelected \n$divisionSelected \n$locationSelected \n$seatSelected \n$statusSelected")
+            findComputers(
+                search = searchText.editText?.text.toString(),
+                branch = branchSelected,
+                location = locationSelected,
+                division = divisionSelected,
+                seat = seatSelected,
+                deactive = statusSelected
+            )
 
             myDialog.dismiss()
         }

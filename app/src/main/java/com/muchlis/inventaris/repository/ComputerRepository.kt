@@ -64,7 +64,10 @@ object ComputerRepository {
             branch = data.branch,
             ipAddress = data.ipAddress,
             clientName = data.clientName,
-            deactive = data.deactive
+            deactive = data.deactive,
+            location = data.location,
+            division = data.division,
+            seat = data.seat
         ).enqueue(object : Callback<ComputerListResponse> {
             override fun onResponse(
                 call: Call<ComputerListResponse>,

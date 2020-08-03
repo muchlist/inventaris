@@ -39,7 +39,7 @@ class ComputerAdapter (
         fun bindItem(items: ComputerListResponse.Computer) {
 
             itemView.apply {
-                tv_computerlist_branch.text = items.branch
+                tv_computerlist_branch.text = items.location
                 tv_computerlist_division.text = items.division
                 tv_computerlist_ip.text = items.ipAddress
                 tv_computerlist_name.text = items.clientName

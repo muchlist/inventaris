@@ -65,14 +65,17 @@ interface ApiService {
         @Body args: ComputerRequest
     ): Call<ComputerDetailResponse>
 
-    //{{url}}/api/computers?branch=banjarmasin&ip_address=&client_name=&deactive=no
+    //{{url}}/api/computers?branch=banjarmasin&ip_address=&client_name=&deactive=no/yes
     @GET("/api/computers")
     fun getComputerList(
         @Header("Authorization") token: String,
         @Query("branch") branch: String = "",
+        @Query("location") location: String = "",
+        @Query("division") division: String = "",
         @Query("ip_address") ipAddress: String = "",
         @Query("client_name") clientName: String = "",
-        @Query("deactive") deactive: String = ""
+        @Query("deactive") deactive: String = "", //yes no
+        @Query("seat") seat: String = "" //yes no
     ): Call<ComputerListResponse>
 
 

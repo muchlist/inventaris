@@ -14,6 +14,8 @@ data class ComputerListResponse(
         val clientName: String,
         @Json(name = "division")
         val division: String,
+        @Json(name = "location")
+        val location: String,
         @Json(name = "ip_address")
         val ipAddress: String,
         @Json(name = "_id")
