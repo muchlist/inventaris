@@ -21,6 +21,7 @@ import com.muchlis.inventaris.recycler_adapter.DashboardMenuAdapter
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.DashboardViewModel
+import com.muchlis.inventaris.views.activity.cctv.CctvsActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
@@ -138,6 +139,7 @@ class DashboardActivity : AppCompatActivity() {
             when (it.id) {
                 0 -> intentToComputerActivity()
                 1 -> intentToStockActivity()
+                4 -> intentToCctvActivity()
                 5 -> intentToQrCode()
 //                2 -> startActivity<PrinterListActivity>()
 //                3 -> startActivity<ServerListActivity>()
@@ -157,6 +159,11 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun intentToStockActivity() {
         val intent = Intent(this, StocksActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun intentToCctvActivity(){
+        val intent = Intent(this, CctvsActivity::class.java)
         startActivity(intent)
     }
 

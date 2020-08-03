@@ -24,6 +24,9 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
 
+    /* LOGIN -------------------------------------------------------------------
+    */
+
     //USER
     @POST("/login")
     fun postLogin(
@@ -31,6 +34,9 @@ interface ApiService {
         @Header("Content-Type") contentType: String = "application/json"
     ): Call<LoginResponse>
 
+
+    /* HISTORY -------------------------------------------------------------------
+    */
 
     //{{url}}/api/histories/5ef05f051bbfc2b3db5d1159
     @POST("/api/histories/{id}")
@@ -57,6 +63,9 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<HistoryListResponse>
+
+    /* COMPUTER -------------------------------------------------------------------
+    */
 
     //{{url}}/api/computers
     @POST("/api/computers")
@@ -119,8 +128,9 @@ interface ApiService {
         @Body args: JustTimeStampRequest
     ): Call<ComputerDetailResponse>
 
+    /* STOCK -------------------------------------------------------------------
+    */
 
-    //STOCK
     //{{url}}/api/stock?branch=banjarmasin&ip_address=&stock_name=&deactive=no
     @GET("/api/stocks")
     fun getStockList(
@@ -178,6 +188,23 @@ interface ApiService {
         @Body args: StockUseRequest
     ): Call<StockDetailResponse>
 
+
+    /* CCTV -------------------------------------------------------------------
+    */
+    //{{url}}/api/cctvs?branch=banjarmasin&ip_address=&cctv_name=&deactive=no
+    @GET("/api/cctvs")
+    fun getCctvList(
+        @Header("Authorization") token: String,
+        @Query("branch") branch: String = "",
+        @Query("ip_address") ipAddress: String = "",
+        @Query("cctv_name") cctvName: String = "",
+        @Query("deactive") deactive: String = "" //yes no
+    ): Call<CctvListResponse>
+
+
+
+    /* OPTION -------------------------------------------------------------------
+    */
 
     //{{url}}/api/options
     @GET("/api/options")
