@@ -1,8 +1,10 @@
 package com.muchlis.inventaris.views.activity.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +16,7 @@ import com.muchlis.inventaris.view_model.LoginViewModel
 import com.muchlis.inventaris.views.activity.dashboard.DashboardActivity
 import es.dmoral.toasty.Toasty
 
-class LoginActivity : AppCompatActivity(){
+class LoginActivity : AppCompatActivity() {
     private lateinit var bd: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
 
@@ -43,9 +45,17 @@ class LoginActivity : AppCompatActivity(){
                 val loginInput = LoginRequest(username = username, password = password)
                 viewModel.doLogin(loginInput)
             }
-
-
         }
+
+        hideKeyboard()
+    }
+
+    private fun hideKeyboard() {
+        //HIDE KEYBOARD
+        bd.edtUsernameLogin.editText?.clearFocus()
+
+        //HIDE KEYBOARD
+        bd.edtPasswordLogin.editText?.clearFocus()
     }
 
     private fun observeViewModel() {
