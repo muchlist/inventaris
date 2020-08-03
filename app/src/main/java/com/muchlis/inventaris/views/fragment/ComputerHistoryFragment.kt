@@ -16,7 +16,7 @@ import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.databinding.FragmentComputerHistoryBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.ComputerDetailViewModel
+import com.muchlis.inventaris.view_model.computer.ComputerDetailViewModel
 import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
 import es.dmoral.toasty.Toasty
 

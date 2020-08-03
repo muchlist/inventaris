@@ -12,7 +12,7 @@ import com.muchlis.inventaris.data.request.ComputerRequest
 import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.databinding.ActivityAppendComputerBinding
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.AppendComputerViewModel
+import com.muchlis.inventaris.view_model.computer.AppendComputerViewModel
 import es.dmoral.toasty.Toasty
 import java.util.*
 

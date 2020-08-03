@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.view_model
+package com.muchlis.inventaris.view_model.stock
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,8 +7,6 @@ import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.repository.StockRepository
 import com.muchlis.inventaris.utils.toStringView
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 class StockDetailViewModel : ViewModel() {
 

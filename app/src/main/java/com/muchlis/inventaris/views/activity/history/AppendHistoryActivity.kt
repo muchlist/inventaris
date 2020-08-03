@@ -10,7 +10,7 @@ import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.databinding.ActivityAppendHistoryBinding
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.AppendHistoryViewModel
+import com.muchlis.inventaris.view_model.history.AppendHistoryViewModel
 import es.dmoral.toasty.Toasty
 import java.util.*
 

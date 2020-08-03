@@ -1,20 +1,10 @@
-package com.muchlis.inventaris.view_model
+package com.muchlis.inventaris.view_model.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.HistoryRequest
-import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.repository.HistoryRepository
-import com.muchlis.inventaris.services.Api
-import com.muchlis.inventaris.services.ApiService
-import com.muchlis.inventaris.utils.App
-import com.muchlis.inventaris.utils.ERR_CONN
-import com.muchlis.inventaris.utils.ERR_JSON_PARSING
-import com.muchlis.inventaris.utils.JsonMarshaller
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class AppendHistoryViewModel : ViewModel() {
     private val historyRepo = HistoryRepository

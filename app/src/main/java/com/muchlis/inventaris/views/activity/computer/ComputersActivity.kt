@@ -23,7 +23,7 @@ import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.databinding.ActivityComputerBinding
 import com.muchlis.inventaris.recycler_adapter.ComputerAdapter
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.ComputersViewModel
+import com.muchlis.inventaris.view_model.computer.ComputersViewModel
 import es.dmoral.toasty.Toasty
 
 class ComputersActivity : AppCompatActivity() {

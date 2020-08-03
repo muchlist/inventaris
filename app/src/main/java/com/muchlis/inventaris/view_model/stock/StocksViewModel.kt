@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.view_model
+package com.muchlis.inventaris.view_model.stock
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

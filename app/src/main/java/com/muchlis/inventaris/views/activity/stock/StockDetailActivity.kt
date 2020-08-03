@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.muchlis.inventaris.databinding.ActivityStockDetailBinding
 import com.muchlis.inventaris.utils.INTENT_STOCK_TO_DETAIL
-import com.muchlis.inventaris.view_model.StockDetailViewModel
+import com.muchlis.inventaris.view_model.stock.StockDetailViewModel
 import com.muchlis.inventaris.view_pager_adapter.StockPagerAdapter
 
 class StockDetailActivity : AppCompatActivity() {

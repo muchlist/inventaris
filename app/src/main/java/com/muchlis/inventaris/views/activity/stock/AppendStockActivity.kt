@@ -10,7 +10,7 @@ import com.muchlis.inventaris.data.request.StockRequest
 import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.databinding.ActivityAppendStockBinding
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.AppendStockViewModel
+import com.muchlis.inventaris.view_model.stock.AppendStockViewModel
 import es.dmoral.toasty.Toasty
 
 class AppendStockActivity : AppCompatActivity() {

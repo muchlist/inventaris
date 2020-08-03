@@ -9,7 +9,7 @@ import com.muchlis.inventaris.data.request.StockUseRequest
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.databinding.ActivityStockUseBinding
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.StockUseViewModel
+import com.muchlis.inventaris.view_model.stock.StockUseViewModel
 import es.dmoral.toasty.Toasty
 import java.util.*
 

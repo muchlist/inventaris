@@ -10,7 +10,7 @@ import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.databinding.ActivityEditStockBinding
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.EditStockViewModel
+import com.muchlis.inventaris.view_model.stock.EditStockViewModel
 import es.dmoral.toasty.Toasty
 
 class EditStockActivity : AppCompatActivity() {

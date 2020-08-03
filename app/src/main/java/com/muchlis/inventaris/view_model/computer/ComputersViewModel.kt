@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.view_model
+package com.muchlis.inventaris.view_model.computer
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.dto.FindComputersDto
 import com.muchlis.inventaris.data.response.ComputerListResponse
 import com.muchlis.inventaris.repository.ComputerRepository
-import com.muchlis.inventaris.utils.Validation
-import kotlinx.coroutines.delay
 
 class ComputersViewModel : ViewModel() {
 

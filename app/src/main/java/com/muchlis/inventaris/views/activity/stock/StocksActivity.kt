@@ -23,7 +23,7 @@ import com.muchlis.inventaris.data.response.StockListResponse
 import com.muchlis.inventaris.databinding.ActivityStocksBinding
 import com.muchlis.inventaris.recycler_adapter.StockAdapter
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.StocksViewModel
+import com.muchlis.inventaris.view_model.stock.StocksViewModel
 import es.dmoral.toasty.Toasty
 
 class StocksActivity : AppCompatActivity() {

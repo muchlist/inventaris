@@ -14,7 +14,7 @@ import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.databinding.FragmentStockDetailBinding
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.StockDetailViewModel
+import com.muchlis.inventaris.view_model.stock.StockDetailViewModel
 import com.muchlis.inventaris.views.activity.stock.EditStockActivity
 import com.muchlis.inventaris.views.activity.stock.StockUseActivity
 import es.dmoral.toasty.Toasty

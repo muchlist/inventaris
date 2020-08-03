@@ -14,9 +14,8 @@ import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.databinding.FragmentStockIncrementBinding
 import com.muchlis.inventaris.recycler_adapter.StockIncrementDecrementAdapter
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.StockDetailViewModel
+import com.muchlis.inventaris.view_model.stock.StockDetailViewModel
 import com.muchlis.inventaris.views.activity.stock.StockUseActivity
-import es.dmoral.toasty.Toasty
 
 class StockIncrementFragment : Fragment() {
 

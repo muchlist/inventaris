@@ -13,7 +13,7 @@ import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.databinding.FragmentComputerDetailBinding
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.ComputerDetailViewModel
+import com.muchlis.inventaris.view_model.computer.ComputerDetailViewModel
 import com.muchlis.inventaris.views.activity.computer.EditComputerActivity
 import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
 import es.dmoral.toasty.Toasty
