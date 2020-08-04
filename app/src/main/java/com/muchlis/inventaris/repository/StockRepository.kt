@@ -51,7 +51,13 @@ object StockRepository {
             }
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -94,7 +100,13 @@ object StockRepository {
             }
 
             override fun onFailure(call: Call<StockListResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -129,7 +141,13 @@ object StockRepository {
             }
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -167,7 +185,13 @@ object StockRepository {
             }
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -202,7 +226,13 @@ object StockRepository {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                callback("", ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback("", ERR_CONN)
+                    } else {
+                        callback("", it)
+                    }
+                }
             }
         })
     }
@@ -241,7 +271,13 @@ object StockRepository {
             }
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -278,7 +314,13 @@ object StockRepository {
             }
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }

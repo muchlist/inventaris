@@ -50,7 +50,13 @@ object ComputerRepository {
             }
 
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -95,7 +101,13 @@ object ComputerRepository {
             }
 
             override fun onFailure(call: Call<ComputerListResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -130,7 +142,13 @@ object ComputerRepository {
             }
 
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -167,7 +185,13 @@ object ComputerRepository {
             }
 
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
@@ -203,7 +227,13 @@ object ComputerRepository {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                callback("", ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback("", ERR_CONN)
+                    } else {
+                        callback("", it)
+                    }
+                }
             }
         })
     }
@@ -243,7 +273,13 @@ object ComputerRepository {
             }
 
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }

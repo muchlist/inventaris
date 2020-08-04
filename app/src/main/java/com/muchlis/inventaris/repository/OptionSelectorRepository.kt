@@ -2,6 +2,7 @@ package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.utils.App
+import com.muchlis.inventaris.utils.ERR_CONN
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +28,13 @@ object OptionSelectorRepository {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                callback("", "Error : ${t.message}")
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback("", ERR_CONN)
+                    } else {
+                        callback("", it)
+                    }
+                }
             }
         })
     }

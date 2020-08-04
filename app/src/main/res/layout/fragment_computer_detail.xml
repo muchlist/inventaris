@@ -324,18 +324,16 @@
 
                     <TextView
                         android:id="@+id/tv_detail_status"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:background="@color/button_color_second"
+                        android:ellipsize="end"
                         android:fontFamily="@font/quicksand"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp"
+                        android:maxLines="2"
                         android:text="@string/loading"
-                        android:textColor="@android:color/white"
                         android:textSize="18sp"
-                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toTopOf="@+id/textView" />
 

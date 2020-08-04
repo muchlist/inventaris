@@ -54,7 +54,13 @@ object CctvRepository {
             }
 
             override fun onFailure(call: Call<CctvListResponse>, t: Throwable) {
-                callback(null, ERR_CONN)
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
             }
         })
     }
