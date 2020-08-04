@@ -3,9 +3,6 @@ package com.muchlis.inventaris.views.activity.dashboard
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.GridLayoutAnimationController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,11 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.zxing.integration.android.IntentIntegrator
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.dto.FindHistoryDto
-import com.muchlis.inventaris.data.dto.MenuData
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.databinding.ActivityDashboardBinding
-import com.muchlis.inventaris.recycler_adapter.DashboardMenuAdapter
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.DashboardViewModel
@@ -34,10 +29,6 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var bd: ActivityDashboardBinding
     private lateinit var viewModel: DashboardViewModel
 
-    //gridview
-    private lateinit var menuAdapter: DashboardMenuAdapter
-    private var menuDataData: MutableList<MenuData> = mutableListOf()
-
     //recyclerview
     private lateinit var historyAdapter: HistoryAdapter
     private var historyData: MutableList<HistoryResponse> = mutableListOf()
@@ -49,21 +40,21 @@ class DashboardActivity : AppCompatActivity() {
         val view = bd.root
         setContentView(view)
 
-
         viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
 
         observeViewModel()
 
         setToolbarTitle()
 
-        setMenuDataForListMenu()
-
-        setListMenu()
-
         setRecyclerView()
 
         findHistories()
         viewModel.getOption()
+
+        bd.menuPc.setOnClickListener { intentToComputerActivity() }
+        bd.menuStock.setOnClickListener { intentToStockActivity() }
+        bd.menuCctv.setOnClickListener { intentToCctvActivity() }
+        bd.menuQr.setOnClickListener { intentToQrCode() }
 
         bd.ivReload.setOnClickListener {
             findHistories()
@@ -82,76 +73,6 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun setMenuDataForListMenu() {
-        menuDataData.apply {
-            clear()
-            add(
-                MenuData(
-                    0,
-                    "Komputer",
-                    R.drawable.ic_029_computer
-                )
-            )
-            add(
-                MenuData(
-                    1,
-                    "Stok",
-                    R.drawable.ic_049_stock
-                )
-            )
-            add(
-                MenuData(
-                    2,
-                    "Printer",
-                    R.drawable.ic_041_printer
-                )
-            )
-            add(
-                MenuData(
-                    3,
-                    "Server",
-                    R.drawable.ic_047_server
-                )
-            )
-            add(
-                MenuData(
-                    4,
-                    "CCTV",
-                    R.drawable.ic_018_cctv
-                )
-            )
-            add(
-                MenuData(
-                    5, "QR Scan",
-                    R.drawable.ic_qr_code_24px
-                )
-            )
-        }
-    }
-
-    private fun setListMenu() {
-
-        val animation: Animation = AnimationUtils.loadAnimation(this, R.anim.grid_item_anim)
-        val controller = GridLayoutAnimationController(animation, .1f, .3f)
-
-        menuAdapter = DashboardMenuAdapter(this, menuDataData) {
-
-            when (it.id) {
-                0 -> intentToComputerActivity()
-                1 -> intentToStockActivity()
-                4 -> intentToCctvActivity()
-                5 -> intentToQrCode()
-//                2 -> startActivity<PrinterListActivity>()
-//                3 -> startActivity<ServerListActivity>()
-//                4 -> startActivity<CctvListActivity>()
-                else -> {
-                }
-            }
-        }
-        bd.gvDashboardMenu.layoutAnimation = controller
-        bd.gvDashboardMenu.adapter = menuAdapter
-    }
-
     private fun intentToComputerActivity() {
         val intent = Intent(this, ComputersActivity::class.java)
         startActivity(intent)
@@ -162,7 +83,7 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun intentToCctvActivity(){
+    private fun intentToCctvActivity() {
         val intent = Intent(this, CctvsActivity::class.java)
         startActivity(intent)
     }
@@ -195,10 +116,10 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun detectCategoryScannedByQRCode(scannedText: String){
+    private fun detectCategoryScannedByQRCode(scannedText: String) {
         val textList = scannedText.split(" ")
-        if (textList.count() == 2){
-            when (textList[0].toUpperCase(Locale.ROOT)){
+        if (textList.count() == 2) {
+            when (textList[0].toUpperCase(Locale.ROOT)) {
                 CATEGORY_PC -> intentToComputerDetailActivity(textList[1])
                 else -> showErrorToast("QR Code tidak dikenali")
             }

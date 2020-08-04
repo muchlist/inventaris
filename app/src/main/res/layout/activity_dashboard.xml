@@ -23,9 +23,11 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
+                    android:paddingTop="16dp"
+                    android:layout_marginStart="120dp"
                     android:contentDescription="@string/sec_desc"
-                    android:src="@drawable/world_map"
+                    android:src="@drawable/ic_undraw_data_processing_yrrv"
                     app:layout_collapseMode="parallax" />
 
                 <androidx.appcompat.widget.Toolbar
@@ -53,18 +55,248 @@
                 android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
-                <GridView
-                    android:id="@+id/gv_dashboard_menu"
+                <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
-                    android:animateLayoutChanges="true"
-                    android:background="@drawable/gradient_dashboard_grid"
-                    android:columnWidth="165dp"
-                    android:gravity="center"
-                    android:numColumns="2"
+                    android:layout_height="wrap_content"
                     android:paddingTop="10dp"
-                    android:stretchMode="spacingWidthUniform"
-                    android:verticalSpacing="10dp" />
+                    android:paddingBottom="24dp"
+                    android:background="@drawable/gradient_dashboard_grid"
+                    app:flexWrap="wrap"
+                    app:dividerDrawableHorizontal="@drawable/divider"
+                    app:showDivider="middle"
+                    app:justifyContent="space_evenly">
+
+                    <!--computer-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/menu_pc"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/logo_menu_gridview"
+                                android:src="@drawable/ic_029_computer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/quicksand"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:text="Komputer" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!--stock-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/menu_stock"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/logo_menu_gridview"
+                                android:src="@drawable/ic_049_stock" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/quicksand"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:text="Stock" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!--printer-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/menu_printer"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/logo_menu_gridview"
+                                android:src="@drawable/ic_041_printer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/quicksand"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:text="Printer" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <!--server-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/menu_server"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/logo_menu_gridview"
+                                android:src="@drawable/ic_047_server" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/quicksand"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:text="Server" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!--cctv-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/menu_cctv"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/logo_menu_gridview"
+                                android:src="@drawable/ic_018_cctv" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/quicksand"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:text="Cctv" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!--qr-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/menu_qr"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/logo_menu_gridview"
+                                android:src="@drawable/ic_qr_code_24px" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/quicksand"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:text="QR Code" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </com.google.android.flexbox.FlexboxLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -88,7 +320,7 @@
                         android:id="@+id/iv_reload"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_sync_24px"/>
+                        android:src="@drawable/ic_sync_24px" />
 
                 </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.CctvListResponse
+import com.muchlis.inventaris.utils.invisible
 import kotlinx.android.synthetic.main.item_cctv.view.*
 
 class CctvAdapter(
@@ -42,7 +43,11 @@ class CctvAdapter(
                 tv_cctvlist_location.text = items.location
                 tv_cctvlist_last_status.text = items.lastStatus
 
-                tv_cctvlist_condition.text = items.lastPing[0].toString()
+                if (items.lastPing == "UP"){
+                    tv_cctvlist_condition.invisible()
+                } else {
+                    tv_cctvlist_condition.text = items.lastPing[0].toString()
+                }
 
                 //onClick
                 itemView.setOnClickListener { itemClick(items) }
