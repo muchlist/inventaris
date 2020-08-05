@@ -16,6 +16,7 @@ import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.DashboardViewModel
+import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.cctv.CctvsActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
@@ -73,27 +74,6 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun intentToComputerActivity() {
-        val intent = Intent(this, ComputersActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun intentToStockActivity() {
-        val intent = Intent(this, StocksActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun intentToCctvActivity() {
-        val intent = Intent(this, CctvsActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun intentToQrCode() {
-        val scanner = IntentIntegrator(this)
-        scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-        scanner.setBeepEnabled(false)
-        scanner.initiateScan()
-    }
 
     //ON RESULT SCAN QR CODE
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -121,6 +101,8 @@ class DashboardActivity : AppCompatActivity() {
         if (textList.count() == 2) {
             when (textList[0].toUpperCase(Locale.ROOT)) {
                 CATEGORY_PC -> intentToComputerDetailActivity(textList[1])
+                CATEGORY_CCTV -> intentToCctvDetailActivity(textList[1])
+                CATEGORY_STOCK -> intentToStockDetailActivity(textList[1])
                 else -> showErrorToast("QR Code tidak dikenali")
             }
         } else {
@@ -128,9 +110,43 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun intentToComputerDetailActivity(computerID: String) {
+    private fun intentToComputerActivity() {
+        val intent = Intent(this, ComputersActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun intentToStockActivity() {
+        val intent = Intent(this, StocksActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun intentToCctvActivity() {
+        val intent = Intent(this, CctvsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun intentToQrCode() {
+        val scanner = IntentIntegrator(this)
+        scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        scanner.setBeepEnabled(false)
+        scanner.initiateScan()
+    }
+
+    private fun intentToComputerDetailActivity(unitID: String) {
         val intent = Intent(this, ComputerDetailActivity::class.java)
-        intent.putExtra(INTENT_PC_TO_DETAIL, computerID)
+        intent.putExtra(INTENT_PC_TO_DETAIL, unitID)
+        startActivity(intent)
+    }
+
+    private fun intentToCctvDetailActivity(unitID: String) {
+        val intent = Intent(this, CctvDetailActivity::class.java)
+        intent.putExtra(INTENT_CCTV_TO_DETAIL, unitID)
+        startActivity(intent)
+    }
+
+    private fun intentToStockDetailActivity(unitID: String) {
+        val intent = Intent(this, StockDetailActivity::class.java)
+        intent.putExtra(INTENT_STOCK_TO_DETAIL, unitID)
         startActivity(intent)
     }
 
@@ -153,15 +169,14 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun intentToDetailActivity(parentID: String, category: String) {
         when (category) {
-            "PC" -> {
-                val intent = Intent(this, ComputerDetailActivity::class.java)
-                intent.putExtra(INTENT_PC_TO_DETAIL, parentID)
-                startActivity(intent)
+            CATEGORY_PC -> {
+                intentToComputerDetailActivity(parentID)
             }
-            "STOCK" -> {
-                val intent = Intent(this, StockDetailActivity::class.java)
-                intent.putExtra(INTENT_STOCK_TO_DETAIL, parentID)
-                startActivity(intent)
+            CATEGORY_STOCK -> {
+                intentToStockDetailActivity(parentID)
+            }
+            CATEGORY_CCTV -> {
+                intentToCctvDetailActivity(parentID)
             }
             else -> {
                 Toasty.error(this, "Category tidak valid", Toasty.LENGTH_LONG).show()

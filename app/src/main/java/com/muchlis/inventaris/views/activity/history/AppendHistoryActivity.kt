@@ -22,6 +22,8 @@ class AppendHistoryActivity : AppCompatActivity() {
 
     private lateinit var optionJsonObject: SelectOptionResponse
 
+    lateinit var parentCategory: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,7 @@ class AppendHistoryActivity : AppCompatActivity() {
         observeViewModel()
 
         val parentID = intent.getStringExtra(INTENT_TO_HISTORY_CREATE_ID)
-        val parentCategory = intent.getStringExtra(INTENT_TO_HISTORY_CREATE_CATEGORY)
+        parentCategory = intent.getStringExtra(INTENT_TO_HISTORY_CREATE_CATEGORY) ?: ""
         val parentName = intent.getStringExtra(INTENT_TO_HISTORY_CREATE_NAME)
 
         bd.etfHistoryName.editText?.setText(parentName)
@@ -103,8 +105,14 @@ class AppendHistoryActivity : AppCompatActivity() {
     private fun killActivityIfHistoryCreated(isCreated: Boolean) {
         if (isCreated) {
             App.activityDashboardMustBeRefresh = true
-            App.fragmentDetailComputerMustBeRefresh = true
             App.fragmentHistoryComputerMustBeRefresh = true
+            when (parentCategory) {
+                CATEGORY_CCTV -> {
+                    App.fragmentDetailCctvMustBeRefresh = true
+                    App.activityCctvListMustBeRefresh = true
+                }
+                CATEGORY_PC -> App.fragmentDetailComputerMustBeRefresh = true
+            }
             finish()
         }
     }

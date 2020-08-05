@@ -171,7 +171,7 @@ interface ApiService {
         @Path("id") id: String
     ): Call<ResponseBody>
 
-    //{{url}}/api/computers/5ef2d20fd72e1f6c75093643/(active atau deactive)
+    //{{url}}/api/stocks/5ef2d20fd72e1f6c75093643/(active atau deactive)
     @POST("/api/stocks/{id}/{active}")
     fun changeStatusActiveStock(
         @Header("Authorization") token: String,
@@ -200,6 +200,29 @@ interface ApiService {
         @Query("cctv_name") cctvName: String = "",
         @Query("deactive") deactive: String = "" //yes no
     ): Call<CctvListResponse>
+
+    //{{url}}/api/cctvs/5ef05f051bbfc2b3db5d1159
+    @GET("/api/cctvs/{id}")
+    fun getCctvDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<CctvDetailResponse>
+
+    //{{url}}/api/stocks/5ef2d20fd72e1f6c75093643/(active atau deactive)
+    @POST("/api/cctvs/{id}/{active}")
+    fun changeStatusActiveCctv(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Path("active") active: String,
+        @Body args: JustTimeStampRequest
+    ): Call<CctvDetailResponse>
+
+    //{{url}}/api/cctvs/5ef05f051bbfc2b3db5d1159
+    @DELETE("/api/cctvs/{id}")
+    fun deleteCctvDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ResponseBody>
 
 
 

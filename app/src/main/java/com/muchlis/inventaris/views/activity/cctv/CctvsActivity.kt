@@ -15,7 +15,6 @@ import com.muchlis.inventaris.recycler_adapter.CctvAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.cctv.CctvsViewModel
 import com.muchlis.inventaris.views.activity.stock.AppendStockActivity
-import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import es.dmoral.toasty.Toasty
 
 class CctvsActivity : AppCompatActivity() {
@@ -89,15 +88,15 @@ class CctvsActivity : AppCompatActivity() {
         bd.rvList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         cctvAdapter = CctvAdapter(this, cctvData) {
-            intentToStockDetailActivity(it.id)
+            intentToCctvDetailActivity(it.id)
         }
         bd.rvList.adapter = cctvAdapter
         bd.rvList.setHasFixedSize(true)
     }
 
-    private fun intentToStockDetailActivity(stockID: String) {
-        val intent = Intent(this, StockDetailActivity::class.java)
-        intent.putExtra(INTENT_STOCK_TO_DETAIL, stockID)
+    private fun intentToCctvDetailActivity(stockID: String) {
+        val intent = Intent(this, CctvDetailActivity::class.java)
+        intent.putExtra(INTENT_CCTV_TO_DETAIL, stockID)
         startActivity(intent)
     }
 

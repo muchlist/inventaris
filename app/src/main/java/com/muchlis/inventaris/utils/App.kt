@@ -14,6 +14,9 @@ class App : Application() {
 
         var activityStockListMustBeRefresh : Boolean = false
         var fragmentDetailStockMustBeRefresh : Boolean = false
+
+        var activityCctvListMustBeRefresh : Boolean = false
+        var fragmentDetailCctvMustBeRefresh : Boolean = false
     }
 
     override fun onCreate() {

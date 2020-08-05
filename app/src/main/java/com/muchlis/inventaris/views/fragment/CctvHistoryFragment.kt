@@ -10,22 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.muchlis.inventaris.data.response.ComputerDetailResponse
+import com.muchlis.inventaris.data.response.CctvDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.databinding.FragmentListHistoryBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.computer.ComputerDetailViewModel
+import com.muchlis.inventaris.view_model.cctv.CctvDetailViewModel
 import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
 import es.dmoral.toasty.Toasty
 
-class ComputerHistoryFragment : Fragment() {
+class CctvHistoryFragment : Fragment() {
 
     private var _binding: FragmentListHistoryBinding? = null
     private val bd get() = _binding!!
 
-    private lateinit var viewModel: ComputerDetailViewModel
+    private lateinit var viewModel: CctvDetailViewModel
 
     //Inisiasi data on resume just one time
     private var displayFirstTime = false
@@ -45,7 +45,7 @@ class ComputerHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(ComputerDetailViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(CctvDetailViewModel::class.java)
 
         observeViewModel()
 
@@ -56,7 +56,7 @@ class ComputerHistoryFragment : Fragment() {
         }
 
         bd.fabDetailComputerHistory.setOnClickListener {
-            intentToAppendHistoryActivity(viewModel.getComputerData().value)
+            intentToAppendHistoryActivity(viewModel.getCctvData().value)
         }
 
     }
@@ -66,8 +66,12 @@ class ComputerHistoryFragment : Fragment() {
         viewModel.run {
             getHistoryData().observe(viewLifecycleOwner, Observer { loadRecyclerView(it) })
             messageHistoryError.observe(viewLifecycleOwner, Observer { showToast(it, true) })
-            messageDeleteHistorySuccess.observe(viewLifecycleOwner, Observer { showToast(it, false) })
-            isDeleteHistorySuccess.observe(viewLifecycleOwner, Observer { viewModel.findHistoriesFromServer() })
+            messageDeleteHistorySuccess.observe(
+                viewLifecycleOwner,
+                Observer { showToast(it, false) })
+            isDeleteHistorySuccess.observe(
+                viewLifecycleOwner,
+                Observer { viewModel.findHistoriesFromServer() })
             isLoading.observe(viewLifecycleOwner, Observer { showLoading(it) })
         }
     }
@@ -99,11 +103,11 @@ class ComputerHistoryFragment : Fragment() {
         alertDialog.show()
     }
 
-    private fun intentToAppendHistoryActivity(data: ComputerDetailResponse?) {
+    private fun intentToAppendHistoryActivity(data: CctvDetailResponse?) {
         val intent = Intent(requireActivity(), AppendHistoryActivity::class.java)
         intent.putExtra(INTENT_TO_HISTORY_CREATE_ID, data?.id)
-        intent.putExtra(INTENT_TO_HISTORY_CREATE_CATEGORY, CATEGORY_PC)
-        intent.putExtra(INTENT_TO_HISTORY_CREATE_NAME, data?.clientName)
+        intent.putExtra(INTENT_TO_HISTORY_CREATE_CATEGORY, CATEGORY_CCTV)
+        intent.putExtra(INTENT_TO_HISTORY_CREATE_NAME, data?.cctvName)
         startActivity(intent)
     }
 
@@ -126,7 +130,7 @@ class ComputerHistoryFragment : Fragment() {
 
     private fun showToast(text: String, isError: Boolean = false) {
         if (text.isNotEmpty()) {
-            if (isError){
+            if (isError) {
                 Toasty.error(requireActivity(), text, Toasty.LENGTH_LONG).show()
             } else {
                 Toasty.success(requireActivity(), text, Toasty.LENGTH_LONG).show()
