@@ -6,13 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.CctvDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
-import com.muchlis.inventaris.repository.CctvRepository
-import com.muchlis.inventaris.repository.HistoryRepository
+import com.muchlis.inventaris.repository.CctvRepo
+import com.muchlis.inventaris.repository.HistoryRepo
 
 class CctvDetailViewModel : ViewModel() {
-
-    private val historyRepo = HistoryRepository
-    private val cctvRepo = CctvRepository
 
     //Data untuk detail
     private val _cctvData: MutableLiveData<CctvDetailResponse> = MutableLiveData()
@@ -72,7 +69,7 @@ class CctvDetailViewModel : ViewModel() {
         _isLoading.value = true
         _messageError.value = ""
 
-        cctvRepo.getCctv(cctvID = cctvID) { response, error ->
+        CctvRepo.getCctv(cctvID = cctvID) { response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error
@@ -90,7 +87,7 @@ class CctvDetailViewModel : ViewModel() {
         _isLoading.value = true
         _messageError.value = ""
 
-        cctvRepo.deleteCctv(cctvID = cctvID) { success, error ->
+        CctvRepo.deleteCctv(cctvID = cctvID) { success, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error
@@ -108,7 +105,7 @@ class CctvDetailViewModel : ViewModel() {
         _isLoading.value = true
         _messageHistoryError.value = ""
 
-        historyRepo.findHistoriesForParent(parentID = cctvID) { response, error ->
+        HistoryRepo.findHistoriesForParent(parentID = cctvID) { response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageHistoryError.value = error
@@ -124,7 +121,7 @@ class CctvDetailViewModel : ViewModel() {
     fun deleteHistoryFromServer(historyID: String) {
         _isLoading.value = true
         _messageHistoryError.value = ""
-        historyRepo.deleteHistory(historyID = historyID) { success, error ->
+        HistoryRepo.deleteHistory(historyID = historyID) { success, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageHistoryError.value = error
@@ -146,13 +143,16 @@ class CctvDetailViewModel : ViewModel() {
         }
     }
 
-    fun changeCctvStatusFromServer(){
+    fun changeCctvStatusFromServer() {
         _isLoading.value = true
         val args = JustTimeStampRequest(
             timeStamp = _cctvData.value?.updatedAt ?: ""
         )
-        cctvRepo.changeStatusCctv(cctvID = cctvID, statusActive = switchStatusCctv(),args = args){
-                response, error ->
+        CctvRepo.changeStatusCctv(
+            cctvID = cctvID,
+            statusActive = switchStatusCctv(),
+            args = args
+        ) { response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error

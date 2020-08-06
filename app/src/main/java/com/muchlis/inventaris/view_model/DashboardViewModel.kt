@@ -5,14 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.dto.FindHistoryDto
 import com.muchlis.inventaris.data.response.HistoryListResponse
-import com.muchlis.inventaris.repository.HistoryRepository
-import com.muchlis.inventaris.repository.OptionSelectorRepository
+import com.muchlis.inventaris.repository.HistoryRepo
+import com.muchlis.inventaris.repository.OptionSelectorRepo
 import com.muchlis.inventaris.utils.App
 
 class DashboardViewModel : ViewModel() {
-
-    private val historyRepo = HistoryRepository
-    private val optionRepo = OptionSelectorRepository
 
     //Data untuk RecyclerView
     private val _historyData: MutableLiveData<HistoryListResponse> = MutableLiveData()
@@ -36,7 +33,7 @@ class DashboardViewModel : ViewModel() {
     fun findHistories(data: FindHistoryDto) {
         _isLoading.value = true
         _messageError.value = ""
-        historyRepo.getHistories(data) { response, error ->
+        HistoryRepo.getHistories(data) { response, error ->
             if (error.isNotEmpty()) {
                 //Ada pesan error
                 _isLoading.value = false
@@ -51,7 +48,7 @@ class DashboardViewModel : ViewModel() {
     }
 
     fun getOption() {
-        optionRepo.getOptions { response, error ->
+        OptionSelectorRepo.getOptions { response, error ->
             if (error.isNotEmpty()) {
                 _messageError.value = error
                 return@getOptions

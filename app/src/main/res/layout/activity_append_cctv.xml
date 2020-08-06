@@ -63,6 +63,23 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etf_cctv_ip_address"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Alamat IP">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number|text"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:singleLine="true" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/etf_invent_num_cctv"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
@@ -130,41 +147,24 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etf_qty_cctv"
+                        android:id="@+id/etf_cctv_year"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Stok Awal">
+                        android:hint="Tahun Pengadaan">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_cctv_year"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number|numberDecimal"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:editable="false"
                             android:maxLines="1"
                             android:minLines="1"
-                            android:singleLine="true"
-                            android:textAllCaps="true" />
+                            android:singleLine="true" />
 
                     </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etf_threshold_cctv"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Minimum Peringatan">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="number|numberDecimal"
-                            android:maxLines="1"
-                            android:minLines="1"
-                            android:singleLine="true"
-                            android:textAllCaps="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/etf_note"

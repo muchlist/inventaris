@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.dto.FindComputersDto
 import com.muchlis.inventaris.data.response.ComputerListResponse
-import com.muchlis.inventaris.repository.ComputerRepository
+import com.muchlis.inventaris.repository.ComputerRepo
 
 class ComputersViewModel : ViewModel() {
 
-    private val computerRepo = ComputerRepository
 
     //Data untuk RecyclerView
     private val _computerData: MutableLiveData<ComputerListResponse> = MutableLiveData()
@@ -39,7 +38,7 @@ class ComputersViewModel : ViewModel() {
         _isLoading.value = true
         _messageError.value = ""
 
-        computerRepo.findComputers(data) { response, error ->
+        ComputerRepo.findComputers(data) { response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error

@@ -18,7 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object StockRepository {
+object StockRepo {
     private val apiService: ApiService = Api.retrofitService
 
     fun getStock(

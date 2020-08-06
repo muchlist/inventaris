@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object HistoryRepository {
+object HistoryRepo {
     private val apiService = Api.retrofitService
 
     fun getHistories(

@@ -6,13 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
-import com.muchlis.inventaris.repository.ComputerRepository
-import com.muchlis.inventaris.repository.HistoryRepository
+import com.muchlis.inventaris.repository.ComputerRepo
+import com.muchlis.inventaris.repository.HistoryRepo
 
 class ComputerDetailViewModel : ViewModel() {
-
-    private val historyRepo = HistoryRepository
-    private val computerRepo = ComputerRepository
 
     //Data untuk detail
     private val _computerData: MutableLiveData<ComputerDetailResponse> = MutableLiveData()
@@ -72,7 +69,7 @@ class ComputerDetailViewModel : ViewModel() {
         _isLoading.value = true
         _messageError.value = ""
 
-        computerRepo.getComputer(computerID = computerID) { response, error ->
+        ComputerRepo.getComputer(computerID = computerID) { response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error
@@ -90,7 +87,7 @@ class ComputerDetailViewModel : ViewModel() {
         _isLoading.value = true
         _messageError.value = ""
 
-        computerRepo.deleteComputer(computerID = computerID) { success, error ->
+        ComputerRepo.deleteComputer(computerID = computerID) { success, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error
@@ -108,7 +105,7 @@ class ComputerDetailViewModel : ViewModel() {
         _isLoading.value = true
         _messageHistoryError.value = ""
 
-        historyRepo.findHistoriesForParent(parentID = computerID) { response, error ->
+        HistoryRepo.findHistoriesForParent(parentID = computerID) { response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageHistoryError.value = error
@@ -124,7 +121,7 @@ class ComputerDetailViewModel : ViewModel() {
     fun deleteHistoryFromServer(historyID: String) {
         _isLoading.value = true
         _messageHistoryError.value = ""
-        historyRepo.deleteHistory(historyID = historyID) { success, error ->
+        HistoryRepo.deleteHistory(historyID = historyID) { success, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageHistoryError.value = error
@@ -151,7 +148,7 @@ class ComputerDetailViewModel : ViewModel() {
         val args = JustTimeStampRequest(
             timeStamp = _computerData.value?.updatedAt ?: ""
         )
-        computerRepo.changeStatusComputer(computerID = computerID, statusActive = switchStatusComputer(),args = args){
+        ComputerRepo.changeStatusComputer(computerID = computerID, statusActive = switchStatusComputer(),args = args){
             response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false

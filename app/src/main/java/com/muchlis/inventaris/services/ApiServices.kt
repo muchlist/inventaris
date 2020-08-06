@@ -224,6 +224,20 @@ interface ApiService {
         @Path("id") id: String
     ): Call<ResponseBody>
 
+    //{{url}}/api/cctvs
+    @POST("/api/cctvs")
+    fun postCctv(
+        @Header("Authorization") token: String,
+        @Body args: CctvRequest
+    ): Call<CctvDetailResponse>
+
+    //{{url}}/api/cctvs/5ef05f051bbfc2b3db5d1159
+    @PUT("/api/cctvs/{id}")
+    fun editCctvDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: CctvEditRequest
+    ): Call<CctvDetailResponse>
 
 
     /* OPTION -------------------------------------------------------------------

@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.StockRequest
-import com.muchlis.inventaris.repository.StockRepository
+import com.muchlis.inventaris.repository.StockRepo
 
 class AppendStockViewModel : ViewModel() {
-    private val stockRepo = StockRepository
+    private val stockRepo = StockRepo
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>

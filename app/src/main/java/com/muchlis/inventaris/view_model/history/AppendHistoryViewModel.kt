@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.HistoryRequest
-import com.muchlis.inventaris.repository.HistoryRepository
+import com.muchlis.inventaris.repository.HistoryRepo
 
 class AppendHistoryViewModel : ViewModel() {
-    private val historyRepo = HistoryRepository
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -33,13 +32,14 @@ class AppendHistoryViewModel : ViewModel() {
         _messageSuccess.value = ""
     }
 
-    fun appendHistory(parentID : String, args: HistoryRequest) {
+    fun appendHistory(parentID: String, args: HistoryRequest) {
         _isLoading.value = true
         _isHistoryCreated.value = false
-        historyRepo.createHistory(parentID = parentID,
-            args = args){
-            response, error ->
-            if (error.isNotEmpty()){
+        HistoryRepo.createHistory(
+            parentID = parentID,
+            args = args
+        ) { response, error ->
+            if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error
                 return@createHistory

@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.StockDetailResponse
-import com.muchlis.inventaris.repository.StockRepository
+import com.muchlis.inventaris.repository.StockRepo
 import com.muchlis.inventaris.utils.toStringView
 
 class StockDetailViewModel : ViewModel() {
 
-    private val stockRepo = StockRepository
+    private val stockRepo = StockRepo
 
     //Data untuk detail
     private val _stockData: MutableLiveData<StockDetailResponse> = MutableLiveData()

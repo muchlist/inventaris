@@ -156,7 +156,7 @@ class CctvsActivity : AppCompatActivity() {
     }
 
     private fun intentToStockAppendActivity() {
-        val intent = Intent(this, AppendStockActivity::class.java)
+        val intent = Intent(this, AppendCctvActivity::class.java)
         startActivity(intent)
     }
 
@@ -204,9 +204,9 @@ class CctvsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (App.activityStockListMustBeRefresh) {
+        if (App.activityCctvListMustBeRefresh) {
             findCctvs()
-            App.activityStockListMustBeRefresh = false
+            App.activityCctvListMustBeRefresh = false
         }
     }
 }

@@ -144,6 +144,7 @@ class AppendComputerActivity : AppCompatActivity() {
             bd.tvAppendStatus.text = message
 
             bd.etfComputerName.editText?.setText("")
+            App.activityComputerListMustBeRefresh = true
         } else {
             bd.tvAppendStatus.invisible()
         }

@@ -1,4 +1,4 @@
-package com.muchlis.inventaris
+package com.muchlis.inventaris.views.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

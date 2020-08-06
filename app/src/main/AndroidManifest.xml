@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activity.cctv.AppendCctvActivity"></activity>
+        <activity android:name=".views.activity.cctv.EditCctvActivity"></activity>
+        <activity android:name=".views.activity.cctv.AppendCctvActivity" />
         <activity android:name=".views.activity.cctv.CctvDetailActivity" />
         <activity android:name=".views.activity.cctv.CctvsActivity" />
         <activity
@@ -50,7 +51,7 @@
         <activity
             android:name=".views.activity.login.LoginActivity"
             android:windowSoftInputMode="adjustResize|stateVisible" />
-        <activity android:name=".MainEmptyActivity">
+        <activity android:name=".views.activity.MainEmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

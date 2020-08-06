@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object ComputerRepository {
+object ComputerRepo {
     private val apiService: ApiService = Api.retrofitService
 
     fun getComputer(

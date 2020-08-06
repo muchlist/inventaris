@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.dto.FindStocksDto
 import com.muchlis.inventaris.data.response.StockListResponse
-import com.muchlis.inventaris.repository.StockRepository
+import com.muchlis.inventaris.repository.StockRepo
 
 class StocksViewModel : ViewModel() {
 
-    private val stockRepo = StockRepository
+    private val stockRepo = StockRepo
 
     //Data untuk RecyclerView
     private val _stockData: MutableLiveData<StockListResponse> = MutableLiveData()

@@ -1,9 +1,10 @@
 package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindCctvDto
-import com.muchlis.inventaris.data.request.JustTimeStampRequest
+import com.muchlis.inventaris.data.request.*
 import com.muchlis.inventaris.data.response.CctvDetailResponse
 import com.muchlis.inventaris.data.response.CctvListResponse
+import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
@@ -15,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object CctvRepository {
+object CctvRepo {
     private val apiService: ApiService = Api.retrofitService
 
     fun getCctv(
@@ -98,6 +99,90 @@ object CctvRepository {
             override fun onFailure(call: Call<CctvListResponse>, t: Throwable) {
                 t.message?.let {
                     if (it.contains("Failed to connect")) {
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
+    fun createCctv(
+        args: CctvRequest,
+        callback: (response: CctvDetailResponse?, error: String) -> Unit
+    ) {
+        apiService.postCctv(
+            token = App.prefs.authTokenSave,
+            args = args
+        ).enqueue(object : Callback<CctvDetailResponse> {
+            override fun onResponse(
+                call: Call<CctvDetailResponse>,
+                response: Response<CctvDetailResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
+    fun editCctv(
+        cctvID: String,
+        args: CctvEditRequest,
+        callback: (response: CctvDetailResponse?, error: String) -> Unit
+    ) {
+        apiService.editCctvDetail(
+            token = App.prefs.authTokenSave,
+            id = cctvID,
+            args = args
+        ).enqueue(object : Callback<CctvDetailResponse> {
+            override fun onResponse(
+                call: Call<CctvDetailResponse>,
+                response: Response<CctvDetailResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("Failed to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)

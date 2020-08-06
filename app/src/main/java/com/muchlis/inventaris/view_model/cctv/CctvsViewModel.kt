@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.dto.FindCctvDto
 import com.muchlis.inventaris.data.response.CctvListResponse
-import com.muchlis.inventaris.repository.CctvRepository
+import com.muchlis.inventaris.repository.CctvRepo
 
 class CctvsViewModel : ViewModel() {
 
-    private val cctvRepo = CctvRepository
 
     //Data untuk RecyclerView
     private val _cctvData: MutableLiveData<CctvListResponse> = MutableLiveData()
@@ -39,7 +38,7 @@ class CctvsViewModel : ViewModel() {
         _isLoading.value = true
         _messageError.value = ""
 
-        cctvRepo.findCctvs(data) { response, error ->
+        CctvRepo.findCctvs(data) { response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error

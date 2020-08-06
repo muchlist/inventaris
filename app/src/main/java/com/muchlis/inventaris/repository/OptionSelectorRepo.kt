@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object OptionSelectorRepository {
+object OptionSelectorRepo {
     private val apiService = Api.retrofitService
 
     fun getOptions(callback: (response: String, error: String) -> Unit) {

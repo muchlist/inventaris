@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.ComputerRequest
-import com.muchlis.inventaris.repository.ComputerRepository
+import com.muchlis.inventaris.repository.ComputerRepo
 
 class AppendComputerViewModel : ViewModel() {
-    private val computerRepo = ComputerRepository
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -41,7 +40,7 @@ class AppendComputerViewModel : ViewModel() {
     fun appendComputer(args: ComputerRequest, isContinue: Boolean) {
         _isLoading.value = true
         _isComputerCreatedAndFinish.value = false
-        computerRepo.createComputer(
+        ComputerRepo.createComputer(
             args = args
         ) { response, error ->
             if (error.isNotEmpty()) {

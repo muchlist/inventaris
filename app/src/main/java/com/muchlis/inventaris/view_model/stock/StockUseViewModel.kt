@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.StockUseRequest
 import com.muchlis.inventaris.data.response.StockDetailResponse
-import com.muchlis.inventaris.repository.StockRepository
+import com.muchlis.inventaris.repository.StockRepo
 
 class StockUseViewModel : ViewModel() {
-    private val stockRepo = StockRepository
+    private val stockRepo = StockRepo
 
     private lateinit var stockDetail:  StockDetailResponse
     fun retrieveStockDetail(): StockDetailResponse {

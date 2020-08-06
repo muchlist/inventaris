@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.ComputerEditRequest
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
-import com.muchlis.inventaris.repository.ComputerRepository
+import com.muchlis.inventaris.repository.ComputerRepo
 
 class EditComputerViewModel : ViewModel() {
-    private val computerRepo = ComputerRepository
 
     private val _computerData: MutableLiveData<ComputerDetailResponse> = MutableLiveData()
     fun getComputerData(): MutableLiveData<ComputerDetailResponse> {
@@ -46,7 +45,7 @@ class EditComputerViewModel : ViewModel() {
     fun editComputerFromServer(args: ComputerEditRequest) {
         _isLoading.value = true
         _isComputerEdited.value = false
-        computerRepo.editComputer(
+        ComputerRepo.editComputer(
             computerID = _computerData.value?.id ?: "",
             args = args
         ) { response, error ->
