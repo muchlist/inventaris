@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.CctvDetailResponse
 import com.muchlis.inventaris.databinding.FragmentCctvDetailBinding
@@ -88,7 +92,10 @@ class CctvDetailFragment : Fragment() {
         viewModel.run {
             getCctvData().observe(
                 viewLifecycleOwner,
-                Observer { setDataToDetailComputerView(it) })
+                Observer {
+                    setDataToDetailComputerView(it)
+                    setLineChart(it.pingState)
+                })
             messageError.observe(viewLifecycleOwner, Observer { showToast(it, true) })
             messageDeleteComputerSuccess.observe(
                 viewLifecycleOwner,
@@ -120,6 +127,43 @@ class CctvDetailFragment : Fragment() {
             bd.ivDetailDeactive.setImageResource(R.drawable.icons8_remove)
         }
 
+    }
+
+    private fun setLineChart(data: List<CctvDetailResponse.PingState>) {
+        val dataReverse = data.reversed()
+
+        val pingState = mutableListOf<Entry>()
+        var index = 0
+        while (index < dataReverse.count()) {
+            pingState.add(Entry(index.toFloat(), dataReverse[index].code.toFloat()))
+            index++
+        }
+
+        val lineDataSet = LineDataSet(pingState, "0 = Down, 2 = Up")
+
+        lineDataSet.lineWidth = 2f
+        lineDataSet.setDrawFilled(true)
+        lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+//        lineDataSet.cubicIntensity = 0.5f
+
+        //SET DESCRIPTION for Chart with last ping date and begin ping date
+        val beginPing = dataReverse[0].timeDate.toDate().toStringDateForView()
+        val lastPing = dataReverse[dataReverse.lastIndex].timeDate.toDate().toStringDateForView()
+        val description = Description()
+        description.text = "$beginPing    sd    $lastPing"
+        bd.lineChart.description = description
+
+        bd.lineChart.xAxis.isEnabled = false
+        bd.lineChart.xAxis.valueFormatter
+        bd.lineChart.axisRight.isEnabled = false
+        bd.lineChart.axisLeft.isEnabled = false
+        bd.lineChart.animateY(500)
+
+        val dataLine = LineData(lineDataSet)
+        bd.lineChart.data = dataLine
+
+        //refresh
+        bd.lineChart.invalidate()
     }
 
     private fun showToast(text: String, isError: Boolean = false) {

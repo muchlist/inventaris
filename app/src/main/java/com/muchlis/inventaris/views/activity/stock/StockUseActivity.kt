@@ -46,6 +46,10 @@ class StockUseActivity : AppCompatActivity() {
             )
             return@setOnLongClickListener false
         }
+        bd.btSave.setOnClickListener {
+            showInfoToast("Tahan tombol untuk menyimpan!\ninfo: perubahan stok tidak bisa dibatalkan")
+        }
+
         bd.ivApplyButton.setOnLongClickListener {
             sendDataToServer(
                 parentID = parentID,
@@ -53,6 +57,11 @@ class StockUseActivity : AppCompatActivity() {
             )
             return@setOnLongClickListener false
         }
+        bd.ivApplyButton.setOnClickListener {
+            showInfoToast("Tahan tombol untuk menyimpan!\ninfo: perubahan stok tidak bisa dibatalkan")
+        }
+
+
         bd.ivBackButton.setOnClickListener { onBackPressed() }
     }
 
@@ -126,6 +135,12 @@ class StockUseActivity : AppCompatActivity() {
             } else {
                 Toasty.success(this, text, Toasty.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun showInfoToast(text: String) {
+        if (text.isNotEmpty()) {
+            Toasty.info(this, text, Toasty.LENGTH_LONG).show()
         }
     }
 }
