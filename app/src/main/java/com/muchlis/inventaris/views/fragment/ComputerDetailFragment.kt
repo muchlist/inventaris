@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.databinding.FragmentComputerDetailBinding
@@ -68,6 +69,30 @@ class ComputerDetailFragment : Fragment() {
         bd.ivDetailBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
+        loadImageIcon()
+    }
+
+    private fun loadImageIcon(){
+        Glide
+            .with(this)
+            .load(R.drawable.icons8_remove)
+            .into(bd.ivDetailDeactive)
+
+        Glide
+            .with(this)
+            .load(R.drawable.addproperty64)
+            .into(bd.ivDetailAddHistory)
+
+        Glide
+            .with(this)
+            .load(R.drawable.editproperty64)
+            .into(bd.ivDetailEdit)
+
+        Glide
+            .with(this)
+            .load(R.drawable.deletedocument64)
+            .into(bd.ivDetailDelete)
     }
 
     private fun intentToAppendHistoryActivity(data: ComputerDetailResponse?) {
@@ -127,10 +152,16 @@ class ComputerDetailFragment : Fragment() {
         //Status deactive
         if (data.deactive){
             bd.tvDeactiveStatus.visible()
-            bd.ivDetailDeactive.setImageResource(R.drawable.icons8_show)
+            Glide
+                .with(this)
+                .load(R.drawable.icons8_show)
+                .into(bd.ivDetailDeactive)
         } else {
             bd.tvDeactiveStatus.invisible()
-            bd.ivDetailDeactive.setImageResource(R.drawable.icons8_remove)
+            Glide
+                .with(this)
+                .load(R.drawable.icons8_remove)
+                .into(bd.ivDetailDeactive)
         }
 
     }

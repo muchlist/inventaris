@@ -425,11 +425,11 @@
                         android:id="@+id/iv_detail_edit"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/editproperty64"
                         app:layout_constraintEnd_toStartOf="@+id/iv_detail_add_history"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_detail_deactive"
-                        app:layout_constraintTop_toTopOf="@+id/iv_detail_deactive" />
+                        app:layout_constraintTop_toTopOf="@+id/iv_detail_deactive"
+                        tools:srcCompat="@drawable/editproperty64" />
 
                     <ImageView
                         android:id="@+id/iv_detail_delete"
@@ -437,7 +437,7 @@
                         android:layout_height="60dp"
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="64dp"
-                        android:src="@drawable/deletedocument64"
+                        tools:srcCompat="@drawable/deletedocument64"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_detail_deactive"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -448,7 +448,7 @@
                         android:id="@+id/iv_detail_add_history"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/addproperty64"
+                        tools:srcCompat="@drawable/addproperty64"
                         app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_detail_edit"
@@ -458,7 +458,7 @@
                         android:id="@+id/iv_detail_deactive"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/icons8_remove"
+                        tools:srcCompat="@drawable/icons8_remove"
                         app:layout_constraintEnd_toStartOf="@+id/iv_detail_edit"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_detail_delete"
