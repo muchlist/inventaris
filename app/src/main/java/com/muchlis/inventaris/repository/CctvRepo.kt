@@ -50,7 +50,7 @@ object CctvRepo {
 
             override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")) {
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -98,7 +98,7 @@ object CctvRepo {
 
             override fun onFailure(call: Call<CctvListResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")) {
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -139,7 +139,7 @@ object CctvRepo {
 
             override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -182,7 +182,7 @@ object CctvRepo {
 
             override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -223,7 +223,7 @@ object CctvRepo {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")) {
+                    if (it.contains("to connect")) {
                         callback("", ERR_CONN)
                     } else {
                         callback("", it)
@@ -269,7 +269,7 @@ object CctvRepo {
 
             override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")) {
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)

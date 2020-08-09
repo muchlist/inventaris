@@ -20,12 +20,13 @@ class ComputerDetailActivity : AppCompatActivity() {
         val view = bd.root
         setContentView(view)
 
-        viewModel = ViewModelProvider(this).get(ComputerDetailViewModel::class.java)
-
         //MENERIMA DATA DARI intent dan mengirim ke viewModel
         val computerID = intent.getStringExtra(
             INTENT_PC_TO_DETAIL
         )
+
+        viewModel = ViewModelProvider(this).get(ComputerDetailViewModel::class.java)
+
         computerID?.let {
             viewModel.setComputerId(it)
         }
@@ -36,7 +37,7 @@ class ComputerDetailActivity : AppCompatActivity() {
 
     private fun initPager() {
         bd.viewPagerMain.adapter = ComputerPagerAdapter(supportFragmentManager)
-        bd.viewPagerMain.offscreenPageLimit = 2
+        bd.viewPagerMain.offscreenPageLimit = 1
         bd.viewPagerMain.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -53,7 +54,5 @@ class ComputerDetailActivity : AppCompatActivity() {
         })
 
         bd.mainTab.setupWithViewPager(bd.viewPagerMain)
-//        bd.mainTab.getTabAt(1)?.setIcon(R.drawable.ic_arrow)
-//        bd.mainTab.getTabAt(2)?.setIcon(R.drawable.ic_arrow)
     }
 }

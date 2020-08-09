@@ -52,7 +52,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -101,7 +101,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockListResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -142,7 +142,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -186,7 +186,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -227,7 +227,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback("", ERR_CONN)
                     } else {
                         callback("", it)
@@ -272,7 +272,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -315,7 +315,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)

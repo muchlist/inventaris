@@ -51,7 +51,7 @@ object ComputerRepo {
 
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -102,7 +102,7 @@ object ComputerRepo {
 
             override fun onFailure(call: Call<ComputerListResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -143,7 +143,7 @@ object ComputerRepo {
 
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -186,7 +186,7 @@ object ComputerRepo {
 
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -228,7 +228,7 @@ object ComputerRepo {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback("", ERR_CONN)
                     } else {
                         callback("", it)
@@ -274,7 +274,7 @@ object ComputerRepo {
 
             override fun onFailure(call: Call<ComputerDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)

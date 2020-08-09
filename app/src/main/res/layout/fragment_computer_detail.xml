@@ -4,478 +4,447 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragment.ComputerDetailFragment">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                android:layout_height="wrap_content">
 
 
-                    <ImageView
-                        android:id="@+id/iv_detail_back"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="32dp"
-                        android:contentDescription="@string/dot"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_baseline_cancel_24px" />
+                <ImageView
+                    android:id="@+id/iv_detail_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:contentDescription="@string/dot"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_cancel_24px" />
 
-                    <TextView
-                        android:id="@+id/tv_detail_header"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="32dp"
-                        android:fontFamily="@font/quicksand_bold"
-                        android:text="@string/loading"
-                        android:textColor="@color/grey_80"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_detail_back" />
+                <TextView
+                    android:id="@+id/tv_detail_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/loading"
+                    android:textColor="@color/grey_80"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_detail_back"
+                    tools:text="@string/loading" />
 
-                    <TextView
-                        android:id="@+id/tv_detail_hostname"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/quicksand"
-                        android:text="@string/loading"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_header"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView5" />
+                <TableLayout
+                    android:id="@+id/table_detail_up"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_detail_header"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_header">
 
-                    <TextView
-                        android:id="@+id/tv_detail_ip_address"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:background="@color/button_color_second"
-                        android:fontFamily="@font/quicksand"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp"
-                        android:text="@string/loading"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView6" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_detail_no_inventory"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/quicksand"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_header"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView7"
-                        tools:text="2018-SPT-BTW" />
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/host"
+                            android:textSize="18sp" />
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_detail_edit"
-                        app:layout_constraintGuide_percent="0.4"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/iv_detail_delete" />
+                        <TextView
+                            android:id="@+id/tv_detail_hostname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
 
-                    <TextView
-                        android:id="@+id/tv_detail_branch"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:background="@color/button_color_second"
-                        android:fontFamily="@font/quicksand"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp"
-                        android:text="@string/loading"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView2"
-                        tools:text="Sampit" />
+                    </TableRow>
 
-                    <TextView
-                        android:id="@+id/tv_detail_division"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/quicksand"
-                        android:text="@string/loading"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView3" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_detail_location"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:textAlignment="textStart"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_no_inventory"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView4"
-                        tools:text="Trisakti" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/ip"
+                            android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/tv_detail_sub_header"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="32dp"
-                        android:fontFamily="@font/quicksand_bold"
-                        android:text="@string/loading"
-                        android:textColor="@color/grey_80"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_location" />
+                        <TextView
+                            android:id="@+id/tv_detail_ip_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/quicksand"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="@string/loading" />
 
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/quicksand"
-                        android:text="@string/seat_management_"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_sub_header" />
+                    </TableRow>
 
-                    <TextView
-                        android:id="@+id/tv_detail_seat_manajemen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:background="@color/button_color_second"
-                        android:fontFamily="@font/quicksand"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp"
-                        android:text="@string/loading"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                        app:layout_constraintStart_toEndOf="@+id/textView10"
-                        app:layout_constraintTop_toTopOf="@+id/textView10" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_detail_os"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/quicksand"
-                        android:text="@string/loading"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView21"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView21"
-                        app:layout_constraintVertical_bias="0.0" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/no_invent"
+                            android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/prosessor_"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_os" />
+                        <TextView
+                            android:id="@+id/tv_detail_no_inventory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
 
-                    <TextView
-                        android:id="@+id/tv_detail_prosessor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/quicksand"
-                        android:text="@string/loading"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView13" />
+                    </TableRow>
 
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/ram_"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_detail_ram"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/quicksand"
-                        android:text="@string/loading"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView15"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView15" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/cabang_"
+                            android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/harddisk_"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                        <TextView
+                            android:id="@+id/tv_detail_branch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:textSize="18sp"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            tools:text="@string/loading" />
 
-                    <TextView
-                        android:id="@+id/tv_detail_hardisk"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/quicksand"
-                        android:text="@string/loading"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView17"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toTopOf="@+id/textView17" />
+                    </TableRow>
 
-                    <TextView
-                        android:id="@+id/textView21"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/os_"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_detail_note"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="48dp"
-                        android:fontFamily="@font/quicksand"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_status"
-                        tools:text="NOTE NOTE NOTE" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/divisi_"
+                            android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/status_dot"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                        <TextView
+                            android:id="@+id/tv_detail_division"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
 
-                    <TextView
-                        android:id="@+id/tv_detail_status"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="2"
-                        android:text="@string/loading"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintStart_toStartOf="@+id/guideline3"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_hardisk" />
+                    </TableRow>
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/cabang_"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/textView6"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_no_inventory" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/divisi_"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/textView2"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/lokasi"
+                            android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/lokasi"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/textView3"
-                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                        <TextView
+                            android:id="@+id/tv_detail_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:textAlignment="textStart"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/host"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_header" />
+                    </TableRow>
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/ip"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_hostname" />
+                </TableLayout>
 
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/quicksand"
-                        android:maxLines="1"
-                        android:text="@string/no_invent"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/textView6"
-                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-                    <ImageView
-                        android:id="@+id/iv_detail_edit"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_detail_add_history"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/iv_detail_deactive"
-                        app:layout_constraintTop_toTopOf="@+id/iv_detail_deactive"
-                        tools:srcCompat="@drawable/editproperty64" />
+                <TextView
+                    android:id="@+id/tv_detail_sub_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/loading"
+                    android:textColor="@color/grey_80"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                    app:layout_constraintTop_toBottomOf="@+id/table_detail_up"
+                    tools:text="@string/loading" />
+
+                <TableLayout
+                    android:id="@+id/table_detail_down"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_sub_header">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:text="@string/seat_management_"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_seat_manajemen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/os_"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_os"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/prosessor_"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_prosessor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/ram_"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_ram"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/harddisk_"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_hardisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/quicksand"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/status_dot"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="3"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <TextView
+                    android:id="@+id/tv_detail_note"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="48dp"
+                    android:fontFamily="@font/quicksand"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintTop_toBottomOf="@+id/table_detail_down"
+                    tools:text="NOTE NOTE NOTE" />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="64dp"
+                    app:dividerDrawableHorizontal="@drawable/divider"
+                    app:flexWrap="wrap"
+                    app:justifyContent="space_evenly"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_note"
+                    app:showDivider="middle">
 
                     <ImageView
                         android:id="@+id/iv_detail_delete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginBottom="64dp"
-                        tools:srcCompat="@drawable/deletedocument64"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_detail_deactive"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_detail_note" />
-
-                    <ImageView
-                        android:id="@+id/iv_detail_add_history"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        tools:srcCompat="@drawable/addproperty64"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/iv_detail_edit"
-                        app:layout_constraintTop_toTopOf="@+id/iv_detail_edit" />
+                        tools:srcCompat="@drawable/deletedocument64" />
 
                     <ImageView
                         android:id="@+id/iv_detail_deactive"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        tools:srcCompat="@drawable/icons8_remove"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_detail_edit"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/iv_detail_delete"
-                        app:layout_constraintTop_toTopOf="@+id/iv_detail_delete" />
+                        tools:srcCompat="@drawable/icons8_remove" />
 
                     <ImageView
-                        android:id="@+id/iv_detail_load"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginEnd="32dp"
-                        android:src="@drawable/ic_sync_24px"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:id="@+id/iv_detail_edit"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        tools:srcCompat="@drawable/editproperty64" />
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_detail_add_history"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        tools:srcCompat="@drawable/addproperty64" />
+
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <ImageView
+                    android:id="@+id/iv_detail_load"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:src="@drawable/ic_sync_24px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 
@@ -483,15 +452,26 @@
             android:id="@+id/tv_deactive_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="false"
             android:background="#FFAB91"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Unit Status Nonaktif"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </RelativeLayout>
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

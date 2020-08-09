@@ -43,6 +43,7 @@ class ComputerDetailFragment : Fragment() {
 
         viewModel.getComputerFromServer()
 
+        loadImageIcon()
 
         bd.ivDetailDelete.setOnClickListener {
             deleteComputerDetail()
@@ -69,8 +70,6 @@ class ComputerDetailFragment : Fragment() {
         bd.ivDetailBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-
-        loadImageIcon()
     }
 
     private fun loadImageIcon(){
@@ -104,9 +103,9 @@ class ComputerDetailFragment : Fragment() {
     }
 
     private fun intentToEditComputerActivity(data: ComputerDetailResponse){
-            val intent = Intent(this.activity, EditComputerActivity::class.java)
-            intent.putExtra(INTENT_TO_EDIT_COMPUTER, data)
-            startActivity(intent)
+        val intent = Intent(this.activity, EditComputerActivity::class.java)
+        intent.putExtra(INTENT_TO_EDIT_COMPUTER, data)
+        startActivity(intent)
     }
 
     private fun observeViewModel() {
@@ -122,6 +121,17 @@ class ComputerDetailFragment : Fragment() {
             isdeleteComputerSuccess.observe(viewLifecycleOwner, Observer {
                 computerDeletedKillActivity(it)
             })
+            isLoading.observe(viewLifecycleOwner, Observer {
+                showLoading(it)
+            })
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean){
+        if (isLoading){
+            bd.loading.visible()
+        } else {
+            bd.loading.invisible()
         }
     }
 
@@ -143,7 +153,7 @@ class ComputerDetailFragment : Fragment() {
             "false"
         }
         bd.tvDetailOs.text = data.operationSystem
-        bd.tvDetailProsessor.text = data.spec.processor.toString()
+        bd.tvDetailProsessor.text = data.spec.processor
         bd.tvDetailRam.text = data.spec.ram.toString()
         bd.tvDetailHardisk.text = data.spec.hardisk.toString()
         bd.tvDetailStatus.text = data.lastStatus

@@ -108,6 +108,9 @@ class StockDetailFragment : Fragment() {
             isdeleteStockSuccess.observe(
                 viewLifecycleOwner,
                 Observer { stockDeletedKillActivity(it) })
+            isLoading.observe(viewLifecycleOwner, Observer {
+                showLoading(it)
+            })
         }
     }
 
@@ -191,6 +194,14 @@ class StockDetailFragment : Fragment() {
         if (isDeleted) {
             requireActivity().finish()
             App.activityStockListMustBeRefresh = true
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            bd.loading.visible()
+        } else {
+            bd.loading.invisible()
         }
     }
 

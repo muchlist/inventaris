@@ -1,189 +1,6 @@
 <resources>
     <string name="app_name">Inventaris</string>
 
-    <!--    ARRAY OPTION-->
-    <string-array name="branch_array">
-        <item>Banjarmasin</item>
-        <item>Sampit</item>
-        <item>Bagendang</item>
-        <item>Kotabaru</item>
-        <item>Batulicin</item>
-        <item>Mekarputih</item>
-        <item>Kumai</item>
-        <item>Bumiharjo</item>
-    </string-array>
-
-    <string-array name="stock_active_array">
-        <item>Aktif</item>
-        <item>Non Aktif</item>
-    </string-array>
-
-    <string-array name="stock_category_array">
-        <item>Semua</item>
-        <item>Komputer</item>
-        <item>Part komputer</item>
-        <item>UPS</item>
-        <item>Printer</item>
-        <item>CCTV</item>
-        <item>Jaringan</item>
-        <item>Server</item>
-        <item>Handheld</item>
-        <item>Display</item>
-        <item>Presensi</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="server_category_array">
-        <item>Semua</item>
-        <item>Server</item>
-        <item>Router</item>
-        <item>Man_Switch</item>
-        <item>Switch</item>
-        <item>Wireless_Router</item>
-        <item>Smart_UPS</item>
-        <item>UPS</item>
-        <item>PC</item>
-        <item>Stabilizer</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="server_category_post">
-        <item>Server</item>
-        <item>Router</item>
-        <item>Man_Switch</item>
-        <item>Switch</item>
-        <item>Wireless_Router</item>
-        <item>Smart_UPS</item>
-        <item>UPS</item>
-        <item>PC</item>
-        <item>Stabilizer</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="computer_location_array">
-        <item>---</item>
-        <item>Bjm_Reg</item>
-        <item>Bjm_Trisakti</item>
-        <item>Bjm_TPKB</item>
-        <item>Bjm_Pulpis</item>
-    </string-array>
-
-    <string-array name="computer_division_array">
-        <item>---</item>
-        <item>Umum</item>
-        <item>Operasional</item>
-        <item>Komersial</item>
-        <item>Teknik</item>
-        <item>Keuangan</item>
-        <item>TIK</item>
-        <item>SMI</item>
-        <item>GM</item>
-        <item>Server</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="computer_division_array_post">
-        <item>Umum</item>
-        <item>Operasional</item>
-        <item>Komersial</item>
-        <item>Teknik</item>
-        <item>Keuangan</item>
-        <item>TIK</item>
-        <item>SMI</item>
-        <item>GM</item>
-        <item>Server</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="computer_seat_manajemen_array">
-        <item>---</item>
-        <item>true</item>
-        <item>false</item>
-    </string-array>
-
-    <string-array name="computer_status_array">
-        <item>---</item>
-        <item>Baik</item>
-        <item>Backup</item>
-        <item>Rusak</item>
-        <item>Hilang</item>
-    </string-array>
-
-    <string-array name="cctv_status_array">
-        <item>---</item>
-        <item>Aktif</item>
-        <item>Backup</item>
-        <item>Rusak</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="cctv_status_array_post">
-        <item>Aktif</item>
-        <item>Backup</item>
-        <item>Rusak</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="printer_status_array">
-        <item>---</item>
-        <item>Baik</item>
-        <item>Backup</item>
-        <item>Rusak</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="printer_status_array_post">
-        <item>Baik</item>
-        <item>Backup</item>
-        <item>Rusak</item>
-        <item>Lainnya</item>
-    </string-array>
-
-    <string-array name="cctv_history_status">
-        <item>Pengecekan</item>,
-        <item>Diperbaiki</item>,
-        <item>Bermasalah</item>,
-        <item>Rusak</item>,
-        <item>Pindah_Tempat</item>,
-        <item>Dibersihkan</item>,
-        <item>Digudangkan</item>,
-        <item>Dimusnahkan</item>,
-        <item>Hilang</item>
-    </string-array>
-
-    <string-array name="printer_history_status">
-        <item>Refill_Tinta</item>,
-        <item>Diperbaiki</item>,
-        <item>Bermasalah</item>,
-        <item>Rusak</item>,
-        <item>Pindah_Tempat</item>,
-        <item>Dibersihkan</item>,
-        <item>Digudangkan</item>,
-        <item>Dimusnahkan</item>,
-        <item>Hilang</item>
-    </string-array>
-
-    <string-array name="server_history_status">
-        <item>Pengecekan</item>,
-        <item>Diperbaiki</item>,
-        <item>Disetting</item>,
-        <item>Bermasalah</item>,
-        <item>Rusak</item>,
-        <item>Pindah_Tempat</item>,
-        <item>Dibersihkan</item>,
-        <item>Digudangkan</item>,
-        <item>Dimusnahkan</item>,
-        <item>Hilang</item>
-    </string-array>
-
-    <string-array name="history_select">
-        <item>Komputer</item>
-        <item>Printer</item>
-        <item>Server</item>
-        <item>CCTV</item>
-    </string-array>
-
-
     <string name="error">Server Sleep</string>
     <string name="dot">Dot Point</string>
     <string name="identitas">Identitas</string>
@@ -232,19 +49,19 @@
     <string name="edit_komputer">Ubah Komputer</string>
     <string name="tambah_history">Tambah Riwayat</string>
     <string name="history__">RIWAYAT</string>
-    <string name="no_invent">No Invent ..................................</string>
-    <string name="ip">IP ..................................</string>
-    <string name="host">Host ..................................</string>
-    <string name="lokasi">Lokasi ..................................</string>
-    <string name="divisi_">Divisi ..................................</string>
-    <string name="cabang_">Cabang ..................................</string>
-    <string name="status_dot">Status ..................................</string>
-    <string name="os_">OS ..................................</string>
-    <string name="vga_">VGA ..................................</string>
-    <string name="harddisk_">Harddisk ..................................</string>
-    <string name="ram_">RAM ..................................</string>
-    <string name="prosessor_">Prosessor ..................................</string>
-    <string name="seat_management_">Seat Management :</string>
+    <string name="no_invent">No Invent</string>
+    <string name="ip">IP</string>
+    <string name="host">Host</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="divisi_">Divisi</string>
+    <string name="cabang_">Cabang</string>
+    <string name="status_dot">Status</string>
+    <string name="os_">OS</string>
+    <string name="vga_">VGA</string>
+    <string name="harddisk_">Harddisk</string>
+    <string name="ram_">RAM</string>
+    <string name="prosessor_">Prosessor</string>
+    <string name="seat_management_">Seat Man</string>
     <string name="history">--LOG--</string>
     <string name="reload">RELOAD</string>
     <string name="tambah_komputer">Tambah Komputer</string>
@@ -370,8 +187,8 @@
     <string name="filter_printer">Filter Printer</string>
     <string name="tambah_cctv_add">Tambah Cctv</string>
     <string name="nama_cctv">Nama Cctv</string>
-    <string name="merk_model_dot">Merk Model ............................</string>
-    <string name="tahun_dot">Tahun .....................................</string>
+    <string name="merk_model_dot">Merk Model</string>
+    <string name="tahun_dot">Tahun</string>
     <string name="ubah_cctv">Ubah Cctv</string>
     <string name="edit_cctv">Edit Cctv</string>
     <string name="tambah_printer">Tambah Printer</string>
@@ -382,10 +199,8 @@
     <string name="tambah_server">Tambah Server</string>
     <string name="filter_server">Filter Server</string>
     <string name="nama_server">Nama Server</string>
-    <string name="kategori_dot">Kategori .........................</string>
+    <string name="kategori_dot">Kategori</string>
     <string name="ubah_server">Ubah Server</string>
     <string name="loading">Memuat &#8230;</string>
     <string name="empty_box">empty box</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

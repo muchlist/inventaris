@@ -55,7 +55,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<HistoryListResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -98,7 +98,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -139,7 +139,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<HistoryListResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -181,7 +181,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("Failed to connect")){
+                    if (it.contains("to connect")){
                         callback("", ERR_CONN)
                     } else {
                         callback("", it)
