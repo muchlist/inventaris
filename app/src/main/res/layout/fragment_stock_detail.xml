@@ -36,7 +36,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/quicksand_bold"
-                    android:text="@string/loading"
+                    android:text="@string/loading_caps"
                     android:textColor="@color/grey_80"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -71,6 +71,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/quicksand"
+                            android:text="@string/loading"
                             android:textSize="18sp"
                             tools:text="@string/loading" />
 
@@ -93,6 +94,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/quicksand"
+                            android:text="@string/loading"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             tools:text="@string/loading" />
@@ -114,6 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/quicksand"
+                            android:text="@string/loading"
                             android:textSize="18sp"
                             tools:text="@string/loading" />
 
@@ -159,7 +162,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/quicksand_bold"
-                    android:text="@string/loading"
+                    android:text="@string/loading_caps"
                     android:textColor="@color/grey_80"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -195,6 +198,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/quicksand"
+                            android:text="@string/loading"
                             android:textSize="18sp"
                             tools:text="@string/loading" />
 
