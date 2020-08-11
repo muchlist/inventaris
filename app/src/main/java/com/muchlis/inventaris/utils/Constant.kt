@@ -20,6 +20,8 @@ const val NONAKTIF = "NONAKTIF"
 const val YES = "yes"
 const val NO = "no"
 const val LAINNYA = "LAINNYA"
+const val UP = "UP"
+const val DOWN = "DOWN"
 
 
 const val INTENT_TO_HISTORY_CREATE_ID = "INTENT_TO_HISTORY_CREATE_ID"

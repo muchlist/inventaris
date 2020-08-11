@@ -4,5 +4,7 @@ data class FindCctvDto(
     val branch: String,
     val ipAddress: String,
     val cctvName: String,
-    val deactive: String
+    val deactive: String,
+    val lastPing: String,
+    val location: String
 )

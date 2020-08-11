@@ -1,12 +1,22 @@
 package com.muchlis.inventaris.views.activity.cctv
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.textfield.TextInputLayout
+import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.dto.FindCctvDto
 import com.muchlis.inventaris.data.response.CctvListResponse
 import com.muchlis.inventaris.data.response.SelectOptionResponse
@@ -14,7 +24,6 @@ import com.muchlis.inventaris.databinding.ActivityCctvsBinding
 import com.muchlis.inventaris.recycler_adapter.CctvAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.cctv.CctvsViewModel
-import com.muchlis.inventaris.views.activity.stock.AppendStockActivity
 import es.dmoral.toasty.Toasty
 
 class CctvsActivity : AppCompatActivity() {
@@ -32,7 +41,7 @@ class CctvsActivity : AppCompatActivity() {
     private var isFirstTimeLoad = true
 
     //Dropdown dialog
-    //private lateinit var myDialog: Dialog
+    private lateinit var myDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +73,11 @@ class CctvsActivity : AppCompatActivity() {
         }
 
         //INIT dialog
-        //myDialog = Dialog(this)
+        myDialog = Dialog(this)
+
+        bd.chipFilter.setOnClickListener {
+            showFilterDialog()
+        }
 
 
         //HIDE KEYBOARD
@@ -119,7 +132,9 @@ class CctvsActivity : AppCompatActivity() {
     private fun findCctvs(
         search: String = "",
         branch: String = App.prefs.userBranchSave,
-        deactive: String = NO
+        deactive: String = NO,
+        location: String = "",
+        pingState: String = ""
     ) {
         if (search.isEmpty()) {
             viewModel.findCctvFromServer(
@@ -127,7 +142,9 @@ class CctvsActivity : AppCompatActivity() {
                     branch = branch,
                     cctvName = "",
                     deactive = deactive,
-                    ipAddress = ""
+                    ipAddress = "",
+                    lastPing = pingState,
+                    location = location
                 )
             )
         } else {
@@ -138,7 +155,9 @@ class CctvsActivity : AppCompatActivity() {
                         branch = branch,
                         cctvName = "",
                         deactive = deactive,
-                        ipAddress = search
+                        ipAddress = search,
+                        lastPing = pingState,
+                        location = location
                     )
                 )
             } else {
@@ -148,7 +167,9 @@ class CctvsActivity : AppCompatActivity() {
                         branch = branch,
                         cctvName = search,
                         deactive = deactive,
-                        ipAddress = ""
+                        ipAddress = "",
+                        lastPing = pingState,
+                        location = location
                     )
                 )
             }
@@ -183,13 +204,177 @@ class CctvsActivity : AppCompatActivity() {
         bd.rvList.invalidate()
     }
 
-//    private fun validateJsonStringInSharedPrefsForDropdown() {
-//        if (JsonMarshaller().getOption() != null) {
-//            optionJsonObject = JsonMarshaller().getOption()!!
-//        } else {
-//            Toasty.error(this, ERR_DROPDOWN_NOT_LOAD, Toasty.LENGTH_LONG).show()
-//        }
-//    }
+    private fun validateJsonStringInSharedPrefsForDropdown() {
+        if (JsonMarshaller().getOption() != null) {
+            optionJsonObject = JsonMarshaller().getOption()!!
+        } else {
+            Toasty.error(this, ERR_DROPDOWN_NOT_LOAD, Toasty.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showFilterDialog() {
+
+        //Memvalidasi json option yang disimpan di sharepref
+        validateJsonStringInSharedPrefsForDropdown()
+
+        lateinit var locationDropdown: Spinner
+
+        //mengisi semua opsi untuk spinner
+        val branchDropdownOption = optionJsonObject.kalimantan
+        val locationDropdownOption: MutableList<String> = mutableListOf()
+
+        val pingDropdownOption = listOf(SEMUA, UP, DOWN)
+        val statusDropdownOption = listOf(AKTIF, NONAKTIF, SEMUA)
+
+        //Mendapatkan index dari isian awal
+        val branchIndexStart = branchDropdownOption.indexOf(App.prefs.userBranchSave)
+        val statusIndexStart = 0
+        val pingIndexStart = 0
+
+        //Nilai yang terpilih
+        var branchSelected = ""
+        var locationSelected = ""
+        var pingSelected = ""
+        var statusSelected = ""
+
+        //set layout untuk dialog
+        myDialog.setContentView(R.layout.dialog_filter_cctv)
+
+        //INISIASI TEXTINPUT LAYOUT
+        val searchText: TextInputLayout = myDialog.findViewById(R.id.et_cctvfilter_searchbar)
+
+        //INISIASI Spinner
+
+        //BRANCH DROPDOWN
+        val branchDropdown: Spinner = myDialog.findViewById(R.id.sp_filter_cctv_branch)
+        branchDropdown.adapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, branchDropdownOption)
+
+        branchDropdown.setSelection(branchIndexStart)
+        branchDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                branchSelected = branchDropdownOption[position]
+                locationDropdownOption.clear()
+                val locationFiltered = optionJsonObject.locations.filter { s ->
+                    s.contains(branchSelected) || s.contains(LAINNYA)
+                }
+                locationDropdownOption.addAll(locationFiltered)
+                locationDropdownOption.add(0, SEMUA)
+                locationDropdown.adapter =
+                    ArrayAdapter<String>(
+                        this@CctvsActivity,
+                        android.R.layout.simple_list_item_1,
+                        locationDropdownOption
+                    )
+            }
+
+        }
+
+        //LOCATION DROPDOWN
+        locationDropdown = myDialog.findViewById(R.id.sp_filter_cctv_lokasi)
+        locationDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                locationSelected = locationDropdownOption[position]
+            }
+
+
+        }
+
+        //SEAT DROPDOWN
+        val seatDropdown: Spinner = myDialog.findViewById(R.id.sp_filter_cctv_ping)
+        seatDropdown.adapter =
+            ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                pingDropdownOption
+            )
+
+        seatDropdown.setSelection(pingIndexStart)
+        seatDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                pingSelected = pingDropdownOption[position]
+            }
+        }
+
+        //STATUS DROPDOWN
+        val statusDropdown: Spinner = myDialog.findViewById(R.id.sp_filter_cctv_status)
+        statusDropdown.adapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, statusDropdownOption)
+
+        statusDropdown.setSelection(statusIndexStart)
+        statusDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                statusSelected = statusDropdownOption[position]
+            }
+        }
+
+        //TOMBOL APPLY
+        val buttonCctvDialogFilter: Button =
+            myDialog.findViewById(R.id.bt_filter_cctv_apply)
+        buttonCctvDialogFilter.setOnClickListener {
+
+            //VALIDASI
+            if (locationSelected == SEMUA) {
+                locationSelected = ""
+            }
+            statusSelected = when (statusSelected) {
+                NONAKTIF -> YES
+                AKTIF -> NO
+                else -> ""
+            }
+            pingSelected = when (pingSelected) {
+                UP -> UP
+                DOWN -> DOWN
+                else -> ""
+            }
+
+            //CALL SERVER
+            findCctvs(
+                search = searchText.editText?.text.toString(),
+                branch = branchSelected,
+                location = locationSelected,
+                pingState = pingSelected,
+                deactive = statusSelected
+            )
+
+            myDialog.dismiss()
+        }
+
+        myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        myDialog.show()
+    }
 
 
     private fun showLoading(isLoading: Boolean) {

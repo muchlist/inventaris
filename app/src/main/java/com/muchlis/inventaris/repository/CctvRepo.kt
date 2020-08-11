@@ -69,7 +69,9 @@ object CctvRepo {
             branch = data.branch,
             ipAddress = data.ipAddress,
             cctvName = data.cctvName,
-            deactive = data.deactive
+            deactive = data.deactive,
+            location = data.location,
+            lastPing = data.lastPing
         ).enqueue(object : Callback<CctvListResponse> {
             override fun onResponse(
                 call: Call<CctvListResponse>,

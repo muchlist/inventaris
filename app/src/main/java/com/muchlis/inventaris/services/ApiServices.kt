@@ -196,8 +196,10 @@ interface ApiService {
     fun getCctvList(
         @Header("Authorization") token: String,
         @Query("branch") branch: String = "",
+        @Query("location") location: String = "",
         @Query("ip_address") ipAddress: String = "",
         @Query("cctv_name") cctvName: String = "",
+        @Query("last_ping") lastPing: String = "", //UP DOWN
         @Query("deactive") deactive: String = "" //yes no
     ): Call<CctvListResponse>
 
