@@ -18,6 +18,8 @@ data class CctvListResponse(
         val ipAddress: String,
         @Json(name = "last_ping")
         val lastPing: String,
+        @Json(name = "ping_sum")
+        val pingSum: Int,
         @Json(name = "last_status")
         val lastStatus: String,
         @Json(name = "location")

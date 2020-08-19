@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.ComputerListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
+import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.toDate
 import com.muchlis.inventaris.utils.toStringJustDate
+import com.muchlis.inventaris.utils.visible
 import kotlinx.android.synthetic.main.item_computer.view.*
 
 class ComputerAdapter (
@@ -43,6 +45,12 @@ class ComputerAdapter (
                 tv_computerlist_division.text = items.division
                 tv_computerlist_ip.text = items.ipAddress
                 tv_computerlist_name.text = items.clientName
+
+                if (items.seatManagement) {
+                    tv_computerlist_seat.visible()
+                } else {
+                    tv_computerlist_seat.invisible()
+                }
 
                 //onClick
                 itemView.setOnClickListener { itemClick(items) }

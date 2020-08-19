@@ -25,14 +25,16 @@
 
             <TextView
                 android:id="@+id/tv_computerlist_name"
-                android:layout_width="130dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
-                android:singleLine="true"
+                android:maxLines="2"
+                android:singleLine="false"
                 android:textColor="@color/grey_60"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Muchlisin Naga Bonar sinaga burak burak" />
@@ -41,6 +43,7 @@
                 android:id="@+id/tv_computerlist_ip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/text_rounded_ip"
                 android:fontFamily="@font/roboto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_computerlist_name"
@@ -51,56 +54,28 @@
                 android:id="@+id/tv_computerlist_division"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
                 android:singleLine="true"
                 app:layout_constraintEnd_toStartOf="@+id/tv_computerlist_seat"
-                app:layout_constraintStart_toEndOf="@+id/tv_computerlist_name"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
                 app:layout_constraintTop_toTopOf="@+id/tv_computerlist_name"
                 tools:text="Keuangan" />
 
             <TextView
-                android:id="@+id/tv_computerlist_islowspec"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/shape_circle"
-                android:backgroundTint="@color/colorPrimary"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/tv_computerlist_condition"
-                app:layout_constraintTop_toTopOf="@+id/tv_computerlist_seat"
-                tools:text="x" />
-
-            <TextView
                 android:id="@+id/tv_computerlist_seat"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/shape_circle"
-                android:backgroundTint="@color/colorPrimarySoft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_rounded_seat"
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
+                android:text="Seat"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_computerlist_branch"
-                app:layout_constraintEnd_toStartOf="@+id/tv_computerlist_islowspec"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="m" />
-
-            <TextView
-                android:id="@+id/tv_computerlist_condition"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/shape_circle"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
-                android:textColor="@color/white"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_computerlist_islowspec"
-                tools:text="b" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_computerlist_branch"
@@ -113,6 +88,13 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_computerlist_division"
                 app:layout_constraintTop_toBottomOf="@+id/tv_computerlist_division"
                 tools:text="Sampit" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

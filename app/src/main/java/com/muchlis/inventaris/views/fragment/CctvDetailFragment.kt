@@ -175,7 +175,7 @@ class CctvDetailFragment : Fragment() {
             index++
         }
 
-        val lineDataSet = LineDataSet(pingState, "0 = Down, 2 = Up")
+        val lineDataSet = LineDataSet(pingState, "2 = Up, 0 = Down")
 
         lineDataSet.lineWidth = 2f
         lineDataSet.setDrawFilled(true)
@@ -186,12 +186,14 @@ class CctvDetailFragment : Fragment() {
         val beginPing = dataReverse[0].timeDate.toDate().toStringDateForView()
         val lastPing = dataReverse[dataReverse.lastIndex].timeDate.toDate().toStringDateForView()
         val description = Description()
-        description.text = "$beginPing    sd    $lastPing"
+        description.text = "$beginPing    sd    $lastPing  WIB"
         bd.lineChart.description = description
 
         bd.lineChart.xAxis.isEnabled = false
         bd.lineChart.xAxis.valueFormatter
         bd.lineChart.axisRight.isEnabled = false
+        bd.lineChart.axisLeft.axisMaximum = 2.5f
+        bd.lineChart.axisLeft.axisMinimum = -0.5f
         bd.lineChart.axisLeft.isEnabled = false
         bd.lineChart.animateY(500)
 

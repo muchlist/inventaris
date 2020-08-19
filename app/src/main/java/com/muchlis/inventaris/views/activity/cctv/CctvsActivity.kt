@@ -197,6 +197,8 @@ class CctvsActivity : AppCompatActivity() {
         } else {
             bd.ivEmptyList.invisible()
         }
+
+        setTotalCount(cctvData.count())
     }
 
     private fun runLayoutAnimation() {
@@ -210,6 +212,10 @@ class CctvsActivity : AppCompatActivity() {
         } else {
             Toasty.error(this, ERR_DROPDOWN_NOT_LOAD, Toasty.LENGTH_LONG).show()
         }
+    }
+
+    private fun setTotalCount(total: Int) {
+        bd.tvListUnit.text = "Jumlah : $total unit"
     }
 
     private fun showFilterDialog() {
