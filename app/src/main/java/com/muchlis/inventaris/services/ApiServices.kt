@@ -5,6 +5,7 @@ import com.muchlis.inventaris.data.response.*
 import com.muchlis.inventaris.utils.App
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -241,6 +242,14 @@ interface ApiService {
         @Body args: CctvEditRequest
     ): Call<CctvDetailResponse>
 
+    @Multipart
+    @POST("/api/cctvs/{id}/upload")
+    fun uploadImageCctv(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Part("image\"; filename=\"pp.jpg\" ") image: RequestBody
+    ): Call<CctvDetailResponse>
+
 
     /* OPTION -------------------------------------------------------------------
     */
@@ -250,6 +259,7 @@ interface ApiService {
     fun getOptions(
         @Header("Authorization") token: String
     ): Call<ResponseBody>
+
 
     /*
     * @PUT("/api/containers/{id}")

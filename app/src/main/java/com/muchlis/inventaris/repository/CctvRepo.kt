@@ -11,6 +11,7 @@ import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.ERR_CONN
 import com.muchlis.inventaris.utils.ERR_JSON_PARSING
 import com.muchlis.inventaris.utils.JsonMarshaller
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -247,6 +248,50 @@ object CctvRepo {
             id = cctvID,
             active = statusActive,
             args = args
+        ).enqueue(object : Callback<CctvDetailResponse> {
+            override fun onResponse(
+                call: Call<CctvDetailResponse>,
+                response: Response<CctvDetailResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("to connect")) {
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
+
+    fun uploadImageCctv(
+        cctvID: String,
+        imageFile: RequestBody,
+        callback: (response: CctvDetailResponse?, error: String) -> Unit
+    ) {
+        apiService.uploadImageCctv(
+            token = App.prefs.authTokenSave,
+            id = cctvID,
+            image = imageFile
         ).enqueue(object : Callback<CctvDetailResponse> {
             override fun onResponse(
                 call: Call<CctvDetailResponse>,

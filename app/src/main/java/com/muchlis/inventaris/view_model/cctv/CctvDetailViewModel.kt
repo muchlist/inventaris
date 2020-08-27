@@ -1,5 +1,8 @@
 package com.muchlis.inventaris.view_model.cctv
 
+import android.app.Activity
+import android.graphics.Bitmap
+import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +11,11 @@ import com.muchlis.inventaris.data.response.CctvDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.repository.CctvRepo
 import com.muchlis.inventaris.repository.HistoryRepo
+import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class CctvDetailViewModel : ViewModel() {
 
@@ -164,5 +172,26 @@ class CctvDetailViewModel : ViewModel() {
             }
         }
     }
+
+
+    fun uploadImageFromServer(imageFile: RequestBody) {
+        _isLoading.value = true
+        CctvRepo.uploadImageCctv(
+            cctvID = cctvID,
+            imageFile = imageFile
+        ) { response, error ->
+            if (error.isNotEmpty()) {
+                _isLoading.value = false
+                _messageError.value = error
+                return@uploadImageCctv
+            }
+            response?.let {
+                _isLoading.value = false
+                _cctvData.postValue(it)
+            }
+        }
+    }
+
+
 
 }

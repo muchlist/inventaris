@@ -1,9 +1,15 @@
 package com.muchlis.inventaris.views.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +29,17 @@ import com.muchlis.inventaris.view_model.cctv.CctvDetailViewModel
 import com.muchlis.inventaris.views.activity.cctv.EditCctvActivity
 import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
 import es.dmoral.toasty.Toasty
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 class CctvDetailFragment : Fragment() {
 
@@ -30,6 +47,11 @@ class CctvDetailFragment : Fragment() {
     private val bd get() = _binding!!
 
     private lateinit var viewModel: CctvDetailViewModel
+
+    private val IMAGE_CAPTURE_CODE = 1008
+    private val PERMISSION_CODE_BACK = 20 //1002
+
+    private val scope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +94,16 @@ class CctvDetailFragment : Fragment() {
 
         bd.ivDetailBack.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+
+        bd.ivDetailImage.setOnLongClickListener {
+            //permissionThenIntentBackCamera()
+            permissionThenIntentGallery()
+            false
+        }
+
+        bd.ivDetailImage.setOnClickListener {
+            showToast("Tahan satu detik untuk mengupload gambar.")
         }
 
         loadImageIcon()
@@ -161,6 +193,20 @@ class CctvDetailFragment : Fragment() {
                 .with(this)
                 .load(R.drawable.icons8_remove)
                 .into(bd.ivDetailDeactive)
+        }
+
+        //image
+        if (data.image.isNotEmpty()) {
+            val imageUrl = App.prefs.baseUrl + "/static/images/" + data.image
+            Glide
+                .with(this)
+                .load(imageUrl)
+                .into(bd.ivDetailImage)
+        } else {
+            Glide
+                .with(this)
+                .load(R.drawable.ic_undraw_folder_x4ft)
+                .into(bd.ivDetailImage)
         }
 
     }
@@ -255,6 +301,179 @@ class CctvDetailFragment : Fragment() {
         alertDialog.show()
     }
 
+
+    private fun permissionThenIntentBackCamera() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (requireActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED ||
+                requireActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
+            ) {
+                //Permission was not enabled
+                val permission = arrayOf(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                //show pop up request permission
+                requestPermissions(permission, PERMISSION_CODE_BACK)
+            } else {
+                //permission already granted
+                intentToCameraActivity()
+            }
+        } else {
+            //system os < Marshmallow
+            intentToCameraActivity()
+        }
+    }
+
+    private fun permissionThenIntentGallery() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (requireActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
+            ) {
+                //Permission was not enabled
+                val permission = arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                //show pop up request permission
+                requestPermissions(permission, PERMISSION_CODE_GALERY)
+            } else {
+                //permission already granted
+                pickImageFromGalery()
+            }
+        } else {
+            //system os < Marshmallow
+            pickImageFromGalery()
+        }
+    }
+
+    private fun pickImageFromGalery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
+    }
+
+    companion object {
+        private val IMAGE_PICK_CODE = 1000
+        private val PERMISSION_CODE_GALERY = 1001
+    }
+
+    private fun intentToCameraActivity() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra("android.intent.extras.CAMERA_FACING", 0)
+        intent.putExtra("android.intent.extras.LENS_FACING_FRONT", 0)
+        intent.putExtra("android.intent.extra.USE_FRONT_CAMERA", false)
+        intent.putExtra("aspectX", 1)
+        intent.putExtra("aspectY", 1)
+        startActivityForResult(intent, IMAGE_CAPTURE_CODE)
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        //Called when user allow or deny permission
+        when (requestCode) {
+            PERMISSION_CODE_BACK -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //permission popup was granted
+                    intentToCameraActivity()
+                } else {
+                    //permission popup was denny
+                    showToast("Penggunaan kamera tidak diijinkan", false)
+                }
+            }
+            PERMISSION_CODE_GALERY -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickImageFromGalery()
+                } else {
+                    showToast("Penggunaan galery tidak diijinkan", false)
+                }
+            }
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+//            IMAGE_CAPTURE_CODE -> {
+//                if (resultCode == Activity.RESULT_OK && data != null) {
+//                    val bitmapPhoto = data.extras?.get("data") as Bitmap
+//                    val filePhoto = createTempFile(bitmapPhoto)
+//                    val reqFile = RequestBody.create(MediaType.parse("image/*"), filePhoto)
+//                    viewModel.uploadImageFromServer(
+//                        imageFile = reqFile
+//                    )
+//                }
+//            }
+            IMAGE_PICK_CODE -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val imageUri = data.data
+
+                    imageUri?.let {
+
+                        val inputStream =
+                            requireActivity().contentResolver.openInputStream(it)
+
+                        val file = File(
+                            requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                            "${System.currentTimeMillis()} _image.jpg"
+                        )
+
+                        try {
+                            FileOutputStream(file).use { outputStream ->
+                                inputStream?.copyTo(outputStream)
+                            }
+                        } catch (e: FileNotFoundException) {
+                            showToast("File tidak ditemukan", true)
+                        } catch (e: IOException) {
+                            showToast("IOException", true)
+                        }
+
+                        scope.launch {
+                            val fileCompressed = compressImage(file)
+                            val reqFile =
+                                RequestBody.create(MediaType.parse("image/*"), fileCompressed)
+                            viewModel.uploadImageFromServer(
+                                imageFile = reqFile
+                            )
+                        }
+                    }
+                }
+            }
+            else -> {
+                showToast("Request code tidak dikenali", true)
+            }
+        }
+    }
+
+
+    suspend fun compressImage(file: File): File {
+        return Compressor.compress(requireActivity(), file)
+    }
+
+    /*fun createTempFile(bitmap: Bitmap): File {
+        val file = File(
+            requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            "${System.currentTimeMillis()} _image.jpg"
+        )
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val bitmapdata = baos.toByteArray()
+
+        try {
+            val fos = FileOutputStream(file)
+            fos.write(bitmapdata)
+            fos.flush()
+            fos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return file
+    }*/
+
+
     private fun cctvDeletedKillActivity(isDeleted: Boolean) {
         if (isDeleted) {
             requireActivity().finish()
@@ -281,5 +500,6 @@ class CctvDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        scope.cancel()
     }
 }
