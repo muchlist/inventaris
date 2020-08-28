@@ -189,6 +189,14 @@ interface ApiService {
         @Body args: StockUseRequest
     ): Call<StockDetailResponse>
 
+    @Multipart
+    @POST("/api/stocks/{id}/upload")
+    fun uploadImageStock(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Part("image\"; filename=\"pp.jpg\" ") image: RequestBody
+    ): Call<StockDetailResponse>
+
 
     /* CCTV -------------------------------------------------------------------
     */

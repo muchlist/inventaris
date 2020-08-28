@@ -1,15 +1,20 @@
 package com.muchlis.inventaris.views.fragment
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.databinding.FragmentStockDetailBinding
@@ -18,6 +23,16 @@ import com.muchlis.inventaris.view_model.stock.StockDetailViewModel
 import com.muchlis.inventaris.views.activity.stock.EditStockActivity
 import com.muchlis.inventaris.views.activity.stock.StockUseActivity
 import es.dmoral.toasty.Toasty
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 class StockDetailFragment : Fragment() {
 
@@ -26,6 +41,13 @@ class StockDetailFragment : Fragment() {
 
     private lateinit var viewModel: StockDetailViewModel
 
+    private val scope = CoroutineScope(Dispatchers.Main)
+
+    companion object {
+        private val IMAGE_PICK_CODE = 1000
+        private val INCREMENT_STOCK_CODE = 400
+        private val PERMISSION_CODE_GALERY = 1001
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +94,15 @@ class StockDetailFragment : Fragment() {
         bd.ivDetailBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
+        bd.ivDetailImage.setOnLongClickListener {
+            permissionThenIntentGallery()
+            false
+        }
+
+        bd.ivDetailImage.setOnClickListener {
+            showToast("Tahan satu detik untuk mengupload gambar.")
+        }
     }
 
     private fun intentToStockUseActivity(data: StockDetailResponse?, mode: String) {
@@ -80,17 +111,7 @@ class StockDetailFragment : Fragment() {
             intent.putExtra(INTENT_TO_STOCK_USE_CREATE_ID, it.id)
             intent.putExtra(INTENT_TO_STOCK_USE_MODE, mode)
             intent.putExtra(INTENT_TO_STOCK_USE_NAME, it.stockName)
-            startActivityForResult(intent, 400)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 400) {
-            if (resultCode == Activity.RESULT_OK) {
-                val dataResult: StockDetailResponse? = data?.getParcelableExtra(INTENT_RESULT_STOCK)
-                dataResult?.let { viewModel.setStockData(it) }
-            }
+            startActivityForResult(intent, INCREMENT_STOCK_CODE)
         }
     }
 
@@ -137,6 +158,121 @@ class StockDetailFragment : Fragment() {
             bd.ivDetailDeactive.setImageResource(R.drawable.icons8_remove)
         }
 
+        //image
+        if (data.image.isNotEmpty()) {
+            val imageUrl = App.prefs.baseUrl + "/static/images/" + data.image
+            Glide
+                .with(this)
+                .load(imageUrl)
+                .into(bd.ivDetailImage)
+        } else {
+            Glide
+                .with(this)
+                .load(R.drawable.ic_undraw_folder_x4ft)
+                .into(bd.ivDetailImage)
+        }
+
+    }
+
+    private fun permissionThenIntentGallery() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (requireActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED
+            ) {
+                //Permission was not enabled
+                val permission = arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                //show pop up request permission
+                requestPermissions(permission, PERMISSION_CODE_GALERY)
+            } else {
+                //permission already granted
+                pickImageFromGalery()
+            }
+        } else {
+            //system os < Marshmallow
+            pickImageFromGalery()
+        }
+    }
+
+    private fun pickImageFromGalery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        //Called when user allow or deny permission
+        when (requestCode) {
+            PERMISSION_CODE_GALERY -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickImageFromGalery()
+                } else {
+                    showToast("Penggunaan galery tidak diijinkan", false)
+                }
+            }
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            INCREMENT_STOCK_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val dataResult: StockDetailResponse? =
+                        data?.getParcelableExtra(INTENT_RESULT_STOCK)
+                    dataResult?.let { viewModel.setStockData(it) }
+                }
+            }
+            IMAGE_PICK_CODE -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val imageUri = data.data
+
+                    imageUri?.let {
+
+                        val inputStream =
+                            requireActivity().contentResolver.openInputStream(it)
+
+                        val file = File(
+                            requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                            "${System.currentTimeMillis()} _image.jpg"
+                        )
+
+                        try {
+                            FileOutputStream(file).use { outputStream ->
+                                inputStream?.copyTo(outputStream)
+                            }
+                        } catch (e: FileNotFoundException) {
+                            showToast("File tidak ditemukan", true)
+                        } catch (e: IOException) {
+                            showToast("IOException", true)
+                        }
+
+                        scope.launch {
+                            val fileCompressed = compressImage(file)
+                            val reqFile =
+                                RequestBody.create(MediaType.parse("image/*"), fileCompressed)
+                            viewModel.uploadImageFromServer(
+                                imageFile = reqFile
+                            )
+                        }
+                    }
+                }
+            }
+            else -> {
+                showToast("Request code tidak dikenali", true)
+            }
+        }
+    }
+
+
+    suspend fun compressImage(file: File): File {
+        return Compressor.compress(requireActivity(), file)
     }
 
     private fun showToast(text: String, isError: Boolean = false) {

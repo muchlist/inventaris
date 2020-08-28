@@ -35,6 +35,8 @@ data class StockDetailResponse(
     val threshold: Double,
     @Json(name = "unit")
     val unit: String,
+    @Json(name = "image")
+    val image: String,
     @Json(name = "updated_at")
     val updatedAt: String
 ) : Parcelable {

@@ -13,6 +13,7 @@ import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.ERR_CONN
 import com.muchlis.inventaris.utils.ERR_JSON_PARSING
 import com.muchlis.inventaris.utils.JsonMarshaller
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,7 +53,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -101,7 +102,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockListResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -142,7 +143,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -186,7 +187,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -227,7 +228,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback("", ERR_CONN)
                     } else {
                         callback("", it)
@@ -272,7 +273,7 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -315,7 +316,50 @@ object StockRepo {
 
             override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
+    fun uploadImageStock(
+        stockID: String,
+        imageFile: RequestBody,
+        callback: (response: StockDetailResponse?, error: String) -> Unit
+    ) {
+        apiService.uploadImageStock(
+            token = App.prefs.authTokenSave,
+            id = stockID,
+            image = imageFile
+        ).enqueue(object : Callback<StockDetailResponse> {
+            override fun onResponse(
+                call: Call<StockDetailResponse>,
+                response: Response<StockDetailResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)

@@ -302,27 +302,27 @@ class CctvDetailFragment : Fragment() {
     }
 
 
-    private fun permissionThenIntentBackCamera() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            if (requireActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED ||
-                requireActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
-            ) {
-                //Permission was not enabled
-                val permission = arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-                //show pop up request permission
-                requestPermissions(permission, PERMISSION_CODE_BACK)
-            } else {
-                //permission already granted
-                intentToCameraActivity()
-            }
-        } else {
-            //system os < Marshmallow
-            intentToCameraActivity()
-        }
-    }
+//    private fun permissionThenIntentBackCamera() {
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+//            if (requireActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED ||
+//                requireActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
+//            ) {
+//                //Permission was not enabled
+//                val permission = arrayOf(
+//                    Manifest.permission.CAMERA,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                )
+//                //show pop up request permission
+//                requestPermissions(permission, PERMISSION_CODE_BACK)
+//            } else {
+//                //permission already granted
+//                intentToCameraActivity()
+//            }
+//        } else {
+//            //system os < Marshmallow
+//            intentToCameraActivity()
+//        }
+//    }
 
     private fun permissionThenIntentGallery() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {

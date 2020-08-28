@@ -7,6 +7,7 @@ import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.repository.StockRepo
 import com.muchlis.inventaris.utils.toStringView
+import okhttp3.RequestBody
 
 class StockDetailViewModel : ViewModel() {
 
@@ -105,6 +106,24 @@ class StockDetailViewModel : ViewModel() {
                 _isLoading.value = false
                 _messageError.value = error
                 return@changeStatusStock
+            }
+            response?.let {
+                _isLoading.value = false
+                _stockData.postValue(it)
+            }
+        }
+    }
+
+    fun uploadImageFromServer(imageFile: RequestBody) {
+        _isLoading.value = true
+        StockRepo.uploadImageStock(
+            stockID = stockID,
+            imageFile = imageFile
+        ) { response, error ->
+            if (error.isNotEmpty()) {
+                _isLoading.value = false
+                _messageError.value = error
+                return@uploadImageStock
             }
             response?.let {
                 _isLoading.value = false
