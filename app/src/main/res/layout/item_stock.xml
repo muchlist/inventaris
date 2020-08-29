@@ -93,7 +93,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/icon_low_value"
-            android:tint="@color/red_400"
+            app:tint="@color/red_400"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_info_24px" />

@@ -16,7 +16,8 @@
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_check_circle_24px" />
+            app:srcCompat="@drawable/ic_check_circle_24px"
+            android:contentDescription="@string/image_desc"/>
 
         <ImageView
             android:id="@+id/iv_back_button"
@@ -26,7 +27,8 @@
             android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_cancel_24px" />
+            app:srcCompat="@drawable/ic_baseline_cancel_24px"
+            android:contentDescription="@string/image_desc"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Nama">
+                android:hint="@string/nama">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -71,7 +73,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nomor BA (Optional)">
+                android:hint="@string/nomor_ba_optional">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -87,7 +89,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Jumlah">
+                android:hint="@string/jumlah">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -106,7 +108,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Catatan">
+                android:hint="@string/catatan">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -119,7 +121,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="** Perubahan stok tidak dapat dibatalkan, harap periksa ulang barang, kuantitas serta mode yang digunakan (penambahan atau pengurangan)!"/>
+                android:text="@string/perubahan_stok_tidak_dapat_dibatalkan_harap_periksa_ulang_barang_kuantitas_serta_mode_yang_digunakan_penambahan_atau_pengurangan"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_save"
@@ -127,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:text="Terapkan"
+                android:text="@string/terapkan"
                 app:icon="@drawable/ic_baseline_check_box_24px" />
 
         </LinearLayout>

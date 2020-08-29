@@ -48,10 +48,14 @@ class CctvDetailFragment : Fragment() {
 
     private lateinit var viewModel: CctvDetailViewModel
 
-    private val IMAGE_CAPTURE_CODE = 1008
-    private val PERMISSION_CODE_BACK = 20 //1002
-
     private val scope = CoroutineScope(Dispatchers.Main)
+
+    companion object {
+        private const val IMAGE_PICK_CODE = 1000
+        private const val PERMISSION_CODE_GALERY = 1001
+        private const val IMAGE_CAPTURE_CODE = 1008
+        private const val PERMISSION_CODE_BACK = 20 //1002
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -350,11 +354,6 @@ class CctvDetailFragment : Fragment() {
         startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
-    companion object {
-        private val IMAGE_PICK_CODE = 1000
-        private val PERMISSION_CODE_GALERY = 1001
-    }
-
     private fun intentToCameraActivity() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra("android.intent.extras.CAMERA_FACING", 0)
@@ -449,7 +448,7 @@ class CctvDetailFragment : Fragment() {
     }
 
 
-    suspend fun compressImage(file: File): File {
+    private suspend fun compressImage(file: File): File {
         return Compressor.compress(requireActivity(), file)
     }
 

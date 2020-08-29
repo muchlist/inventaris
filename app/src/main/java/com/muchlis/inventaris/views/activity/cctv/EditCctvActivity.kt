@@ -207,7 +207,7 @@ class EditCctvActivity : AppCompatActivity() {
 
         val datePicker = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            { _, year, month, dayOfMonth ->
 
                 //EXEKUSI DISINI JIKA TANGGAL DIGANTI
                 dateTimeNowCalander.set(Calendar.YEAR, year)

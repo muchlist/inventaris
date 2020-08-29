@@ -22,6 +22,7 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
+                    android:contentDescription="@string/image_desc"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_check_circle_24px" />
@@ -30,6 +31,7 @@
                     android:id="@+id/iv_back_button"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:contentDescription="@string/image_desc"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/quicksand_bold"
-                        android:text="Tambah Riwayat"
+                        android:text="@string/tambah_riwayat"
                         android:textSize="24sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -61,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:hint="Nama">
+                        android:hint="@string/name">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -79,7 +81,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Status">
+                        android:hint="@string/status">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_history_status"
@@ -95,7 +97,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Catatan">
+                        android:hint="@string/catatan">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -110,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
-                        android:text="Tambahkan"
+                        android:text="@string/tambahkan"
                         app:icon="@drawable/ic_baseline_check_box_24px" />
 
                 </LinearLayout>

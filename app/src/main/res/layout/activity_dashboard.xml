@@ -98,7 +98,7 @@
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
                                 android:textSize="18sp"
-                                android:text="Komputer" />
+                                android:text="@string/komputer" />
 
                         </LinearLayout>
 
@@ -136,7 +136,7 @@
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
                                 android:textSize="18sp"
-                                android:text="Stock" />
+                                android:text="@string/stock" />
 
                         </LinearLayout>
 
@@ -174,7 +174,7 @@
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
                                 android:textSize="18sp"
-                                android:text="Printer" />
+                                android:text="@string/printer" />
 
                         </LinearLayout>
 
@@ -213,7 +213,7 @@
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
                                 android:textSize="18sp"
-                                android:text="Server" />
+                                android:text="@string/server" />
 
                         </LinearLayout>
 
@@ -251,7 +251,7 @@
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
                                 android:textSize="18sp"
-                                android:text="Cctv" />
+                                android:text="@string/cctv" />
 
                         </LinearLayout>
 
@@ -289,7 +289,7 @@
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
                                 android:textSize="18sp"
-                                android:text="QR Code" />
+                                android:text="@string/qr_code" />
 
                         </LinearLayout>
 
@@ -319,6 +319,7 @@
                     <ImageView
                         android:id="@+id/iv_reload"
                         android:layout_width="30dp"
+                        android:contentDescription="@string/image_desc"
                         android:layout_height="30dp"
                         android:src="@drawable/ic_sync_24px" />
 

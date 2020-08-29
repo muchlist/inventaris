@@ -1,8 +1,5 @@
 package com.muchlis.inventaris.view_model.cctv
 
-import android.app.Activity
-import android.graphics.Bitmap
-import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,10 +9,6 @@ import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.repository.CctvRepo
 import com.muchlis.inventaris.repository.HistoryRepo
 import okhttp3.RequestBody
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 class CctvDetailViewModel : ViewModel() {
 
@@ -191,7 +184,6 @@ class CctvDetailViewModel : ViewModel() {
             }
         }
     }
-
 
 
 }

@@ -85,7 +85,7 @@
             android:fontFamily="@font/quicksand"
             app:layout_constraintStart_toStartOf="@+id/tv_stock_con_nomer"
             app:layout_constraintTop_toBottomOf="@+id/tv_stock_con_nomer"
-            android:text="Jumlah" />
+            android:text="@string/jumlah" />
 
         <TextView
             android:id="@+id/tv_stock_con_user"

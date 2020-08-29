@@ -23,7 +23,8 @@
                     android:layout_marginTop="32dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_baseline_cancel_24px" />
+                    app:srcCompat="@drawable/ic_baseline_cancel_24px"
+                    android:contentDescription="@string/image_desc"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/quicksand_bold"
-                        android:text="Edit Stok"
+                        android:text="@string/edit_stok"
                         android:textSize="24sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -50,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:hint="Nama Stok">
+                        android:hint="@string/nama_stok">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -66,7 +67,7 @@
                         android:id="@+id/container_stock_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Kategori">
+                        android:hint="@string/kategori">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_stock_category"
@@ -82,7 +83,7 @@
                         android:id="@+id/container_stock_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Lokasi">
+                        android:hint="@string/lokasi">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_stock_location"
@@ -98,7 +99,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Satuan (mis. unit, cm, paket)">
+                        android:hint="@string/satuan_mis_unit_cm_paket">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -115,7 +116,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Minimum Peringatan">
+                        android:hint="@string/minimum_peringatan">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -134,7 +135,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Catatan">
+                        android:hint="@string/catatan">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -148,7 +149,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="64dp"
-                        android:text="Simpan" />
+                        android:text="@string/simpan" />
 
                 </LinearLayout>
 

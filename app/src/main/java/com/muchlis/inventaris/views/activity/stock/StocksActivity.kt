@@ -199,7 +199,7 @@ class StocksActivity : AppCompatActivity() {
         //Memvalidasi json option yang disimpan di sharepref
         validateJsonStringInSharedPrefsForDropdown()
 
-        lateinit var locationDropdown: Spinner
+        var locationDropdown: Spinner? = null
 
         //mengisi semua opsi untuk spinner
         val branchDropdownOption = optionJsonObject.kalimantan
@@ -253,7 +253,7 @@ class StocksActivity : AppCompatActivity() {
                 }
                 locationDropdownOption.addAll(locationFiltered)
                 locationDropdownOption.add(0, SEMUA)
-                locationDropdown.adapter =
+                locationDropdown?.adapter =
                     ArrayAdapter<String>(
                         this@StocksActivity,
                         android.R.layout.simple_list_item_1,

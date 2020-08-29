@@ -1,6 +1,7 @@
 package com.muchlis.inventaris.views.fragment
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -44,9 +45,9 @@ class StockDetailFragment : Fragment() {
     private val scope = CoroutineScope(Dispatchers.Main)
 
     companion object {
-        private val IMAGE_PICK_CODE = 1000
-        private val INCREMENT_STOCK_CODE = 400
-        private val PERMISSION_CODE_GALERY = 1001
+        private const val IMAGE_PICK_CODE = 1000
+        private const val INCREMENT_STOCK_CODE = 400
+        private const val PERMISSION_CODE_GALERY = 1001
     }
 
     override fun onCreateView(
@@ -135,6 +136,7 @@ class StockDetailFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setDataToDetailStockView(data: StockDetailResponse) {
         bd.tvDetailHeader.text = data.stockName
         bd.tvDetailBranch.text = data.branch
@@ -271,7 +273,7 @@ class StockDetailFragment : Fragment() {
     }
 
 
-    suspend fun compressImage(file: File): File {
+    private suspend fun compressImage(file: File): File {
         return Compressor.compress(requireActivity(), file)
     }
 

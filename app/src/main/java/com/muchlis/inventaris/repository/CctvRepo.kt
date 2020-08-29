@@ -1,10 +1,11 @@
 package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindCctvDto
-import com.muchlis.inventaris.data.request.*
+import com.muchlis.inventaris.data.request.CctvEditRequest
+import com.muchlis.inventaris.data.request.CctvRequest
+import com.muchlis.inventaris.data.request.JustTimeStampRequest
 import com.muchlis.inventaris.data.response.CctvDetailResponse
 import com.muchlis.inventaris.data.response.CctvListResponse
-import com.muchlis.inventaris.data.response.ComputerDetailResponse
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
@@ -142,7 +143,7 @@ object CctvRepo {
 
             override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -185,7 +186,7 @@ object CctvRepo {
 
             override fun onFailure(call: Call<CctvDetailResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)

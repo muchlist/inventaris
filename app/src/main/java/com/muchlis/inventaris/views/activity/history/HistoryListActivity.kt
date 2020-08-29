@@ -23,6 +23,7 @@ import com.muchlis.inventaris.databinding.ActivityHistoryListBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.DashboardViewModel
+import com.muchlis.inventaris.view_model.history.HistoryListViewModel
 import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
@@ -31,7 +32,7 @@ import es.dmoral.toasty.Toasty
 class HistoryListActivity : AppCompatActivity() {
 
     private lateinit var bd: ActivityHistoryListBinding
-    private lateinit var viewModel: DashboardViewModel
+    private lateinit var viewModel: HistoryListViewModel
 
     private lateinit var optionJsonObject: SelectOptionResponse
 
@@ -51,7 +52,7 @@ class HistoryListActivity : AppCompatActivity() {
         val view = bd.root
         setContentView(view)
 
-        viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HistoryListViewModel::class.java)
 
         observeViewModel()
 

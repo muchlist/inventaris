@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.CctvListResponse
-import com.muchlis.inventaris.utils.invisible
-import com.muchlis.inventaris.utils.visible
 import kotlinx.android.synthetic.main.item_cctv.view.*
 
 class CctvAdapter(
@@ -52,12 +50,11 @@ class CctvAdapter(
 //                }
                 tv_cctvlist_condition.text = items.pingSum.toString()
 
-                if (items.lastPing == "UP"){
+                if (items.lastPing == "UP") {
                     tv_cctvlist_condition.setBackgroundResource(R.drawable.shape_circle_green)
                 } else {
                     tv_cctvlist_condition.setBackgroundResource(R.drawable.shape_circle_red)
                 }
-
 
 
                 //onClick

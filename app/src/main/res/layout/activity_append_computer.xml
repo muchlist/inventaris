@@ -24,6 +24,7 @@
                     android:layout_marginTop="32dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/image_desc"
                     app:srcCompat="@drawable/ic_baseline_cancel_24px" />
 
                 <LinearLayout
@@ -42,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/quicksand_bold"
-                        android:text="Tambah Komputer"
+                        android:text="@string/tambah_komputer"
                         android:textSize="24sp" />
 
                     <LinearLayout
@@ -61,7 +62,7 @@
                             android:layout_margin="@dimen/spacing_medium"
                             android:contentDescription="@string/dot"
                             android:src="@drawable/shape_circle"
-                            android:tint="@color/red_400" />
+                            app:tint="@color/red_400" />
 
                         <View
                             android:layout_width="@dimen/spacing_middle"
@@ -83,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:hint="Nama User">
+                        android:hint="@string/nama_user">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -99,7 +100,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Host Komputer">
+                        android:hint="@string/nama_host_komputer">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -116,7 +117,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Alamat IP">
+                        android:hint="@string/alamat_ip">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -133,7 +134,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nomer Inventaris">
+                        android:hint="@string/nomer_inventaris">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -149,7 +150,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Cabang">
+                        android:hint="@string/cabang">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -166,7 +167,7 @@
                         android:id="@+id/container_computer_divisi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Divisi">
+                        android:hint="@string/divisi">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_computer_divisi"
@@ -182,7 +183,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Lokasi">
+                        android:hint="@string/lokasi">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_computer_location"
@@ -210,7 +211,7 @@
                             android:layout_margin="@dimen/spacing_medium"
                             android:contentDescription="@string/dot"
                             android:src="@drawable/shape_circle"
-                            android:tint="@color/red_400" />
+                            app:tint="@color/red_400" />
 
                         <View
                             android:layout_width="@dimen/spacing_middle"
@@ -231,7 +232,7 @@
                         android:id="@+id/container_computer_tipe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Jenis Perangkat">
+                        android:hint="@string/jenis_perangkat">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_computer_tipe"
@@ -247,7 +248,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Merk / Tipe">
+                        android:hint="@string/merk_tipe">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -263,7 +264,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Tahun Pengadaan">
+                        android:hint="@string/tahun_pengadaan">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_computer_year"
@@ -283,7 +284,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Perangkat Sewa">
+                        android:hint="@string/perangkat_sewa">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_computer_seat_manajemen"
@@ -300,7 +301,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Catatan">
+                        android:hint="@string/catatan_">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -326,7 +327,7 @@
                             android:layout_margin="@dimen/spacing_medium"
                             android:contentDescription="@string/dot"
                             android:src="@drawable/shape_circle"
-                            android:tint="@color/red_400" />
+                            app:tint="@color/red_400" />
 
                         <View
                             android:layout_width="@dimen/spacing_middle"
@@ -347,7 +348,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Sistem Operasi">
+                        android:hint="@string/sistem_operasi">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_computer_os"
@@ -363,7 +364,7 @@
                         android:id="@+id/container_computer_processor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Prosesor">
+                        android:hint="@string/prosessor_">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_computer_processor"
@@ -378,7 +379,7 @@
                         android:id="@+id/container_computer_ram"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Ram">
+                        android:hint="@string/ram_">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_computer_ram"
@@ -395,7 +396,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp"
-                        android:hint="Hardisk">
+                        android:hint="@string/harddisk_">
 
                         <AutoCompleteTextView
                             android:id="@+id/at_computer_hardisk"
@@ -410,14 +411,14 @@
                         android:id="@+id/bt_save_continue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Simpan Lanjutkan" />
+                        android:text="@string/simpan_lanjutkan" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/bt_save"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="Simpan Selesai"
+                        android:text="@string/simpan_selesai"
                         app:backgroundTint="@color/red_400" />
 
                     <TextView

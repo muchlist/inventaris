@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.ComputerListResponse
-import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.utils.invisible
-import com.muchlis.inventaris.utils.toDate
-import com.muchlis.inventaris.utils.toStringJustDate
 import com.muchlis.inventaris.utils.visible
 import kotlinx.android.synthetic.main.item_computer.view.*
 
-class ComputerAdapter (
+class ComputerAdapter(
     private val context: Context?,
     private val itemList: List<ComputerListResponse.Computer>,
     private val itemClick: (ComputerListResponse.Computer) -> Unit

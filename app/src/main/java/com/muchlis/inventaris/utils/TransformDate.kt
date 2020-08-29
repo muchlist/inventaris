@@ -24,11 +24,6 @@ fun Date.toStringJustYear(): String {
     return formatEx.format(this)
 }
 
-fun Date.toStringJustTime(): String {
-    val formatEx = SimpleDateFormat("HH:mm", Locale.US)
-    return formatEx.format(this)
-}
-
 fun Date.toStringInputDate(): String {
     val formatEx = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS", Locale.US)
     return formatEx.format(this)

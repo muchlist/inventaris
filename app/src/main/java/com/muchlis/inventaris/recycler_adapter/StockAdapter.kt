@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.recycler_adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,8 @@ import com.muchlis.inventaris.utils.invisible
 import com.muchlis.inventaris.utils.toStringView
 import com.muchlis.inventaris.utils.visible
 import kotlinx.android.synthetic.main.item_stock.view.*
-import java.math.BigDecimal
-import java.math.RoundingMode
 
-class StockAdapter (
+class StockAdapter(
     private val context: Context?,
     private val itemList: List<StockListResponse.Stock>,
     private val itemClick: (StockListResponse.Stock) -> Unit
@@ -38,6 +37,7 @@ class StockAdapter (
 
     class ViewHolder(view: View, val itemClick: (StockListResponse.Stock) -> Unit) :
         RecyclerView.ViewHolder(view) {
+        @SuppressLint("SetTextI18n")
         fun bindItem(items: StockListResponse.Stock) {
 
             itemView.apply {
@@ -48,7 +48,7 @@ class StockAdapter (
                 tv_stock_sisa_value.text = items.qty.toStringView() + " " + items.unit
                 tv_stock_note.text = items.location
 
-                if (items.qty - items.threshold <= 0.0){
+                if (items.qty - items.threshold <= 0.0) {
                     iv_stock_indicator.visible()
                 } else {
                     iv_stock_indicator.invisible()

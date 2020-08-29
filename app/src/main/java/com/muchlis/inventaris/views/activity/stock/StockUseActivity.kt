@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.views.activity.stock
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +20,7 @@ class StockUseActivity : AppCompatActivity() {
     private lateinit var bd: ActivityStockUseBinding
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bd = ActivityStockUseBinding.inflate(layoutInflater)

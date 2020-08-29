@@ -62,7 +62,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand"
-                            android:text="Kategori"
+                            android:text="@string/kategori"
                             android:textSize="18sp" />
 
                         <TextView
@@ -129,7 +129,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand"
-                            android:text="Update"
+                            android:text="@string/update"
                             android:textSize="18sp" />
 
                         <TextView
@@ -189,7 +189,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand"
-                            android:text="Ditambah"
+                            android:text="@string/ditambah"
                             android:textSize="18sp" />
 
                         <TextView
@@ -212,7 +212,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand"
-                            android:text="Terpakai"
+                            android:text="@string/terpakai"
                             android:textSize="18sp" />
 
                         <TextView
@@ -244,7 +244,8 @@
                         android:id="@+id/iv_detail_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:srcCompat="@drawable/ic_undraw_folder_x4ft" />
+                        tools:srcCompat="@drawable/ic_undraw_folder_x4ft"
+                        android:contentDescription="@string/image_desc"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -272,7 +273,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_detail_deactive"
-                    app:layout_constraintTop_toTopOf="@+id/iv_detail_delete" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_detail_delete"
+                    android:contentDescription="@string/image_desc"/>
 
                 <ImageView
                     android:id="@+id/iv_detail_delete"
@@ -283,7 +285,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/iv_detail_deactive"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_note" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_note"
+                    android:contentDescription="@string/image_desc"/>
 
                 <ImageView
                     android:id="@+id/iv_detail_deactive"
@@ -294,7 +297,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/iv_detail_edit"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_detail_delete"
-                    app:layout_constraintTop_toTopOf="@+id/iv_detail_delete" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_detail_delete"
+                    android:contentDescription="@string/image_desc"/>
 
                 <ImageView
                     android:id="@+id/iv_detail_increment"
@@ -307,7 +311,8 @@
                     app:layout_constraintEnd_toEndOf="@+id/iv_detail_deactive"
                     app:layout_constraintStart_toEndOf="@+id/iv_detail_delete"
                     app:layout_constraintStart_toStartOf="@+id/iv_detail_delete"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_detail_delete" />
+                    app:layout_constraintTop_toBottomOf="@+id/iv_detail_delete"
+                    android:contentDescription="@string/image_desc"/>
 
                 <ImageView
                     android:id="@+id/iv_detail_decrement"
@@ -318,13 +323,14 @@
                     app:layout_constraintEnd_toEndOf="@+id/iv_detail_edit"
                     app:layout_constraintStart_toEndOf="@+id/iv_detail_deactive"
                     app:layout_constraintStart_toStartOf="@+id/iv_detail_deactive"
-                    app:layout_constraintTop_toTopOf="@+id/iv_detail_increment" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_detail_increment"
+                    android:contentDescription="@string/image_desc"/>
 
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tambah"
+                    android:text="@string/tambah"
                     app:layout_constraintEnd_toEndOf="@+id/iv_detail_increment"
                     app:layout_constraintStart_toStartOf="@+id/iv_detail_increment"
                     app:layout_constraintTop_toBottomOf="@+id/iv_detail_increment" />
@@ -333,7 +339,7 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kurangi"
+                    android:text="@string/kurangi"
                     app:layout_constraintEnd_toEndOf="@+id/iv_detail_decrement"
                     app:layout_constraintStart_toEndOf="@+id/iv_detail_decrement"
                     app:layout_constraintStart_toStartOf="@+id/iv_detail_decrement"
@@ -347,7 +353,8 @@
                     android:layout_marginEnd="32dp"
                     android:src="@drawable/ic_sync_24px"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/image_desc"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
@@ -361,7 +368,7 @@
             android:background="#FFAB91"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Unit Status Nonaktif"
+            android:text="@string/unit_status_nonaktif"
             android:textAlignment="center"
             android:textStyle="bold"
             android:visibility="gone" />

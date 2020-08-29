@@ -95,7 +95,7 @@ class DashboardActivity : AppCompatActivity() {
                     detectCategoryScannedByQRCode(result.contents)
                 }
             } else {
-                super.onActivityResult(requestCode, resultCode, data);
+                super.onActivityResult(requestCode, resultCode, data)
             }
             //CODING FROM LIBRARY XZINK END
         }

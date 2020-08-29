@@ -22,7 +22,7 @@ class AppendHistoryActivity : AppCompatActivity() {
 
     private lateinit var optionJsonObject: SelectOptionResponse
 
-    lateinit var parentCategory: String
+    private lateinit var parentCategory: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.views.activity.computer
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -208,6 +209,7 @@ class ComputersActivity : AppCompatActivity() {
         bd.rvComputerlist.invalidate()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setTotalComputerCount(total: Int) {
         bd.tvComputerlistUnit.text = "Jumlah : $total unit"
     }
@@ -225,7 +227,7 @@ class ComputersActivity : AppCompatActivity() {
         //Memvalidasi json option yang disimpan di sharepref
         validateJsonStringInSharedPrefsForDropdown()
 
-        lateinit var locationDropdown: Spinner
+        var locationDropdown: Spinner? = null
 
         //mengisi semua opsi untuk spinner
         val branchDropdownOption = optionJsonObject.kalimantan
@@ -281,7 +283,7 @@ class ComputersActivity : AppCompatActivity() {
                 }
                 locationDropdownOption.addAll(locationFiltered)
                 locationDropdownOption.add(0, SEMUA)
-                locationDropdown.adapter =
+                locationDropdown?.adapter =
                     ArrayAdapter<String>(
                         this@ComputersActivity,
                         android.R.layout.simple_list_item_1,

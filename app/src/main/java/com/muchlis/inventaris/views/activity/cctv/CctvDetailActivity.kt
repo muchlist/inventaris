@@ -1,18 +1,13 @@
 package com.muchlis.inventaris.views.activity.cctv
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
-import com.muchlis.inventaris.R
 import com.muchlis.inventaris.databinding.ActivityCctvDetailBinding
-import com.muchlis.inventaris.databinding.ActivityComputerDetailBinding
 import com.muchlis.inventaris.utils.INTENT_CCTV_TO_DETAIL
-import com.muchlis.inventaris.utils.INTENT_PC_TO_DETAIL
 import com.muchlis.inventaris.view_model.cctv.CctvDetailViewModel
-import com.muchlis.inventaris.view_model.computer.ComputerDetailViewModel
 import com.muchlis.inventaris.view_pager_adapter.CctvPagerAdapter
-import com.muchlis.inventaris.view_pager_adapter.ComputerPagerAdapter
 
 class CctvDetailActivity : AppCompatActivity() {
 
