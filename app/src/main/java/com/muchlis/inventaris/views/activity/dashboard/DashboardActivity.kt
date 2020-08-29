@@ -20,6 +20,7 @@ import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.cctv.CctvsActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
+import com.muchlis.inventaris.views.activity.history.HistoryListActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StocksActivity
 import es.dmoral.toasty.Toasty
@@ -59,6 +60,10 @@ class DashboardActivity : AppCompatActivity() {
 
         bd.ivReload.setOnClickListener {
             findHistories()
+        }
+
+        bd.btHistoryDashboard.setOnClickListener {
+            intentToHistoryListActivity()
         }
     }
 
@@ -150,6 +155,11 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun intentToHistoryListActivity() {
+        val intent = Intent(this, HistoryListActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun setRecyclerView() {
         bd.rvHistoryDashboard.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -165,6 +175,11 @@ class DashboardActivity : AppCompatActivity() {
         historyData.addAll(data.histories)
         runLayoutAnimation()
         historyAdapter.notifyDataSetChanged()
+    }
+
+    private fun runLayoutAnimation() {
+        bd.rvHistoryDashboard.scheduleLayoutAnimation()
+        bd.rvHistoryDashboard.invalidate()
     }
 
     private fun intentToDetailActivity(parentID: String, category: String) {
@@ -184,15 +199,10 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun runLayoutAnimation() {
-        bd.rvHistoryDashboard.scheduleLayoutAnimation()
-        bd.rvHistoryDashboard.invalidate()
-    }
-
     private fun findHistories() {
         viewModel.findHistories(
             FindHistoryDto(
-                branch = App.prefs.userBranchSave,
+                branch = "",
                 category = "",
                 limit = 5
             )
