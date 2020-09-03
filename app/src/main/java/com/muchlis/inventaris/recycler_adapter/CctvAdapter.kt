@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.recycler_adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,7 @@ class CctvAdapter(
 
     class ViewHolder(view: View, val itemClick: (CctvListResponse.Cctv) -> Unit) :
         RecyclerView.ViewHolder(view) {
+        @SuppressLint("SetTextI18n")
         fun bindItem(items: CctvListResponse.Cctv) {
 
             itemView.apply {
@@ -41,21 +43,17 @@ class CctvAdapter(
                 tv_cctvlist_ip.text = items.ipAddress
                 tv_cctvlist_location.text = items.location
                 tv_cctvlist_last_status.text = items.lastStatus
-
-//                if (items.lastPing == "UP"){
-//                    tv_cctvlist_condition.invisible()
-//                } else {
-//                    tv_cctvlist_condition.visible()
-//                    tv_cctvlist_condition.text = items.lastPing[0].toString()
-//                }
-                tv_cctvlist_condition.text = items.pingSum.toString()
+                tv_cctvlist_condition.text = "${items.pingSum} %"
 
                 if (items.lastPing == "UP") {
-                    tv_cctvlist_condition.setBackgroundResource(R.drawable.shape_circle_green)
+                    tv_cctvlist_condition.setBackgroundResource(R.drawable.text_rounded_cctv_up)
                 } else {
-                    tv_cctvlist_condition.setBackgroundResource(R.drawable.shape_circle_red)
+                    if (items.pingSum == 0) {
+                        tv_cctvlist_condition.setBackgroundResource(R.drawable.text_rounded_cctv_down)
+                    } else {
+                        tv_cctvlist_condition.setBackgroundResource(R.drawable.text_rounded_cctv_mid)
+                    }
                 }
-
 
                 //onClick
                 itemView.setOnClickListener { itemClick(items) }
