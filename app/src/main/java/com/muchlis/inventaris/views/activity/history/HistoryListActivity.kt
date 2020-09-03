@@ -22,7 +22,6 @@ import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.databinding.ActivityHistoryListBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.DashboardViewModel
 import com.muchlis.inventaris.view_model.history.HistoryListViewModel
 import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
@@ -174,14 +173,12 @@ class HistoryListActivity : AppCompatActivity() {
         //Memvalidasi json option yang disimpan di sharepref
         validateJsonStringInSharedPrefsForDropdown()
 
-        lateinit var locationDropdown: Spinner
-
         //mengisi semua opsi untuk spinner
         val branchDropdownOption: MutableList<String> = mutableListOf()
         branchDropdownOption.addAll(optionJsonObject.kalimantan)
         branchDropdownOption.add(0, SEMUA)
 
-        val categoryDropdownOption= listOf(SEMUA, CATEGORY_PC, CATEGORY_CCTV, CATEGORY_STOCK)
+        val categoryDropdownOption = listOf(SEMUA, CATEGORY_PC, CATEGORY_CCTV, CATEGORY_STOCK)
 
         //Mendapatkan index dari isian awal
         val branchIndexStart = 0

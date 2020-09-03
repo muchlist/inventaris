@@ -244,8 +244,9 @@
                         android:id="@+id/iv_detail_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:srcCompat="@drawable/ic_undraw_folder_x4ft"
-                        android:contentDescription="@string/image_desc"/>
+                        android:contentDescription="@string/image_desc"
+                        android:scaleType="centerCrop"
+                        tools:srcCompat="@drawable/ic_undraw_folder_x4ft" />
 
                 </androidx.cardview.widget.CardView>
 
