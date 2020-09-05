@@ -76,7 +76,9 @@ class ComputerHistoryFragment : Fragment() {
         bd.rvDetailComputerHistory.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         historyAdapter = HistoryAdapter(requireActivity(), historyData) {
-            deleteComputerHistory(it.id)
+            if (it.author == App.prefs.nameSave){
+                deleteComputerHistory(it.id)
+            }
         }
         bd.rvDetailComputerHistory.adapter = historyAdapter
         bd.rvDetailComputerHistory.setHasFixedSize(true)
