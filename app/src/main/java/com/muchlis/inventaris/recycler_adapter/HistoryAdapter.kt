@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.HistoryResponse
-import com.muchlis.inventaris.utils.toDate
-import com.muchlis.inventaris.utils.toStringJustDate
+import com.muchlis.inventaris.utils.*
 import kotlinx.android.synthetic.main.item_history.view.*
 
 class HistoryAdapter(
@@ -40,7 +39,7 @@ class HistoryAdapter(
             itemView.apply {
                 tv_history_author.text = items.author
                 tv_history_branch.text = items.branch
-                tv_history_date.text = items.date.toDate().toStringJustDate()
+                tv_history_date.text = items.date.toDate().toStringDateForView()
                 tv_history_name.text = items.parentName
                 tv_history_note.text = items.note
                 val categoryStatus = items.status
@@ -59,11 +58,10 @@ class HistoryAdapter(
 
         private fun getImageResourceFromCategory(category: String): Int {
             return when (category) {
-                "PC" -> R.drawable.ic_029_computer
-                "Printer" -> R.drawable.ic_041_printer
-                "Server" -> R.drawable.ic_047_server
-                "CCTV" -> R.drawable.ic_018_cctv
-                "STOCK" -> R.drawable.ic_049_stock
+                CATEGORY_PC -> R.drawable.ic_029_computer
+                CATEGORY_CCTV -> R.drawable.ic_018_cctv
+                CATEGORY_STOCK -> R.drawable.ic_049_stock
+                CATEGORY_DAILY -> R.drawable.ic_023_poster
                 else -> R.drawable.ic_029_computer
             }
         }

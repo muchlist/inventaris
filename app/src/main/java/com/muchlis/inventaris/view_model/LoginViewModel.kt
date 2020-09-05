@@ -78,6 +78,7 @@ class LoginViewModel : ViewModel() {
         pref.userBranchSave = data.branch
         pref.isAdmin = data.isAdmin
         pref.isEndUser = data.isEndUser
+        pref.usernameSave = data.username
     }
 
 }

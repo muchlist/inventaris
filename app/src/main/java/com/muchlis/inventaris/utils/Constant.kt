@@ -11,6 +11,7 @@ const val ERR_FORM_NOT_VALID = "Harap lengkapi formulir"
 const val CATEGORY_PC = "PC"
 const val CATEGORY_CCTV = "CCTV"
 const val CATEGORY_STOCK = "STOCK"
+const val CATEGORY_DAILY = "DAILY"
 
 const val SEMUA = "---"
 const val YA = "YA"

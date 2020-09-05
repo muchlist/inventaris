@@ -1,6 +1,7 @@
 package com.muchlis.inventaris.views.activity.dashboard
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.cctv.CctvsActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
+import com.muchlis.inventaris.views.activity.history.AppendDailyActivity
 import com.muchlis.inventaris.views.activity.history.HistoryListActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StocksActivity
@@ -57,6 +59,7 @@ class DashboardActivity : AppCompatActivity() {
         bd.menuStock.setOnClickListener { intentToStockActivity() }
         bd.menuCctv.setOnClickListener { intentToCctvActivity() }
         bd.menuQr.setOnClickListener { intentToQrCode() }
+        bd.menuDaily.setOnClickListener { intentToAppendDailyActivity() }
 
         bd.ivReload.setOnClickListener {
             findHistories()
@@ -76,6 +79,11 @@ class DashboardActivity : AppCompatActivity() {
             })
             isLoading.observe(this@DashboardActivity, Observer { showLoading(it) })
             messageError.observe(this@DashboardActivity, Observer { showErrorToast(it) })
+            isHistoryDeleted.observe(this@DashboardActivity, Observer {
+                if (it) {
+                    findHistories()
+                }
+            })
         }
     }
 
@@ -155,6 +163,11 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun intentToAppendDailyActivity() {
+        val intent = Intent(this, AppendDailyActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun intentToHistoryListActivity() {
         val intent = Intent(this, HistoryListActivity::class.java)
         startActivity(intent)
@@ -164,7 +177,13 @@ class DashboardActivity : AppCompatActivity() {
         bd.rvHistoryDashboard.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyAdapter = HistoryAdapter(this, historyData) {
-            intentToDetailActivity(parentID = it.parentId, category = it.category)
+            if (it.category == CATEGORY_DAILY && it.author == App.prefs.nameSave) {
+                //Khusus Daily perilakunya delete daily
+                deleteDailyHistory(it.id)
+            } else {
+                intentToDetailActivity(parentID = it.parentId, category = it.category)
+            }
+
         }
         bd.rvHistoryDashboard.adapter = historyAdapter
         bd.rvHistoryDashboard.setHasFixedSize(true)
@@ -218,6 +237,23 @@ class DashboardActivity : AppCompatActivity() {
     private fun setToolbarTitle() {
         bd.collapsingToolbar.title = App.prefs.nameSave
         bd.collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsedAppBar)
+    }
+
+    private fun deleteDailyHistory(historyID: String) {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Konfirmasi")
+        builder.setMessage("Yakin ingin menghapus daily?")
+
+        builder.setPositiveButton("Ya") { _, _ ->
+            viewModel.deleteHistoryFromServer(historyID)
+        }
+        builder.setNeutralButton("Batal") { _, _ ->
+
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     private fun showLoading(isLoading: Boolean) {

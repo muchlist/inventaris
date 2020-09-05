@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.views.activity.history
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -89,6 +90,11 @@ class HistoryListActivity : AppCompatActivity() {
             })
             isLoading.observe(this@HistoryListActivity, Observer { showLoading(it) })
             messageError.observe(this@HistoryListActivity, Observer { showErrorToast(it) })
+            isHistoryDeleted.observe(this@HistoryListActivity, Observer {
+                if (it) {
+                    findHistories()
+                }
+            })
         }
     }
 
@@ -96,7 +102,12 @@ class HistoryListActivity : AppCompatActivity() {
         bd.rvDetailHistory.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyAdapter = HistoryAdapter(this, historyData) {
-            intentToDetailActivity(parentID = it.parentId, category = it.category)
+            if (it.category == CATEGORY_DAILY && it.author == App.prefs.nameSave) {
+                //Khusus Daily perilakunya delete daily
+                deleteDailyHistory(it.id)
+            } else {
+                intentToDetailActivity(parentID = it.parentId, category = it.category)
+            }
         }
         bd.rvDetailHistory.adapter = historyAdapter
         bd.rvDetailHistory.setHasFixedSize(true)
@@ -261,6 +272,23 @@ class HistoryListActivity : AppCompatActivity() {
 
         myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         myDialog.show()
+    }
+
+    private fun deleteDailyHistory(historyID: String) {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Konfirmasi")
+        builder.setMessage("Yakin ingin menghapus daily?")
+
+        builder.setPositiveButton("Ya") { _, _ ->
+            viewModel.deleteHistoryFromServer(historyID)
+        }
+        builder.setNeutralButton("Batal") { _, _ ->
+
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     private fun showLoading(isLoading: Boolean) {

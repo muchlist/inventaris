@@ -25,6 +25,10 @@ class DashboardViewModel : ViewModel() {
     val messageError: LiveData<String>
         get() = _messageError
 
+    private val _isHistoryDeleted = MutableLiveData<Boolean>()
+    val isHistoryDeleted: LiveData<Boolean>
+        get() = _isHistoryDeleted
+
     init {
         _isLoading.value = false
         _messageError.value = ""
@@ -43,6 +47,23 @@ class DashboardViewModel : ViewModel() {
             response.let {
                 _isLoading.value = false
                 _historyData.postValue(response)
+            }
+        }
+    }
+
+    fun deleteHistoryFromServer(historyID: String) {
+        _isLoading.value = true
+        _messageError.value = ""
+        HistoryRepo.deleteHistory(historyID = historyID) { success, error ->
+            if (error.isNotEmpty()) {
+                _isLoading.value = false
+                _messageError.value = error
+                return@deleteHistory
+            }
+            if (success.isNotEmpty()) {
+                _isLoading.value = false
+                _messageError.value = "Berhasil menghapus history"
+                _isHistoryDeleted.value = true
             }
         }
     }

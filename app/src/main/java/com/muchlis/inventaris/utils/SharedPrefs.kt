@@ -14,11 +14,14 @@ class SharedPrefs(context: Context) {
 
     //DATA USER DIMUAT KETIKA LOGIN
     private val _name = "nameAccount"
+    private val _username = "username"
     private val _userBranch = "userBranch"
     private val _isAdmin = "isAdmin"
     private val _isTally = "isTally"
+
     private val _optionsJsonVersion = "dropdown_options_json_version"
     private val _optionsJson = "dropdown_options_json"
+    private val _lastTitleDaily = "lastTitleDaily"
 
     private val prefs: SharedPreferences = context.getSharedPreferences(_prefsFileName, 0)
 
@@ -37,6 +40,14 @@ class SharedPrefs(context: Context) {
     var nameSave: String
         get() = prefs.getString(_name, "") ?: ""
         set(value) = prefs.edit().putString(_name, value).apply()
+
+    var usernameSave: String
+        get() = prefs.getString(_username, "") ?: ""
+        set(value) = prefs.edit().putString(_username, value).apply()
+
+    var lastTitleDaily: String
+        get() = prefs.getString(_lastTitleDaily, "") ?: ""
+        set(value) = prefs.edit().putString(_lastTitleDaily, value).apply()
 
     var optionsJson: String
         get() = prefs.getString(_optionsJson, "") ?: ""

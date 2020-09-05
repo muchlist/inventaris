@@ -143,81 +143,81 @@
                     </androidx.cardview.widget.CardView>
 
                     <!--printer-->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/menu_printer"
-                        android:layout_width="165dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:cardCornerRadius="4dp">
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:id="@+id/menu_printer"-->
+<!--                        android:layout_width="165dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        app:cardCornerRadius="4dp">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:contentDescription="@string/logo_menu_gridview"
-                                android:src="@drawable/ic_041_printer" />
+<!--                            <ImageView-->
+<!--                                android:layout_width="35dp"-->
+<!--                                android:layout_height="35dp"-->
+<!--                                android:layout_marginStart="4dp"-->
+<!--                                android:layout_marginEnd="4dp"-->
+<!--                                android:contentDescription="@string/logo_menu_gridview"-->
+<!--                                android:src="@drawable/ic_041_printer" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/quicksand"
-                                android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="@string/printer" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="4dp"-->
+<!--                                android:layout_marginEnd="4dp"-->
+<!--                                android:ellipsize="end"-->
+<!--                                android:fontFamily="@font/quicksand"-->
+<!--                                android:singleLine="true"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:text="@string/printer" />-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                    </androidx.cardview.widget.CardView>
+<!--                    </androidx.cardview.widget.CardView>-->
 
 
                     <!--server-->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/menu_server"
-                        android:layout_width="165dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:cardCornerRadius="4dp">
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:id="@+id/menu_server"-->
+<!--                        android:layout_width="165dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        app:cardCornerRadius="4dp">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:contentDescription="@string/logo_menu_gridview"
-                                android:src="@drawable/ic_047_server" />
+<!--                            <ImageView-->
+<!--                                android:layout_width="35dp"-->
+<!--                                android:layout_height="35dp"-->
+<!--                                android:layout_marginStart="4dp"-->
+<!--                                android:layout_marginEnd="4dp"-->
+<!--                                android:contentDescription="@string/logo_menu_gridview"-->
+<!--                                android:src="@drawable/ic_047_server" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/quicksand"
-                                android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="@string/server" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="4dp"-->
+<!--                                android:layout_marginEnd="4dp"-->
+<!--                                android:ellipsize="end"-->
+<!--                                android:fontFamily="@font/quicksand"-->
+<!--                                android:singleLine="true"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:text="@string/server" />-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                    </androidx.cardview.widget.CardView>
+<!--                    </androidx.cardview.widget.CardView>-->
 
                     <!--cctv-->
                     <androidx.cardview.widget.CardView
@@ -252,6 +252,82 @@
                                 android:singleLine="true"
                                 android:textSize="18sp"
                                 android:text="@string/cctv" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!--daily-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/menu_daily"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/logo_menu_gridview"
+                                android:src="@drawable/ic_023_poster" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/quicksand"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:text="@string/daily" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!--application-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/menu_application"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/logo_menu_gridview"
+                                android:src="@drawable/ic_032_cd" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/quicksand"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:text="@string/application" />
 
                         </LinearLayout>
 

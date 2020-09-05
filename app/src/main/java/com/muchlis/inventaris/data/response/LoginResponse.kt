@@ -13,5 +13,7 @@ data class LoginResponse(
     @Json(name = "isEndUser")
     val isEndUser: Boolean,
     @Json(name = "name")
-    val name: String
+    val name: String,
+    @Json(name = "username")
+    val username: String
 )

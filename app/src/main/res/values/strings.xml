@@ -213,7 +213,9 @@
     <string name="satuan_mis_unit_cm_paket">Satuan (mis. unit, cm, paket)</string>
     <string name="stok_awal">Stok Awal</string>
     <string name="minimum_peringatan">Minimum Peringatan</string>
-    <string name="komputer">Komputer</string>
+    <string name="komputer">Computer</string>
+    <string name="daily">Add Daily</string>
+    <string name="application">Aplication</string>
     <string name="stock">Stock</string>
     <string name="printer">Printer</string>
     <string name="server">Server</string>
