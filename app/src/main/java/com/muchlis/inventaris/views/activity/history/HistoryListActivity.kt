@@ -102,9 +102,11 @@ class HistoryListActivity : AppCompatActivity() {
         bd.rvDetailHistory.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyAdapter = HistoryAdapter(this, historyData) {
-            if (it.category == CATEGORY_DAILY && it.author == App.prefs.nameSave) {
+            if (it.category == CATEGORY_DAILY) {
                 //Khusus Daily perilakunya delete daily
-                deleteDailyHistory(it.id)
+                if (it.author == App.prefs.nameSave) {
+                    deleteDailyHistory(it.id)
+                }
             } else {
                 intentToDetailActivity(parentID = it.parentId, category = it.category)
             }

@@ -248,7 +248,7 @@ class StocksActivity : AppCompatActivity() {
             ) {
                 branchSelected = branchDropdownOption[position]
                 locationDropdownOption.clear()
-                val locationFiltered = optionJsonObject.locations.filter { s ->
+                val locationFiltered = optionJsonObject.stockLocations.filter { s ->
                     s.contains(branchSelected) || s.contains(LAINNYA)
                 }
                 locationDropdownOption.addAll(locationFiltered)

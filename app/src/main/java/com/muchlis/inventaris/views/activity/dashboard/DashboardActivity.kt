@@ -177,13 +177,14 @@ class DashboardActivity : AppCompatActivity() {
         bd.rvHistoryDashboard.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyAdapter = HistoryAdapter(this, historyData) {
-            if (it.category == CATEGORY_DAILY && it.author == App.prefs.nameSave) {
+            if (it.category == CATEGORY_DAILY) {
                 //Khusus Daily perilakunya delete daily
-                deleteDailyHistory(it.id)
+                if (it.author == App.prefs.nameSave) {
+                    deleteDailyHistory(it.id)
+                }
             } else {
                 intentToDetailActivity(parentID = it.parentId, category = it.category)
             }
-
         }
         bd.rvHistoryDashboard.adapter = historyAdapter
         bd.rvHistoryDashboard.setHasFixedSize(true)

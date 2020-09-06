@@ -9,6 +9,7 @@ import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.utils.*
 import kotlinx.android.synthetic.main.item_history.view.*
+import java.util.*
 
 class HistoryAdapter(
     private val context: Context?,
@@ -34,6 +35,9 @@ class HistoryAdapter(
 
     class ViewHolder(view: View, val itemClick: (HistoryResponse) -> Unit) :
         RecyclerView.ViewHolder(view) {
+
+        private var dateTimeNow = Calendar.getInstance()
+
         fun bindItem(items: HistoryResponse) {
 
             itemView.apply {
@@ -46,6 +50,12 @@ class HistoryAdapter(
                 tv_history_status.text = categoryStatus
 
                 iv_circle_history.setImageResource(getImageResourceFromCategory(items.category))
+
+                if (dateTimeNow.time.toStringJustDate() == items.date.toDate().toStringJustDate()) {
+                    tv_history_today.visible()
+                } else {
+                    tv_history_today.invisible()
+                }
 
                 //onClick
                 itemView.setOnClickListener {}
