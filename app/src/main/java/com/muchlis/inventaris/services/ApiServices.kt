@@ -259,6 +259,68 @@ interface ApiService {
     ): Call<CctvDetailResponse>
 
 
+    /*Pelindo Apps---------------------------------------------------------------
+    * */
+
+    //{{url}}/api/apps?apps_name=
+    @GET("/api/apps")
+    fun getPelindoAppsList(
+        @Header("Authorization") token: String,
+        @Query("apps_name") branch: String = ""
+    ): Call<PelindoAppsListResponse>
+
+
+    //{{url}}/api/apps/5ef05f051bbfc2b3db5d1159
+    @GET("/api/apps/{id}")
+    fun getAppsDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<PelindoAppsDetailResponse>
+
+    /*Pelindo Apps History------------------------------------------------------
+    * */
+
+    //{{url}}/api/apps/5f5e601f7c8a9c2e97b137b4/histories
+    @POST("/api/apps/{id}")
+    fun createAppsHistoryForParent(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: HistoryAppsRequest,
+    ): Call<HistoryAppsDetailResponse>
+
+    //{{url}}/api/apps-histories?app_name=SPINER&branch=&category=&limit=100
+    @GET("/api/apps-histories")
+    fun getPelindoAppsHistoryList(
+        @Header("Authorization") token: String,
+        @Query("app_name") app_name: String = "",
+        @Query("branch") branch: String = "",
+        @Query("category") category: String = "",
+        @Query("limit") limit: Int = 100,
+    ): Call<HistoryAppsListResponse>
+
+    //{{url}}/api/apps/5f584d5aec15b175ecc37dbd/histories
+    @GET("/api/apps/{id}/histories")
+    fun getPelindoAppsHistoryListByParent(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+    ): Call<HistoryAppsListResponse>
+
+    //{{url}}/api/app-histories/5f5e61ed7c8a9c2e97b137b5
+    @GET("/api/app-histories/{id}")
+    fun getAppsHistoryDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<HistoryAppsDetailResponse>
+
+    //{{url}}/api/app-histories/5f599ce236f8c28239364355
+    @PUT("/api/app-histories/{id}")
+    fun editAppsHistoryDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: HistoryAppsEditRequest,
+    ): Call<HistoryAppsDetailResponse>
+
+
     /* OPTION -------------------------------------------------------------------
     */
 
