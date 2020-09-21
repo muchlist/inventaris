@@ -8,6 +8,10 @@ data class HistoryAppsListResponse(
     val histories: List<History>
 ) {
     data class History(
+        @Json(name = "author")
+        val author: String,
+        @Json(name = "branch")
+        val branch: String,
         @Json(name = "desc")
         val desc: String,
         @Json(name = "duration_minute")

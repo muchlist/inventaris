@@ -1,11 +1,8 @@
 package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindAppHistoryDto
-import com.muchlis.inventaris.data.dto.FindHistoryDto
-import com.muchlis.inventaris.data.request.ComputerEditRequest
 import com.muchlis.inventaris.data.request.HistoryAppsEditRequest
 import com.muchlis.inventaris.data.request.HistoryAppsRequest
-import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.data.response.*
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.utils.App
@@ -167,7 +164,6 @@ object PelindoAppsRepo {
             token = App.prefs.authTokenSave,
             appName = dto.appName,
             branch = dto.branch,
-            category = dto.category,
             limit = dto.limit
         ).enqueue(object : Callback<HistoryAppsListResponse> {
             override fun onResponse(

@@ -23,6 +23,7 @@ import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
 import com.muchlis.inventaris.views.activity.history.AppendDailyActivity
 import com.muchlis.inventaris.views.activity.history.HistoryListActivity
+import com.muchlis.inventaris.views.activity.pelindo_apps_history.PelindoAppsHistoryListActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StocksActivity
 import es.dmoral.toasty.Toasty
@@ -60,6 +61,7 @@ class DashboardActivity : AppCompatActivity() {
         bd.menuCctv.setOnClickListener { intentToCctvActivity() }
         bd.menuQr.setOnClickListener { intentToQrCode() }
         bd.menuDaily.setOnClickListener { intentToAppendDailyActivity() }
+        bd.menuApplication.setOnClickListener { intentToAppsHistoryActivity() }
 
         bd.ivReload.setOnClickListener {
             findHistories()
@@ -135,6 +137,11 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun intentToCctvActivity() {
         val intent = Intent(this, CctvsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun intentToAppsHistoryActivity() {
+        val intent = Intent(this, PelindoAppsHistoryListActivity::class.java)
         startActivity(intent)
     }
 
