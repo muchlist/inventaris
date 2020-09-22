@@ -1,14 +1,18 @@
-package com.muchlis.inventaris.view_model.history
+package com.muchlis.inventaris.view_model.pelindo_app_history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.request.HistoryAppsRequest
-import com.muchlis.inventaris.data.request.HistoryRequest
-import com.muchlis.inventaris.repository.HistoryRepo
+import com.muchlis.inventaris.data.response.PelindoAppsListResponse
 import com.muchlis.inventaris.repository.PelindoAppsRepo
 
-class AppendHistoryViewModel : ViewModel() {
+class AppendPelindoAppsHistoryViewModel : ViewModel() {
+
+    private val _appsData: MutableLiveData<PelindoAppsListResponse> = MutableLiveData()
+    fun getAppsData(): MutableLiveData<PelindoAppsListResponse> {
+        return _appsData
+    }
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -34,17 +38,17 @@ class AppendHistoryViewModel : ViewModel() {
         _messageSuccess.value = ""
     }
 
-    fun appendHistory(parentID: String, args: HistoryRequest) {
+    fun appendHistory(parentID: String, args: HistoryAppsRequest) {
         _isLoading.value = true
         _isHistoryCreated.value = false
-        HistoryRepo.createHistory(
+        PelindoAppsRepo.createPelindoAppsHistory(
             parentID = parentID,
             args = args
         ) { response, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
                 _messageError.value = error
-                return@createHistory
+                return@createPelindoAppsHistory
             }
             response.let {
                 _isLoading.value = false
@@ -53,4 +57,19 @@ class AppendHistoryViewModel : ViewModel() {
             }
         }
     }
+
+    fun findApps(appName: String = "") {
+        PelindoAppsRepo.findPelindoApps(appName = "") { response, error ->
+            if (error.isNotEmpty()) {
+                _isLoading.value = false
+                _messageError.value = error
+                return@findPelindoApps
+            }
+            response?.let {
+                _appsData.postValue(it)
+            }
+        }
+    }
+
+
 }

@@ -281,7 +281,7 @@ interface ApiService {
     * */
 
     //{{url}}/api/apps/5f5e601f7c8a9c2e97b137b4/histories
-    @POST("/api/apps/{id}")
+    @POST("/api/apps/{id}/histories")
     fun createAppsHistoryForParent(
         @Header("Authorization") token: String,
         @Path("id") id: String,

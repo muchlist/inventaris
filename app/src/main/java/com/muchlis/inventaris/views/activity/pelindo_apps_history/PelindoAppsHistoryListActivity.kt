@@ -1,7 +1,8 @@
 package com.muchlis.inventaris.views.activity.pelindo_apps_history
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +11,9 @@ import com.muchlis.inventaris.data.response.HistoryAppsListResponse
 import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.databinding.ActivityPelindoAppsHistoryListBinding
 import com.muchlis.inventaris.recycler_adapter.AppHistoryAdapter
-import com.muchlis.inventaris.utils.*
+import com.muchlis.inventaris.utils.App
+import com.muchlis.inventaris.utils.invisible
+import com.muchlis.inventaris.utils.visible
 import com.muchlis.inventaris.view_model.pelindo_app_history.PelindoAppsHistoryViewModel
 import es.dmoral.toasty.Toasty
 
@@ -49,7 +52,7 @@ class PelindoAppsHistoryListActivity : AppCompatActivity() {
         findHistory()
 
         bd.fabPelindoAppHistory.setOnClickListener {
-            //TODO intentToComputerAppendActivity()
+            startActivity(Intent(this, AppendPelindoAppsHistoryActivity::class.java))
         }
 
         bd.chipFilter.setOnClickListener {
@@ -77,7 +80,9 @@ class PelindoAppsHistoryListActivity : AppCompatActivity() {
                 loadRecyclerView(it)
             })
             isLoading.observe(this@PelindoAppsHistoryListActivity, Observer { showLoading(it) })
-            messageError.observe(this@PelindoAppsHistoryListActivity, Observer { showErrorToast(it) })
+            messageError.observe(
+                this@PelindoAppsHistoryListActivity,
+                Observer { showErrorToast(it) })
         }
     }
 
@@ -121,6 +126,14 @@ class PelindoAppsHistoryListActivity : AppCompatActivity() {
     private fun showErrorToast(text: String) {
         if (text.isNotEmpty()) {
             Toasty.error(this, text, Toasty.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (App.activityAppsHistoryListMustBeRefresh) {
+            findHistory()
+            App.activityAppsHistoryListMustBeRefresh = false
         }
     }
 

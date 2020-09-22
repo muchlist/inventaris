@@ -44,6 +44,9 @@ data class SelectOptionResponse(
     @SerializedName("history")
     @Json(name = "history")
     val history: List<String>,
+    @SerializedName("app_history")
+    @Json(name = "app_history")
+    val appHistory: List<String>,
     @SerializedName("version")
     @Json(name = "version")
     val version: Int

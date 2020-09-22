@@ -135,7 +135,8 @@ object PelindoAppsRepo {
                         val responseBody = response.errorBody()?.string() ?: ""
                         callback(
                             null,
-                            getMsgFromJson(responseBody)
+                            //getMsgFromJson(responseBody)
+                            responseBody.toString()
                         )
                     }
                     else -> {

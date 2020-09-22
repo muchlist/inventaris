@@ -22,4 +22,11 @@ data class HistoryAppsRequest(
     val status: String,
     @Json(name = "title")
     val title: String
-)
+){
+    fun isValid(): Boolean {
+        if (status.isEmpty() || title.isEmpty() || desc.isEmpty()) {
+            return false
+        }
+        return true
+    }
+}

@@ -17,6 +17,8 @@ class App : Application() {
 
         var activityCctvListMustBeRefresh : Boolean = false
         var fragmentDetailCctvMustBeRefresh : Boolean = false
+
+        var activityAppsHistoryListMustBeRefresh : Boolean = false
     }
 
     override fun onCreate() {
