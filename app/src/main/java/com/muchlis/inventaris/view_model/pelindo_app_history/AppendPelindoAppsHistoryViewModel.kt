@@ -9,9 +9,11 @@ import com.muchlis.inventaris.repository.PelindoAppsRepo
 
 class AppendPelindoAppsHistoryViewModel : ViewModel() {
 
-    private val _appsData: MutableLiveData<PelindoAppsListResponse> = MutableLiveData()
-    fun getAppsData(): MutableLiveData<PelindoAppsListResponse> {
-        return _appsData
+    lateinit var  appsData: PelindoAppsListResponse
+
+    private val _appsListName: MutableLiveData<List<String>> = MutableLiveData()
+    fun getAppsListName(): MutableLiveData<List<String>> {
+        return _appsListName
     }
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -66,10 +68,28 @@ class AppendPelindoAppsHistoryViewModel : ViewModel() {
                 return@findPelindoApps
             }
             response?.let {
-                _appsData.postValue(it)
+                appsData = it
+                _appsListName.postValue(getAppListNameFromFindAppsResponse(it))
             }
         }
     }
 
+    private fun getAppListNameFromFindAppsResponse(data: PelindoAppsListResponse): List<String>{
+        val appList = mutableListOf<String>()
+        for (app in data.apps){
+            appList.add(app.appsName)
+        }
+        return appList
+    }
 
+    fun getIDFromAppName(appName: String): String?{
+        if (appsData.apps.count() != 0){
+            for (data in appsData.apps){
+                if (data.appsName == appName){
+                    return data.id
+                }
+            }
+        }
+        return null
+    }
 }

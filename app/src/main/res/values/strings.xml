@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Inventaris</string>
+    <string name="app_name">RISA</string>
 
     <string name="error">Server Sleep</string>
     <string name="dot">Dot Point</string>
@@ -225,7 +225,7 @@
     <string name="nama">Nama</string>
     <string name="nomor_ba_optional">Nomor BA (Optional)</string>
     <string name="perubahan_stok_tidak_dapat_dibatalkan_harap_periksa_ulang_barang_kuantitas_serta_mode_yang_digunakan_penambahan_atau_pengurangan">** Perubahan stok tidak dapat dibatalkan, harap periksa ulang barang, kuantitas serta mode yang digunakan (penambahan atau pengurangan)!</string>
-    <string name="pencarian_dot">Pencarian ...</string>
+    <string name="pencarian_dot">Pencarian &#8230;</string>
     <string name="koneksi">Koneksi</string>
     <string name="tipe_merk">Tipe-merk</string>
     <string name="unit_status_nonaktif">Unit Status Nonaktif</string>
@@ -237,4 +237,5 @@
     <string name="kurangi">Kurangi</string>
     <string name="image_desc">image desc</string>
     <string name="hari_ini">Hari ini</string>
+    <string name="pager">#</string>
 </resources>

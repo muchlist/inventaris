@@ -55,47 +55,50 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/quicksand_bold"
-                        android:text="Tambah Insiden"
+                        android:text="Resolve Insiden"
                         android:textSize="24sp" />
 
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:text="Aplikasi : "
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tv_app_history_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                tools:text="SPINER" />
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Status : "
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tv_app_history_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                tools:text="BUG" />
+                        </TableRow>
+
+                    </TableLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:hint="Aplikasi">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/at_app_history_apps_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/status">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/at_app_history_status"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <!--style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"-->
-
-
-                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/etf_desc"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
@@ -109,20 +112,13 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/sw_app_history_complete"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="Apakah sudah solved?" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/etf_resolve_note"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:hint="Resolve Note">
+                        android:hint="Resolve Note"
+                        android:visibility="visible">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -131,43 +127,13 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!--                    <LinearLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:orientation="horizontal"-->
-                    <!--                        android:gravity="center">-->
-
-                    <!--                        <TextView-->
-                    <!--                            android:layout_width="wrap_content"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:text="Waktu Mulai"-->
-                    <!--                            android:textSize="20sp"-->
-                    <!--                            android:textColor="@color/white"-->
-                    <!--                            android:layout_gravity="center"-->
-                    <!--                            android:layout_margin="8dp"-->
-                    <!--                            android:background="@drawable/text_rounded_cctv_mid"/>-->
-
-                    <!--                        <TextView-->
-                    <!--                            android:layout_width="wrap_content"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:text="Waktu Selesai"-->
-                    <!--                            android:textColor="@color/white"-->
-                    <!--                            android:layout_margin="8dp"-->
-                    <!--                            android:textSize="20sp"-->
-                    <!--                            android:layout_gravity="center"-->
-                    <!--                            android:background="@drawable/text_rounded_seat"/>-->
-
-                    <!--                    </LinearLayout>-->
-
-
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/bt_save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
-                        android:text="@string/simpan"
+                        android:text="Resolve"
                         app:icon="@drawable/ic_baseline_check_box_24px" />
 
                 </LinearLayout>

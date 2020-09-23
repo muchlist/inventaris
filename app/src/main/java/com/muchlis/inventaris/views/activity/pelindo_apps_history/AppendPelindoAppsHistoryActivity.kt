@@ -20,10 +20,6 @@ class AppendPelindoAppsHistoryActivity : AppCompatActivity() {
 
     private lateinit var optionJsonObject: SelectOptionResponse
 
-    private lateinit var pelindoAppsListObject: PelindoAppsListResponse
-    private var pelindoAppListString = mutableListOf<String>()
-    private var pelindoAppListIDString = mutableListOf<String>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bd = ActivityAppendPelindoAppsHistoryBinding.inflate(layoutInflater)
@@ -106,12 +102,11 @@ class AppendPelindoAppsHistoryActivity : AppCompatActivity() {
         )
 
         val pelindoAppsSelected = bd.atAppHistoryAppsName.text.toString()
-        val index = pelindoAppListString.indexOf(pelindoAppsSelected)
-        if (index == -1) {
+        val appID = viewModel.getIDFromAppName(pelindoAppsSelected)
+        if (appID.isNullOrEmpty()){
             showToast("Harap memilih aplikasi", true)
             return
         }
-        val appID = pelindoAppListIDString[index]
 
         if (args.isValid()) {
             viewModel.appendHistory(appID, args)
@@ -127,17 +122,8 @@ class AppendPelindoAppsHistoryActivity : AppCompatActivity() {
             isHistoryCreated.observe(this@AppendPelindoAppsHistoryActivity, {
                 killActivityIfHistoryCreated(it)
             })
-            getAppsData().observe(this@AppendPelindoAppsHistoryActivity, {
-                pelindoAppListString.clear()
-                pelindoAppListIDString.clear()
-                pelindoAppsListObject = it
-
-                for (App in pelindoAppsListObject.apps) {
-                    pelindoAppListString.add(App.appsName)
-                    pelindoAppListIDString.add(App.id)
-                }
-
-                setAutoTextApps(pelindoAppListString)
+            getAppsListName().observe(this@AppendPelindoAppsHistoryActivity, {
+                setAutoTextApps(it)
             })
             isLoading.observe(this@AppendPelindoAppsHistoryActivity, { showLoading(it) })
             messageError.observe(this@AppendPelindoAppsHistoryActivity, { showToast(it, true) })

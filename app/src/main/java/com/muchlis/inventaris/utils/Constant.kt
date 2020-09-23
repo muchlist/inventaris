@@ -1,6 +1,5 @@
 package com.muchlis.inventaris.utils
 
-const val LOCAL_SERVER = "http://10.4.2.21:5001"
 const val INTERNET_SERVER = "http://10.4.127.9:80"
 //const val INTERNET_SERVER = "http://10.4.2.21:5001"
 
@@ -13,6 +12,7 @@ const val CATEGORY_PC = "PC"
 const val CATEGORY_CCTV = "CCTV"
 const val CATEGORY_STOCK = "STOCK"
 const val CATEGORY_DAILY = "DAILY"
+const val CATEGORY_APPLICATION = "APPLICATION"
 
 const val SEMUA = "---"
 const val YA = "YA"
@@ -44,4 +44,6 @@ const val INTENT_TO_EDIT_STOCK = "INTENT_TO_EDIT_STOCK"
 
 const val INTENT_CCTV_TO_DETAIL = "INTENT_CCTV_TO_DETAIL"
 const val INTENT_TO_EDIT_CCTV = "INTENT_TO_EDIT_CCTV"
+
+const val INTENT_PELINDO_HISTORY_TO_EDIT = "INTENT_PELINDO_HISTORY_TO_EDIT"
 

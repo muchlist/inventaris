@@ -72,6 +72,7 @@ class HistoryAdapter(
                 CATEGORY_CCTV -> R.drawable.ic_018_cctv
                 CATEGORY_STOCK -> R.drawable.ic_049_stock
                 CATEGORY_DAILY -> R.drawable.ic_023_poster
+                CATEGORY_APPLICATION -> R.drawable.ic_032_cd
                 else -> R.drawable.ic_029_computer
             }
         }

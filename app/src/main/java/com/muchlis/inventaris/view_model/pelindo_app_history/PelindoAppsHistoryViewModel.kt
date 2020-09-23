@@ -23,6 +23,10 @@ class PelindoAppsHistoryViewModel : ViewModel() {
     val messageError: LiveData<String>
         get() = _messageError
 
+    private val _messageSuccess = MutableLiveData<String>()
+    val messageSuccess: LiveData<String>
+        get() = _messageSuccess
+
     private val _isHistoryDeleted = MutableLiveData<Boolean>()
     val isHistoryDeleted: LiveData<Boolean>
         get() = _isHistoryDeleted
@@ -30,6 +34,7 @@ class PelindoAppsHistoryViewModel : ViewModel() {
     init {
         _isLoading.value = false
         _messageError.value = ""
+        _messageSuccess.value = ""
     }
 
     fun findHistories(data: FindAppHistoryDto) {
@@ -52,6 +57,7 @@ class PelindoAppsHistoryViewModel : ViewModel() {
     fun deleteHistoryFromServer(historyID: String) {
         _isLoading.value = true
         _messageError.value = ""
+        _messageSuccess.value = ""
         PelindoAppsRepo.deletePelindoAppsHistory(historyID = historyID) { success, error ->
             if (error.isNotEmpty()) {
                 _isLoading.value = false
@@ -60,7 +66,7 @@ class PelindoAppsHistoryViewModel : ViewModel() {
             }
             if (success.isNotEmpty()) {
                 _isLoading.value = false
-                _messageError.value = "Berhasil menghapus history"
+                _messageSuccess.value = "Berhasil menghapus history"
                 _isHistoryDeleted.value = true
             }
         }

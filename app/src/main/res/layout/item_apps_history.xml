@@ -57,7 +57,7 @@
                 android:id="@+id/tv_app_history_status"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
@@ -65,7 +65,7 @@
                 android:minLines="1"
                 android:textStyle="bold|italic"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_app_history_name"
                 tools:text="Spiner lelet" />
 
@@ -108,13 +108,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_solid_primary_rounded"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
                 android:maxLines="1"
                 android:minLines="1"
                 android:padding="2dp"
-                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +123,7 @@
                 android:id="@+id/tv_app_history_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
@@ -133,9 +131,8 @@
                 android:minLines="1"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_app_history_complete"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Spiner" />
 
@@ -168,9 +165,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
-                android:text="#"
+                android:text="@string/pager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_app_history_desc" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/image_desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_032_cd" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

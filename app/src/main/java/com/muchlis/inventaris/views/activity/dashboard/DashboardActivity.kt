@@ -118,6 +118,7 @@ class DashboardActivity : AppCompatActivity() {
                 CATEGORY_PC -> intentToComputerDetailActivity(textList[1])
                 CATEGORY_CCTV -> intentToCctvDetailActivity(textList[1])
                 CATEGORY_STOCK -> intentToStockDetailActivity(textList[1])
+                CATEGORY_APPLICATION -> {}
                 else -> showErrorToast("QR Code tidak dikenali")
             }
         } else {
@@ -220,6 +221,7 @@ class DashboardActivity : AppCompatActivity() {
             CATEGORY_CCTV -> {
                 intentToCctvDetailActivity(parentID)
             }
+            CATEGORY_APPLICATION -> {}
             else -> {
                 Toasty.error(this, "Category tidak valid", Toasty.LENGTH_LONG).show()
             }

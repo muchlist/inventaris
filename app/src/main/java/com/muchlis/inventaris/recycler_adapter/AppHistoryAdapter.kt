@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.item_apps_history.view.*
 class AppHistoryAdapter(
     private val context: Context?,
     private val itemList: List<HistoryAppsListResponse.History>,
-    private val longClick: (HistoryAppsListResponse.History) -> Unit
+    private val onClick: (HistoryAppsListResponse.History) -> Unit,
+    private val onLongClick: (HistoryAppsListResponse.History) -> Unit
 ) : RecyclerView.Adapter<AppHistoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +26,8 @@ class AppHistoryAdapter(
             .inflate(R.layout.item_apps_history, parent, false)
         return ViewHolder(
             view,
-            longClick
+            onClick,
+            onLongClick
         )
     }
 
@@ -36,7 +38,11 @@ class AppHistoryAdapter(
     }
 
 
-    class ViewHolder(view: View, val longClick: (HistoryAppsListResponse.History) -> Unit) :
+    class ViewHolder(
+        view: View,
+        val onClick: (HistoryAppsListResponse.History) -> Unit,
+        val onLongClick: (HistoryAppsListResponse.History) -> Unit,
+    ) :
         RecyclerView.ViewHolder(view) {
 
         @SuppressLint("SetTextI18n")
@@ -51,7 +57,7 @@ class AppHistoryAdapter(
                 tv_app_history_desc.text = items.desc
                 tv_app_history_resolve.text = items.resolveNote
 
-                if (items.durationMinute == 0){
+                if (items.durationMinute == 0) {
                     tv_app_history_minute.invisible()
                 } else {
                     tv_app_history_minute.visible()
@@ -69,9 +75,11 @@ class AppHistoryAdapter(
 
 
                 //onClick
-                itemView.setOnClickListener {}
+                itemView.setOnClickListener {
+                    onClick(items)
+                }
                 itemView.setOnLongClickListener {
-                    longClick(items)
+                    onLongClick(items)
                     true
                 }
             }
