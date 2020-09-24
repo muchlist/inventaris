@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,6 +63,29 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:rippleColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_app_history_total_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/text_rounded_seat"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Total Menit : 240" />
+
+        <TextView
+            android:id="@+id/tv_app_history_total_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/text_rounded_seat"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/tv_app_history_total_minute"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Jumlah : 40" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -294,6 +294,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("app_name") appName: String = "",
         @Query("branch") branch: String = "",
+        @Query("status") status: String = "",
         @Query("limit") limit: Int = 100,
     ): Call<HistoryAppsListResponse>
 

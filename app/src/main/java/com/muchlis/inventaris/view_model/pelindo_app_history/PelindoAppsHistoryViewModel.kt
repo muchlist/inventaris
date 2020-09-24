@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.dto.FindAppHistoryDto
 import com.muchlis.inventaris.data.response.HistoryAppsListResponse
+import com.muchlis.inventaris.data.response.PelindoAppsListResponse
 import com.muchlis.inventaris.repository.PelindoAppsRepo
+import com.muchlis.inventaris.utils.TranslateMinuteToHour
 
 class PelindoAppsHistoryViewModel : ViewModel() {
 
@@ -13,6 +15,13 @@ class PelindoAppsHistoryViewModel : ViewModel() {
     private val _historyData: MutableLiveData<HistoryAppsListResponse> = MutableLiveData()
     fun getHistoryData(): MutableLiveData<HistoryAppsListResponse> {
         return _historyData
+    }
+
+    private lateinit var appsData: PelindoAppsListResponse
+
+    private val _appsListName: MutableList<String> = mutableListOf()
+    fun getAppsListName(): MutableList<String> {
+        return _appsListName
     }
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -26,6 +35,14 @@ class PelindoAppsHistoryViewModel : ViewModel() {
     private val _messageSuccess = MutableLiveData<String>()
     val messageSuccess: LiveData<String>
         get() = _messageSuccess
+
+    private val _count = MutableLiveData<String>()
+    val getCount: LiveData<String>
+        get() = _count
+
+    private val _minute = MutableLiveData<String>()
+    val getMinute: LiveData<String>
+        get() = _minute
 
     private val _isHistoryDeleted = MutableLiveData<Boolean>()
     val isHistoryDeleted: LiveData<Boolean>
@@ -47,9 +64,10 @@ class PelindoAppsHistoryViewModel : ViewModel() {
                 _messageError.value = error
                 return@findPelindoAppsHistory
             }
-            response.let {
+            response?.let {
                 _isLoading.value = false
                 _historyData.postValue(response)
+                setCountAndMinute(response)
             }
         }
     }
@@ -71,4 +89,41 @@ class PelindoAppsHistoryViewModel : ViewModel() {
             }
         }
     }
+
+    fun findApps(appName: String = "") {
+        PelindoAppsRepo.findPelindoApps(appName = "") { response, error ->
+            if (error.isNotEmpty()) {
+                _isLoading.value = false
+                _messageError.value = error
+                return@findPelindoApps
+            }
+            response?.let {
+                appsData = it
+                _appsListName.clear()
+                _appsListName.addAll(getAppListNameFromFindAppsResponse(it))
+            }
+        }
+    }
+
+    private fun getAppListNameFromFindAppsResponse(data: PelindoAppsListResponse): List<String> {
+        val appList = mutableListOf<String>()
+        for (app in data.apps) {
+            appList.add(app.appsName)
+        }
+        return appList
+    }
+
+    private fun setCountAndMinute(data: HistoryAppsListResponse) {
+        val count = data.histories.count()
+        var totalMinute = 0
+        for (history in data.histories) {
+            if (history.durationMinute > 0) {
+                totalMinute += history.durationMinute
+            }
+        }
+        val minuteToHourString = TranslateMinuteToHour(totalMinute).getStringHour()
+        _count.value = "Total : $count"
+        _minute.value = "Total waktu : $minuteToHourString"
+    }
+
 }

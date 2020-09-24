@@ -165,6 +165,7 @@ object PelindoAppsRepo {
             token = App.prefs.authTokenSave,
             appName = dto.appName,
             branch = dto.branch,
+            status = dto.status,
             limit = dto.limit
         ).enqueue(object : Callback<HistoryAppsListResponse> {
             override fun onResponse(

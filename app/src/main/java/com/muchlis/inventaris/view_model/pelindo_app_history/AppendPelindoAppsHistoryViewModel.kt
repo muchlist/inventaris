@@ -9,7 +9,7 @@ import com.muchlis.inventaris.repository.PelindoAppsRepo
 
 class AppendPelindoAppsHistoryViewModel : ViewModel() {
 
-    lateinit var  appsData: PelindoAppsListResponse
+    private lateinit var  appsData: PelindoAppsListResponse
 
     private val _appsListName: MutableLiveData<List<String>> = MutableLiveData()
     fun getAppsListName(): MutableLiveData<List<String>> {
