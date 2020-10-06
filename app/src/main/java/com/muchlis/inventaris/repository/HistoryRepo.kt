@@ -154,7 +154,7 @@ object HistoryRepo {
         historyID: String,
         callback: (success: String, error: String) -> Unit
     ) {
-        apiService.deleteComputerHistory(
+        apiService.deleteSimpleHistory(
             token = App.prefs.authTokenSave,
             id = historyID
         ).enqueue(object : Callback<ResponseBody> {

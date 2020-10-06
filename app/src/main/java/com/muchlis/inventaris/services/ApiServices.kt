@@ -57,13 +57,19 @@ interface ApiService {
         @Query("limit") limit: Int?
     ): Call<HistoryListResponse>
 
-
     //{{url}}/api/histories/5ef05f051bbfc2b3db5d1159
     @GET("/api/histories/{id}")
     fun getHistoryFromParent(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<HistoryListResponse>
+
+    //{{url}}/api/delete-history/5ef2d20fd72e1f6c75093643
+    @DELETE("/api/delete-history/{id}")
+    fun deleteSimpleHistory(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ResponseBody>
 
     /* COMPUTER -------------------------------------------------------------------
     */
@@ -107,14 +113,6 @@ interface ApiService {
     //{{url}}/api/computers/5ef05f051bbfc2b3db5d1159
     @DELETE("/api/computers/{id}")
     fun deleteComputerDetail(
-        @Header("Authorization") token: String,
-        @Path("id") id: String
-    ): Call<ResponseBody>
-
-
-    //{{url}}/api/delete-history/5ef2d20fd72e1f6c75093643
-    @DELETE("/api/delete-history/{id}")
-    fun deleteComputerHistory(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<ResponseBody>
@@ -326,6 +324,60 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<ResponseBody>
+
+
+    /* HANDHELD -------------------------------------------------------------------
+    */
+
+    //{{url}}/api/handhelds
+    @POST("/api/handhelds")
+    fun postHandheld(
+        @Header("Authorization") token: String,
+        @Body args: HandheldRequest
+    ): Call<HandheldDetailResponse>
+
+    //{{url}}/api/handhelds?branch=bagendang&handheld_name=&deactive=no&location=#BANJARMASIN
+    @GET("/api/handhelds")
+    fun getHandheldList(
+        @Header("Authorization") token: String,
+        @Query("branch") branch: String = "",
+        @Query("location") location: String = "",
+        @Query("handheld_name") handheldName: String = "",
+        @Query("deactive") deactive: String = "", //yes no
+    ): Call<HandheldListResponse>
+
+
+    //{{url}}/api/handhelds/5ef05f051bbfc2b3db5d1159
+    @GET("/api/handhelds/{id}")
+    fun getHandheldDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<HandheldDetailResponse>
+
+    //{{url}}/api/handhelds/5ef05f051bbfc2b3db5d1159
+    @PUT("/api/handhelds/{id}")
+    fun editHandheldDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: HandheldEditRequest
+    ): Call<HandheldDetailResponse>
+
+    //{{url}}/api/handhelds/5ef05f051bbfc2b3db5d1159
+    @DELETE("/api/handhelds/{id}")
+    fun deleteHandheldDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ResponseBody>
+
+
+    //{{url}}/api/handhelds/5ef2d20fd72e1f6c75093643/(active atau deactive)
+    @POST("/api/handhelds/{id}/{active}")
+    fun changeStatusHHActive(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Path("active") active: String,
+        @Body args: JustTimeStampRequest
+    ): Call<HandheldDetailResponse>
 
 
     /* OPTION -------------------------------------------------------------------
