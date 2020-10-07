@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activity.handheld.HandheldsActivity"></activity>
+        <activity android:name=".views.activity.handheld.AppendHandheldActivity"></activity>
+        <activity android:name=".views.activity.handheld.HandheldsActivity" />
         <activity android:name=".views.activity.handheld.HandheldActivity" />
         <activity android:name=".views.activity.pelindo_apps_history.EditPelindoAppsHistoryActivity" />
         <activity android:name=".views.activity.pelindo_apps_history.AppendPelindoAppsHistoryActivity" />

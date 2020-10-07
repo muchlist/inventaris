@@ -220,9 +220,9 @@
 
 <!--                    </androidx.cardview.widget.CardView>-->
 
-                    <!--TABLET-->
+                    <!--cctv-->
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/menu_handheld"
+                        android:id="@+id/menu_cctv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -241,7 +241,7 @@
                                 android:layout_marginStart="4dp"
                                 android:layout_marginEnd="4dp"
                                 android:contentDescription="@string/logo_menu_gridview"
-                                android:src="@drawable/ic_043_ipad" />
+                                android:src="@drawable/ic_018_cctv" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -252,7 +252,7 @@
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
                                 android:textSize="18sp"
-                                android:text="Tablet" />
+                                android:text="@string/cctv" />
 
                         </LinearLayout>
 
@@ -334,9 +334,10 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <!--cctv-->
+
+                    <!--TABLET-->
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/menu_cctv"
+                        android:id="@+id/menu_handheld"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -355,7 +356,7 @@
                                 android:layout_marginStart="4dp"
                                 android:layout_marginEnd="4dp"
                                 android:contentDescription="@string/logo_menu_gridview"
-                                android:src="@drawable/ic_018_cctv" />
+                                android:src="@drawable/ic_043_ipad" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -366,7 +367,7 @@
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
                                 android:textSize="18sp"
-                                android:text="@string/cctv" />
+                                android:text="Tablet" />
 
                         </LinearLayout>
 

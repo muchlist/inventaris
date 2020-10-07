@@ -241,4 +241,7 @@
     <string name="image_desc">image desc</string>
     <string name="hari_ini">Hari ini</string>
     <string name="pager">#</string>
+    <string name="jenis_perangkat">Jenis Perangkat</string>
+    <string name="alias_tablet">Alias Tablet</string>
+    <string name="nomer_hp">Nomer HP</string>
 </resources>

@@ -2,6 +2,7 @@ package com.muchlis.inventaris.views.activity.handheld
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -155,8 +156,8 @@ class HandheldsActivity : AppCompatActivity() {
     }
 
     private fun intentToHandheldAppendActivity() {
-//        val intent = Intent(this, AppendHandheldActivity::class.java)
-//        startActivity(intent)
+        val intent = Intent(this, AppendHandheldActivity::class.java)
+        startActivity(intent)
     }
 
     private fun loadRecyclerView(data: HandheldListResponse) {
