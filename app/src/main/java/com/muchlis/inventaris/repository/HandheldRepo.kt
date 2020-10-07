@@ -1,6 +1,5 @@
 package com.muchlis.inventaris.repository
 
-import android.util.Log
 import com.muchlis.inventaris.data.dto.FindHandheldDto
 import com.muchlis.inventaris.data.request.HandheldEditRequest
 import com.muchlis.inventaris.data.request.HandheldRequest

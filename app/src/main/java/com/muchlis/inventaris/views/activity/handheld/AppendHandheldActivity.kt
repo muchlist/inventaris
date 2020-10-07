@@ -151,7 +151,7 @@ class AppendHandheldActivity : AppCompatActivity() {
             error++
         }
 
-        if (location.isEmpty()) {
+        if (tipe.isEmpty()) {
             bd.containerHandheldTipe.error = "Jenis perangkat tidak boleh kosong!"
             error++
         }
