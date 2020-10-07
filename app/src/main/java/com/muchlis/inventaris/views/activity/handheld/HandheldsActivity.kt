@@ -150,9 +150,9 @@ class HandheldsActivity : AppCompatActivity() {
     }
 
     private fun intentToHandheldDetailActivity(handheldID: String) {
-//        val intent = Intent(this, HandheldDetailActivity::class.java)
-//        intent.putExtra(INTENT_HH_TO_DETAIL, handheldID)
-//        startActivity(intent)
+        val intent = Intent(this, HandheldDetailActivity::class.java)
+        intent.putExtra(INTENT_HH_TO_DETAIL, handheldID)
+        startActivity(intent)
     }
 
     private fun intentToHandheldAppendActivity() {

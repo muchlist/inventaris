@@ -186,7 +186,7 @@ class AppendCctvActivity : AppCompatActivity() {
         year = if (year.isEmpty()) {
             dateTimeNowCalander.time.toStringInputDate()
         } else {
-            year.fromStringJustDatetoDate().toStringInputDate()
+            year.fromddMMMyyyytoDate().toStringInputDate()
         }
 
 
@@ -227,7 +227,7 @@ class AppendCctvActivity : AppCompatActivity() {
                 dateTimeNowCalander.set(Calendar.MINUTE, 0)
                 dateTimeNowCalander.set(Calendar.SECOND, 1)
 
-                val date = dateTimeNowCalander.time.toStringJustDate()
+                val date = dateTimeNowCalander.time.toStringddMMMyyyy()
 
                 //SET TO DISPLAY
                 bd.etfCctvYear.editText?.setText(date)

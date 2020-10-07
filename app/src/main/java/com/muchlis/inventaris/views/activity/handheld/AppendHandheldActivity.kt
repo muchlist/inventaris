@@ -2,6 +2,7 @@ package com.muchlis.inventaris.views.activity.handheld
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
@@ -177,7 +178,7 @@ class AppendHandheldActivity : AppCompatActivity() {
         year = if (year.isEmpty()) {
             dateTimeNowCalander.time.toStringInputDate()
         } else {
-            year.fromStringJustDatetoDate().toStringInputDate()
+            year.fromddMMMyyyytoDate().toStringInputDate()
         }
 
         if (error > 0) {
@@ -218,7 +219,7 @@ class AppendHandheldActivity : AppCompatActivity() {
                 dateTimeNowCalander.set(Calendar.MINUTE, 0)
                 dateTimeNowCalander.set(Calendar.SECOND, 1)
 
-                val date = dateTimeNowCalander.time.toStringJustDate()
+                val date = dateTimeNowCalander.time.toStringddMMMyyyy()
 
                 //SET TO DISPLAY
                 bd.etfHandheldYear.editText?.setText(date)

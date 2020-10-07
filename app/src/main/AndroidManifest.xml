@@ -19,11 +19,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activity.handheld.AppendHandheldActivity"></activity>
+        <activity
+            android:name=".views.activity.handheld.EditHandheldActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity android:name=".views.activity.handheld.HandheldDetailActivity" />
+        <activity
+            android:name=".views.activity.handheld.AppendHandheldActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity android:name=".views.activity.handheld.HandheldsActivity" />
-        <activity android:name=".views.activity.handheld.HandheldActivity" />
-        <activity android:name=".views.activity.pelindo_apps_history.EditPelindoAppsHistoryActivity" />
-        <activity android:name=".views.activity.pelindo_apps_history.AppendPelindoAppsHistoryActivity" />
+        <activity
+            android:name=".views.activity.pelindo_apps_history.EditPelindoAppsHistoryActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity
+            android:name=".views.activity.pelindo_apps_history.AppendPelindoAppsHistoryActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity android:name=".views.activity.pelindo_apps_history.PelindoAppsHistoryListActivity" />
         <activity android:name=".views.activity.history.AppendDailyActivity" />
         <activity android:name=".views.activity.history.HistoryListActivity" />

@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.views.activity.cctv
+package com.muchlis.inventaris.views.activity.handheld
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -6,19 +6,19 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.muchlis.inventaris.data.request.CctvEditRequest
-import com.muchlis.inventaris.data.response.CctvDetailResponse
+import com.muchlis.inventaris.data.request.HandheldEditRequest
+import com.muchlis.inventaris.data.response.HandheldDetailResponse
 import com.muchlis.inventaris.data.response.SelectOptionResponse
-import com.muchlis.inventaris.databinding.ActivityEditCctvBinding
+import com.muchlis.inventaris.databinding.ActivityEditHandheldBinding
 import com.muchlis.inventaris.utils.*
-import com.muchlis.inventaris.view_model.cctv.EditCctvViewModel
+import com.muchlis.inventaris.view_model.handheld.EditHandheldViewModel
 import es.dmoral.toasty.Toasty
 import java.util.*
 
-class EditCctvActivity : AppCompatActivity() {
+class EditHandheldActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: EditCctvViewModel
-    private lateinit var bd: ActivityEditCctvBinding
+    private lateinit var viewModel: EditHandheldViewModel
+    private lateinit var bd: ActivityEditHandheldBinding
 
     private lateinit var optionJsonObject: SelectOptionResponse
 
@@ -27,15 +27,15 @@ class EditCctvActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bd = ActivityEditCctvBinding.inflate(layoutInflater)
+        bd = ActivityEditHandheldBinding.inflate(layoutInflater)
         setContentView(bd.root)
 
-        viewModel = ViewModelProvider(this).get(EditCctvViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(EditHandheldViewModel::class.java)
 
         //GET DATA FROM ANOTHER ACTIVITY
-        val dataFromIntent: CctvDetailResponse =
-            intent.getParcelableExtra(INTENT_TO_EDIT_CCTV) as CctvDetailResponse
-        viewModel.setCctvData(dataFromIntent)
+        val dataFromIntent: HandheldDetailResponse =
+            intent.getParcelableExtra(INTENT_TO_EDIT_HH) as HandheldDetailResponse
+        viewModel.setHandheldData(dataFromIntent)
 
         validateJsonStringInSharedPrefsForDropdown()
 
@@ -47,13 +47,13 @@ class EditCctvActivity : AppCompatActivity() {
 
         //CLICK HANDLE
         bd.btSave.setOnClickListener {
-            createCctv()
+            editHandheld()
         }
 
-        bd.etCctvYear.setOnClickListener {
+        bd.etHandheldYear.setOnClickListener {
             showDatePicker()
         }
-        bd.etfCctvYear.setOnClickListener {
+        bd.etfHandheldYear.setOnClickListener {
             showDatePicker()
         }
 
@@ -73,17 +73,17 @@ class EditCctvActivity : AppCompatActivity() {
     private fun setAllDropdownForAutoText() {
 
         setAutoTextForm(
-            view = bd.atCctvLocation,
+            view = bd.atHandheldTipe,
+            stringDropDown = listOf("TABLET", "IPAD", "SMARTPHONE", "LAINNYA")
+        )
+
+        setAutoTextForm(
+            view = bd.atHandheldLocation,
             stringDropDown = optionJsonObject.locations.filter { s ->
                 s.contains(App.prefs.userBranchSave) || s.contains(
                     "LAINNYA"
                 )
             }
-        )
-
-        setAutoTextForm(
-            view = bd.atCctvType,
-            stringDropDown = optionJsonObject.cctvDevicesType
         )
     }
 
@@ -96,80 +96,76 @@ class EditCctvActivity : AppCompatActivity() {
         view.setAdapter(adapter)
     }
 
-    private fun setAllFormValue(data: CctvDetailResponse) {
-        bd.etfCctvName.editText?.setText(data.cctvName)
-        bd.etfCctvIpAddress.editText?.setText(data.ipAddress)
-        bd.etfInventNumCctv.editText?.setText(data.inventoryNumber)
-        bd.atCctvLocation.setText(data.location)
-        bd.atCctvType.setText(data.tipe)
-        bd.etfMerkCctv.editText?.setText(data.merk)
-        bd.etCctvYear.setText(data.year.toDate().toStringddMMMyyyy())
+    private fun setAllFormValue(data: HandheldDetailResponse) {
+        bd.etfHandheldName.editText?.setText(data.handheldName)
+        bd.etfHandheldIpAddress.editText?.setText(data.ipAddress)
+        bd.etfInventarisHandheldName.editText?.setText(data.inventoryNumber)
+        bd.etfHandheldBranch.editText?.setText(App.prefs.userBranchSave)
+        bd.etfInventarisHandheldPhoneNumber.editText?.setText(data.phone)
+        bd.atHandheldLocation.setText(data.location)
+        bd.atHandheldTipe.setText(data.tipe)
+        bd.etfHandheldMerk.editText?.setText(data.merk)
+        bd.etHandheldYear.setText(data.year.toDate().toStringddMMMyyyy())
         bd.etfNote.editText?.setText(data.note)
     }
 
     private fun observeViewModel() {
         viewModel.run {
-            isCctvEdited.observe(this@EditCctvActivity, androidx.lifecycle.Observer {
-                killActivityIfCctvCreated(it)
+            isHandheldEdited.observe(this@EditHandheldActivity, {
+                killActivityIfHandheldCreated(it)
             })
-            isLoading.observe(
-                this@EditCctvActivity,
-                androidx.lifecycle.Observer { showLoading(it) })
-            messageError.observe(
-                this@EditCctvActivity,
-                androidx.lifecycle.Observer { showToast(it, true) })
-            messageSuccess.observe(
-                this@EditCctvActivity,
-                androidx.lifecycle.Observer { showToast(it, false) })
+            isLoading.observe(this@EditHandheldActivity, { showLoading(it) })
+            messageError.observe(this@EditHandheldActivity, { showToast(it, true) })
+            messageSuccess.observe(this@EditHandheldActivity, { showToast(it, false) })
         }
     }
 
-    private fun createCctv() {
+    private fun editHandheld() {
         formValidation { data, error ->
             if (error.isNotEmpty()) {
                 showToast(error, true)
                 return@formValidation
             }
             data?.let {
-                viewModel.editCctvFromServer(args = it)
+                viewModel.editHandheldFromServer(args = it)
             }
         }
     }
 
-    private fun formValidation(callback: (data: CctvEditRequest?, error: String) -> Unit) {
+    private fun formValidation(callback: (data: HandheldEditRequest?, error: String) -> Unit) {
         var error = 0
 
-        val cctvName = bd.etfCctvName.editText?.text.toString()
-        val location = bd.atCctvLocation.text.toString()
-        var ipAddress = bd.etfCctvIpAddress.editText?.text.toString()
-        var year = bd.etfCctvYear.editText?.text.toString()
-        val tipe = bd.atCctvType.text.toString()
+        val handheldName = bd.etfHandheldName.editText?.text.toString()
+        val location = bd.atHandheldLocation.text.toString()
+        val tipe = bd.atHandheldTipe.text.toString()
+        var ipAddress = bd.etfHandheldIpAddress.editText?.text.toString()
+        var year = bd.etfHandheldYear.editText?.text.toString()
 
-        if (cctvName.isEmpty()) {
-            bd.etfCctvName.error = "Nama cctv tidak boleh kosong!"
+        if (handheldName.isEmpty()) {
+            bd.etfHandheldName.error = "Nama pengguna tidak boleh kosong!"
             error++
         }
 
         if (location.isEmpty()) {
-            bd.containerCctvLocation.error = "Lokasi tidak boleh kosong!"
+            bd.containerHandheldTipe.error = "Jenis perangkat tidak boleh kosong!"
+            error++
+        }
+
+        if (location.isEmpty()) {
+            bd.containerHandheldLocation.error = "Lokasi tidak boleh kosong!"
             error++
         } else {
             if (location !in optionJsonObject.locations) {
-                bd.containerCctvLocation.error = "Lokasi salah!"
+                bd.containerHandheldLocation.error = "Lokasi salah!"
                 error++
             }
-        }
-
-        if (tipe.isEmpty()) {
-            bd.containerCctvLocation.error = "Tipe tidak boleh kosong!"
-            error++
         }
 
         if (ipAddress.isEmpty()) {
             ipAddress = "0.0.0.0"
         } else {
             if (!Validation().isIPAddressValid(ipAddress)) {
-                bd.etfCctvIpAddress.error = "Format IP Address Salah!"
+                bd.etfHandheldIpAddress.error = "Format IP Address Salah!"
                 error++
             }
         }
@@ -180,27 +176,28 @@ class EditCctvActivity : AppCompatActivity() {
             year.fromddMMMyyyytoDate().toStringInputDate()
         }
 
-
         if (error > 0) {
             callback(null, "Form tidak valid")
         } else {
-            val data = CctvEditRequest(
-                cctvName = cctvName,
-                inventoryNumber = bd.etfInventNumCctv.editText?.text.toString(),
+            val data = HandheldEditRequest(
+                handheldName = handheldName,
+                inventoryNumber = bd.etfInventarisHandheldName.editText?.text.toString(),
                 ipAddress = ipAddress,
                 location = location,
-                merk = bd.etfMerkCctv.editText?.text.toString(),
+                merk = bd.etfHandheldMerk.editText?.text.toString(),
                 year = year,
                 note = bd.etfNote.editText?.text.toString(),
-                tipe = tipe,
                 deactive = false,
-                timestamp = viewModel.getCctvData().value?.updatedAt ?: ""
+                tipe = tipe,
+                phone = bd.etfInventarisHandheldPhoneNumber.editText?.text.toString(),
+                timestamp = viewModel.getHandheldData().value?.updatedAt ?: ""
             )
 
             callback(
                 data, ""
             )
         }
+
     }
 
     private fun showDatePicker() {
@@ -220,7 +217,7 @@ class EditCctvActivity : AppCompatActivity() {
                 val date = dateTimeNowCalander.time.toStringddMMMyyyy()
 
                 //SET TO DISPLAY
-                bd.etfCctvYear.editText?.setText(date)
+                bd.etfHandheldYear.editText?.setText(date)
 
                 dateTimeNow = dateTimeNowCalander.time
             },
@@ -234,9 +231,9 @@ class EditCctvActivity : AppCompatActivity() {
         datePicker.show()
     }
 
-    private fun killActivityIfCctvCreated(isCreated: Boolean) {
+    private fun killActivityIfHandheldCreated(isCreated: Boolean) {
         if (isCreated) {
-            App.fragmentDetailCctvMustBeRefresh = true
+            App.fragmentDetailHHMustBeRefresh = true
             finish()
         }
     }

@@ -14,7 +14,7 @@ fun Date.toStringDateForView(): String {
 //    return formatEx.format(this)
 //}
 
-fun Date.toStringJustDate(): String {
+fun Date.toStringddMMMyyyy(): String {
     val formatEx = SimpleDateFormat("dd MMM yyyy", Locale.US)
     return formatEx.format(this)
 }
@@ -30,17 +30,21 @@ fun Date.toStringInputDate(): String {
 }
 
 fun String.toDate(): Date {
+    val pattern = listOf("yyyy-MM-dd HH:mm:ss.SSSSSS", "yyyy-MM-dd HH:mm:ss")
     var date = Date()
-    val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS", Locale.US)
-    try {
-        date = format.parse(this)
-    } catch (e: ParseException) {
-        //DATE FAILED HANDLE
+    for (p in pattern){
+        try {
+            val format = SimpleDateFormat(p, Locale.US)
+            date = format.parse(this)
+            return date
+        } catch (e: ParseException){
+            //FAILED
+        }
     }
     return date
 }
 
-fun String.fromStringJustDatetoDate(): Date {
+fun String.fromddMMMyyyytoDate(): Date {
     var date = Date()
     val format = SimpleDateFormat("dd MMM yyyy", Locale.US)
     try {

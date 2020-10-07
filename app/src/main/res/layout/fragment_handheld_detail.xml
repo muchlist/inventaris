@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".views.fragment.HandheldDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/iv_detail_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:contentDescription="@string/dot"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_cancel_24px" />
+
+                <TextView
+                    android:id="@+id/tv_detail_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/loading_caps"
+                    android:textColor="@color/grey_80"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_detail_back"
+                    tools:text="@string/loading_caps" />
+
+                <TableLayout
+                    android:id="@+id/table_detail_up"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_detail_header"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_header">
+
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/ip"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_ip_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/quicksand"
+                            android:text="@string/loading"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/no_invent"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_no_inventory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/nomer_hp"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_no_hp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/cabang_"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_branch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/quicksand"
+                            android:text="@string/loading"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/lokasi"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/quicksand"
+                            android:text="@string/loading"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_detail_sub_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/loading_caps"
+                    android:textColor="@color/grey_80"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_header"
+                    app:layout_constraintTop_toBottomOf="@+id/table_detail_up"
+                    tools:text="@string/loading_caps" />
+
+                <TableLayout
+                    android:id="@+id/table_detail_down"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_sub_header">
+
+
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="1"
+                            android:text="@string/status_dot"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/quicksand"
+                            android:maxLines="3"
+                            android:text="@string/loading"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="@string/loading" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <TextView
+                    android:id="@+id/tv_detail_note"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="48dp"
+                    android:fontFamily="@font/quicksand"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintTop_toBottomOf="@+id/table_detail_down"
+                    tools:text="NOTE NOTE NOTE" />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="64dp"
+                    app:dividerDrawableHorizontal="@drawable/divider"
+                    app:flexWrap="wrap"
+                    app:justifyContent="space_evenly"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintStart_toStartOf="@+id/tv_detail_sub_header"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_note"
+                    app:showDivider="middle">
+
+                    <ImageView
+                        android:id="@+id/iv_detail_delete"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        tools:srcCompat="@drawable/deletedocument64"
+                        android:contentDescription="@string/image_desc"/>
+
+                    <ImageView
+                        android:id="@+id/iv_detail_deactive"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        tools:srcCompat="@drawable/icons8_remove"
+                        android:contentDescription="@string/image_desc"/>
+
+                    <ImageView
+                        android:id="@+id/iv_detail_edit"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        tools:srcCompat="@drawable/editproperty64"
+                        android:contentDescription="@string/image_desc"/>
+
+                    <ImageView
+                        android:id="@+id/iv_detail_add_history"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        tools:srcCompat="@drawable/addproperty64"
+                        android:contentDescription="@string/image_desc"/>
+
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <ImageView
+                    android:id="@+id/iv_detail_load"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:src="@drawable/ic_sync_24px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/image_desc"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/tv_deactive_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFAB91"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@string/unit_status_nonaktif"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

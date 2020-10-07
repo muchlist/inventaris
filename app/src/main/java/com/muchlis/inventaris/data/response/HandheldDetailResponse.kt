@@ -1,8 +1,11 @@
 package com.muchlis.inventaris.data.response
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class HandheldDetailResponse(
     @Json(name = "author")
     val author: String,
@@ -36,4 +39,4 @@ data class HandheldDetailResponse(
     val updatedAt: String,
     @Json(name = "year")
     val year: String
-)
+): Parcelable

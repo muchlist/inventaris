@@ -21,6 +21,7 @@ import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.cctv.CctvsActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
+import com.muchlis.inventaris.views.activity.handheld.HandheldDetailActivity
 import com.muchlis.inventaris.views.activity.handheld.HandheldsActivity
 import com.muchlis.inventaris.views.activity.history.AppendDailyActivity
 import com.muchlis.inventaris.views.activity.history.HistoryListActivity
@@ -120,7 +121,9 @@ class DashboardActivity : AppCompatActivity() {
                 CATEGORY_PC -> intentToComputerDetailActivity(textList[1])
                 CATEGORY_CCTV -> intentToCctvDetailActivity(textList[1])
                 CATEGORY_STOCK -> intentToStockDetailActivity(textList[1])
-                CATEGORY_APPLICATION -> {}
+                CATEGORY_APPLICATION -> {
+                }
+                CATEGORY_TABLET -> intentToHandheldDetailActivity(textList[1])
                 else -> showErrorToast("QR Code tidak dikenali")
             }
         } else {
@@ -179,6 +182,12 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun intentToHandheldDetailActivity(unitID: String) {
+        val intent = Intent(this, HandheldDetailActivity::class.java)
+        intent.putExtra(INTENT_HH_TO_DETAIL, unitID)
+        startActivity(intent)
+    }
+
     private fun intentToAppendDailyActivity() {
         val intent = Intent(this, AppendDailyActivity::class.java)
         startActivity(intent)
@@ -229,7 +238,11 @@ class DashboardActivity : AppCompatActivity() {
             CATEGORY_CCTV -> {
                 intentToCctvDetailActivity(parentID)
             }
-            CATEGORY_APPLICATION -> {}
+            CATEGORY_APPLICATION -> {
+            }
+            CATEGORY_TABLET -> {
+                intentToHandheldDetailActivity(parentID)
+            }
             else -> {
                 Toasty.error(this, "Category tidak valid", Toasty.LENGTH_LONG).show()
             }

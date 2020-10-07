@@ -93,12 +93,12 @@ class AppendHistoryActivity : AppCompatActivity() {
     private fun observeViewModel() {
 
         viewModel.run {
-            isHistoryCreated.observe(this@AppendHistoryActivity, Observer {
+            isHistoryCreated.observe(this@AppendHistoryActivity, {
                 killActivityIfHistoryCreated(it)
             })
-            isLoading.observe(this@AppendHistoryActivity, Observer { showLoading(it) })
-            messageError.observe(this@AppendHistoryActivity, Observer { showToast(it, true) })
-            messageSuccess.observe(this@AppendHistoryActivity, Observer { showToast(it, false) })
+            isLoading.observe(this@AppendHistoryActivity, { showLoading(it) })
+            messageError.observe(this@AppendHistoryActivity, { showToast(it, true) })
+            messageSuccess.observe(this@AppendHistoryActivity, { showToast(it, false) })
         }
     }
 
@@ -112,6 +112,7 @@ class AppendHistoryActivity : AppCompatActivity() {
                     App.activityCctvListMustBeRefresh = true
                 }
                 CATEGORY_PC -> App.fragmentDetailComputerMustBeRefresh = true
+                CATEGORY_TABLET -> App.fragmentDetailHHMustBeRefresh = true
             }
             finish()
         }

@@ -51,7 +51,7 @@ class HistoryAdapter(
 
                 iv_circle_history.setImageResource(getImageResourceFromCategory(items.category))
 
-                if (dateTimeNow.time.toStringJustDate() == items.date.toDate().toStringJustDate()) {
+                if (dateTimeNow.time.toStringddMMMyyyy() == items.date.toDate().toStringddMMMyyyy()) {
                     tv_history_today.visible()
                 } else {
                     tv_history_today.invisible()
@@ -73,6 +73,7 @@ class HistoryAdapter(
                 CATEGORY_STOCK -> R.drawable.ic_049_stock
                 CATEGORY_DAILY -> R.drawable.ic_023_poster
                 CATEGORY_APPLICATION -> R.drawable.ic_032_cd
+                CATEGORY_TABLET -> R.drawable.ic_043_ipad
                 else -> R.drawable.ic_029_computer
             }
         }

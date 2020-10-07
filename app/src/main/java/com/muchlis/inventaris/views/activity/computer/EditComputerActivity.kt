@@ -129,7 +129,7 @@ class EditComputerActivity : AppCompatActivity() {
         bd.atComputerLocation.setText(data.location)
         bd.atComputerTipe.setText(data.tipe)
         bd.etfComputerMerk.editText?.setText(data.merk)
-        bd.etComputerYear.setText(data.year.toDate().toStringJustDate())
+        bd.etComputerYear.setText(data.year.toDate().toStringddMMMyyyy())
         bd.atComputerSeatManajemen.setText(if (data.seatManagement) "YA" else "TIDAK")
         bd.etfNote.editText?.setText(data.note)
 
@@ -208,7 +208,7 @@ class EditComputerActivity : AppCompatActivity() {
         year = if (year.isEmpty()) {
             dateTimeNowCalander.time.toStringInputDate()
         } else {
-            year.fromStringJustDatetoDate().toStringInputDate()
+            year.fromddMMMyyyytoDate().toStringInputDate()
         }
 
         if (operationSystem.isEmpty()) {
@@ -279,7 +279,7 @@ class EditComputerActivity : AppCompatActivity() {
                 dateTimeNowCalander.set(Calendar.MINUTE, 0)
                 dateTimeNowCalander.set(Calendar.SECOND, 1)
 
-                val date = dateTimeNowCalander.time.toStringJustDate()
+                val date = dateTimeNowCalander.time.toStringddMMMyyyy()
 
                 //SET TO DISPLAY
                 bd.etfComputerYear.editText?.setText(date)

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.utils.toDate
-import com.muchlis.inventaris.utils.toStringJustDate
+import com.muchlis.inventaris.utils.toStringddMMMyyyy
 import com.muchlis.inventaris.utils.toStringView
 import kotlinx.android.synthetic.main.item_stock_consume.view.*
 
@@ -40,7 +40,7 @@ class StockIncrementDecrementAdapter(
 
             itemView.apply {
                 tv_stock_con_user.text = items.author
-                tv_stock_con_date.text = items.time.toDate().toStringJustDate()
+                tv_stock_con_date.text = items.time.toDate().toStringddMMMyyyy()
                 tv_stock_con_nomer.text =
                     if (items.baNumber.isNotEmpty()) items.baNumber else items.dummyId.toString()
                 tv_stock_con_note.text = items.note

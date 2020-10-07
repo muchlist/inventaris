@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.repository
 
+import android.util.Log
 import com.muchlis.inventaris.data.dto.FindHandheldDto
 import com.muchlis.inventaris.data.request.HandheldEditRequest
 import com.muchlis.inventaris.data.request.HandheldRequest
@@ -208,7 +209,7 @@ object HandheldRepo {
             ) {
                 when {
                     response.isSuccessful -> {
-                        callback("Komputer berhasil dihapus", "")
+                        callback("Handheld berhasil dihapus", "")
                     }
                     response.code() == 400 || response.code() == 500 -> {
                         val responseBody = response.errorBody()?.string() ?: ""
