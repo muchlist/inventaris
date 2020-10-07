@@ -191,7 +191,15 @@ class HistoryListActivity : AppCompatActivity() {
         branchDropdownOption.addAll(optionJsonObject.kalimantan)
         branchDropdownOption.add(0, SEMUA)
 
-        val categoryDropdownOption = listOf(SEMUA, CATEGORY_PC, CATEGORY_CCTV, CATEGORY_STOCK)
+        val categoryDropdownOption = listOf(
+            SEMUA,
+            CATEGORY_PC,
+            CATEGORY_CCTV,
+            CATEGORY_STOCK,
+            CATEGORY_TABLET,
+            CATEGORY_APPLICATION,
+            CATEGORY_DAILY
+        )
 
         //Mendapatkan index dari isian awal
         val branchIndexStart = 0

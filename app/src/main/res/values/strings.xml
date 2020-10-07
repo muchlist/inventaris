@@ -64,6 +64,7 @@
     <string name="history">--LOG--</string>
     <string name="reload">RELOAD</string>
     <string name="tambah_komputer">Tambah Komputer</string>
+    <string name="tambah_tablet">Tambah Tablet</string>
     <string name="jumlah">Jumlah</string>
     <string name="about">About</string>
     <string name="detail">Detail</string>
@@ -173,7 +174,9 @@
     <string name="lokasi_">Lokasi</string>
     <string name="seat">Seat</string>
     <string name="filter_komputer">Filter Komputer</string>
+    <string name="filter_handheld">Filter Handheld</string>
     <string name="inv_komputer">-- INV. KOMPUTER --</string>
+    <string name="inv_handheld">-- INV. TABLET --</string>
     <string name="logo_menu_gridview">Logo Menu GridView</string>
     <string name="ubah_penambahan">Ubah Penambahan</string>
     <string name="ubah_pengurangan">Ubah Pengurangan</string>

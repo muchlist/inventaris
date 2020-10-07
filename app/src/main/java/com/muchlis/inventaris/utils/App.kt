@@ -18,6 +18,9 @@ class App : Application() {
         var activityCctvListMustBeRefresh : Boolean = false
         var fragmentDetailCctvMustBeRefresh : Boolean = false
 
+        var activityHHListMustBeRefresh : Boolean = false
+        var fragmentDetailHHMustBeRefresh : Boolean = false
+
         var activityAppsHistoryListMustBeRefresh : Boolean = false
     }
 
