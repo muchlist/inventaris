@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.recycler_adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.utils.*
+import kotlinx.android.synthetic.main.item_apps_history.view.*
 import kotlinx.android.synthetic.main.item_history.view.*
 import java.util.*
 
 class HistoryAdapter(
     private val context: Context?,
     private val itemList: List<HistoryResponse>,
-    private val itemClick: (HistoryResponse) -> Unit
+    private val itemClick: (HistoryResponse) -> Unit,
+    private val itemLongClick: (HistoryResponse) -> Unit,
 ) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,7 +25,8 @@ class HistoryAdapter(
             .inflate(R.layout.item_history, parent, false)
         return ViewHolder(
             view,
-            itemClick
+            itemClick,
+            itemLongClick,
         )
     }
 
@@ -33,34 +37,58 @@ class HistoryAdapter(
     }
 
 
-    class ViewHolder(view: View, val itemClick: (HistoryResponse) -> Unit) :
+    class ViewHolder(
+        view: View,
+        val itemClick: (HistoryResponse) -> Unit,
+        val itemLongClick: (HistoryResponse) -> Unit
+    ) :
         RecyclerView.ViewHolder(view) {
 
         private var dateTimeNow = Calendar.getInstance()
 
+        @SuppressLint("SetTextI18n")
         fun bindItem(items: HistoryResponse) {
 
             itemView.apply {
+                tv_history_name.text = items.parentName
                 tv_history_author.text = items.author
                 tv_history_branch.text = items.branch
                 tv_history_date.text = items.date.toDate().toStringDateForView()
-                tv_history_name.text = items.parentName
+                tv_history_status.text = items.status
                 tv_history_note.text = items.note
-                val categoryStatus = items.status
-                tv_history_status.text = categoryStatus
+                tv_history_resolve.text = items.resolveNote
+
+                if (items.durationMinute == 0) {
+                    tv_history_minute.invisible()
+                } else {
+                    tv_history_minute.visible()
+                    tv_history_minute.text = "${items.durationMinute} Menit"
+                }
 
                 iv_circle_history.setImageResource(getImageResourceFromCategory(items.category))
 
-                if (dateTimeNow.time.toStringddMMMyyyy() == items.date.toDate().toStringddMMMyyyy()) {
+                if (items.isComplete) {
+                    tv_history_complete.text = "Complete"
+                    tv_history_complete.setBackgroundResource(R.drawable.text_rounded_cctv_up)
+                } else {
+                    tv_history_complete.text = "Progress"
+                    tv_history_complete.setBackgroundResource(R.drawable.text_rounded_cctv_down)
+                }
+
+                if (dateTimeNow.time.toStringddMMMyyyy() == items.date.toDate()
+                        .toStringddMMMyyyy()
+                ) {
                     tv_history_today.visible()
                 } else {
                     tv_history_today.invisible()
                 }
 
                 //onClick
-                itemView.setOnClickListener {}
-                itemView.setOnLongClickListener {
+                itemView.setOnClickListener {
                     itemClick(items)
+                }
+                itemView.setOnLongClickListener {
+                    itemLongClick(items)
                     true
                 }
             }

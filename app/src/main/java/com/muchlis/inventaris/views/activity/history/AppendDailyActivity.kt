@@ -63,7 +63,12 @@ class AppendDailyActivity : AppCompatActivity() {
             category = parentCategory ?: "",
             date = dateText,
             note = bd.etfNote.editText?.text.toString(),
-            status = bd.atHistoryStatus.text.toString()
+            status = bd.atHistoryStatus.text.toString(),
+
+            endDate = dateText,
+            resolveNote = "",
+            isComplete = true,
+            location = ""
         )
 
         if (args.isValid()) {

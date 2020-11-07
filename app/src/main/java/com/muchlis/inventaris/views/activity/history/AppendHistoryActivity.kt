@@ -60,6 +60,14 @@ class AppendHistoryActivity : AppCompatActivity() {
             )
         }
         bd.ivBackButton.setOnClickListener { onBackPressed() }
+
+        bd.swHistoryComplete.setOnClickListener {
+            if (bd.swHistoryComplete.isChecked) {
+                bd.etfResolveNote.visible()
+            } else {
+                bd.etfResolveNote.invisible()
+            }
+        }
     }
 
     private fun setAutoTextStatus(status: List<String>) {
@@ -76,11 +84,27 @@ class AppendHistoryActivity : AppCompatActivity() {
         val timeNow = Calendar.getInstance().time
         val dateText = timeNow.toStringInputDate()
 
+        val endDate: String?
+        val resolveNote: String
+        if (bd.swHistoryComplete.isChecked) {
+            endDate = dateText
+            resolveNote = bd.etfResolveNote.editText?.text.toString()
+        } else {
+            endDate = null
+            resolveNote = ""
+        }
+
+
         val args = HistoryRequest(
             category = parentCategory ?: "",
             date = dateText,
             note = bd.etfNote.editText?.text.toString(),
-            status = bd.atHistoryStatus.text.toString()
+            status = bd.atHistoryStatus.text.toString(),
+
+            resolveNote = resolveNote,
+            endDate = endDate,
+            location = App.prefs.userBranchSave,
+            isComplete = bd.swHistoryComplete.isChecked,
         )
 
         if (args.isValid()) {

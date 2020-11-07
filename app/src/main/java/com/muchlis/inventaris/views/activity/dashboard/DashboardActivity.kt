@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.zxing.integration.android.IntentIntegrator
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.dto.FindHistoryDto
+import com.muchlis.inventaris.data.response.HistoryAppsListResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.databinding.ActivityDashboardBinding
@@ -25,6 +26,7 @@ import com.muchlis.inventaris.views.activity.handheld.HandheldDetailActivity
 import com.muchlis.inventaris.views.activity.handheld.HandheldsActivity
 import com.muchlis.inventaris.views.activity.history.AppendDailyActivity
 import com.muchlis.inventaris.views.activity.history.HistoryListActivity
+import com.muchlis.inventaris.views.activity.pelindo_apps_history.EditPelindoAppsHistoryActivity
 import com.muchlis.inventaris.views.activity.pelindo_apps_history.PelindoAppsHistoryListActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StocksActivity
@@ -201,7 +203,16 @@ class DashboardActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         bd.rvHistoryDashboard.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        historyAdapter = HistoryAdapter(this, historyData) {
+
+        val onClickItem: (HistoryResponse) -> Unit = {
+//            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+//                val intent = Intent(this, EditPelindoAppsHistoryActivity::class.java)
+//                intent.putExtra(INTENT_PELINDO_HISTORY_TO_EDIT, it)
+//                startActivity(intent)
+//            }
+        }
+
+        val onLongClickItem: (HistoryResponse) -> Unit = {
             if (it.category == CATEGORY_DAILY) {
                 //Khusus Daily perilakunya delete daily
                 if (it.author == App.prefs.nameSave) {
@@ -211,6 +222,8 @@ class DashboardActivity : AppCompatActivity() {
                 intentToDetailActivity(parentID = it.parentId, category = it.category)
             }
         }
+
+        historyAdapter = HistoryAdapter(this, historyData, onClickItem, onLongClickItem)
         bd.rvHistoryDashboard.adapter = historyAdapter
         bd.rvHistoryDashboard.setHasFixedSize(true)
     }

@@ -101,7 +101,16 @@ class HistoryListActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         bd.rvDetailHistory.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        historyAdapter = HistoryAdapter(this, historyData) {
+
+        val onClickItem: (HistoryResponse) -> Unit = {
+//            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+//                val intent = Intent(this, EditPelindoAppsHistoryActivity::class.java)
+//                intent.putExtra(INTENT_PELINDO_HISTORY_TO_EDIT, it)
+//                startActivity(intent)
+//            }
+        }
+
+        val onLongClickItem: (HistoryResponse) -> Unit = {
             if (it.category == CATEGORY_DAILY) {
                 //Khusus Daily perilakunya delete daily
                 if (it.author == App.prefs.nameSave) {
@@ -111,6 +120,8 @@ class HistoryListActivity : AppCompatActivity() {
                 intentToDetailActivity(parentID = it.parentId, category = it.category)
             }
         }
+
+        historyAdapter = HistoryAdapter(this, historyData, onClickItem, onLongClickItem)
         bd.rvDetailHistory.adapter = historyAdapter
         bd.rvDetailHistory.setHasFixedSize(true)
     }

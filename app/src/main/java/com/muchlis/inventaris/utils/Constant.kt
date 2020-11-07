@@ -1,7 +1,7 @@
 package com.muchlis.inventaris.utils
 
-const val INTERNET_SERVER = "http://10.4.127.9:80"
 //const val INTERNET_SERVER = "http://10.4.2.21:5001"
+const val INTERNET_SERVER = "https://risa.muchlis.dev" //222.124.218.221
 
 const val ERR_JSON_PARSING = "Parsing JSON Response gagal"
 const val ERR_CONN = "Gagal terhubung ke server"

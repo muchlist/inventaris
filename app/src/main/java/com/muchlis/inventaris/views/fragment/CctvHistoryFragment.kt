@@ -79,11 +79,22 @@ class CctvHistoryFragment : Fragment() {
     private fun setRecyclerView() {
         bd.rvDetailComputerHistory.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        historyAdapter = HistoryAdapter(requireActivity(), historyData) {
+
+        val onClickItem: (HistoryResponse) -> Unit = {
+//            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+//                val intent = Intent(this, EditPelindoAppsHistoryActivity::class.java)
+//                intent.putExtra(INTENT_PELINDO_HISTORY_TO_EDIT, it)
+//                startActivity(intent)
+//            }
+        }
+
+        val onLongClickItem: (HistoryResponse) -> Unit = {
             if (it.author == App.prefs.nameSave){
                 deleteComputerHistory(it.id)
             }
         }
+
+        historyAdapter = HistoryAdapter(requireActivity(), historyData, onClickItem, onLongClickItem)
         bd.rvDetailComputerHistory.adapter = historyAdapter
         bd.rvDetailComputerHistory.setHasFixedSize(true)
     }
