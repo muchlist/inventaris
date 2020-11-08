@@ -103,11 +103,11 @@ class HistoryListActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val onClickItem: (HistoryResponse) -> Unit = {
-//            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
-//                val intent = Intent(this, EditPelindoAppsHistoryActivity::class.java)
-//                intent.putExtra(INTENT_PELINDO_HISTORY_TO_EDIT, it)
-//                startActivity(intent)
-//            }
+            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+                val intent = Intent(this, EditHistoryActivity::class.java)
+                intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
+                startActivity(intent)
+            }
         }
 
         val onLongClickItem: (HistoryResponse) -> Unit = {

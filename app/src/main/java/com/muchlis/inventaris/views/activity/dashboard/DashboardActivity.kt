@@ -25,6 +25,7 @@ import com.muchlis.inventaris.views.activity.computer.ComputersActivity
 import com.muchlis.inventaris.views.activity.handheld.HandheldDetailActivity
 import com.muchlis.inventaris.views.activity.handheld.HandheldsActivity
 import com.muchlis.inventaris.views.activity.history.AppendDailyActivity
+import com.muchlis.inventaris.views.activity.history.EditHistoryActivity
 import com.muchlis.inventaris.views.activity.history.HistoryListActivity
 import com.muchlis.inventaris.views.activity.pelindo_apps_history.EditPelindoAppsHistoryActivity
 import com.muchlis.inventaris.views.activity.pelindo_apps_history.PelindoAppsHistoryListActivity
@@ -205,11 +206,11 @@ class DashboardActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val onClickItem: (HistoryResponse) -> Unit = {
-//            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
-//                val intent = Intent(this, EditPelindoAppsHistoryActivity::class.java)
-//                intent.putExtra(INTENT_PELINDO_HISTORY_TO_EDIT, it)
-//                startActivity(intent)
-//            }
+            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+                val intent = Intent(this, EditHistoryActivity::class.java)
+                intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
+                startActivity(intent)
+            }
         }
 
         val onLongClickItem: (HistoryResponse) -> Unit = {

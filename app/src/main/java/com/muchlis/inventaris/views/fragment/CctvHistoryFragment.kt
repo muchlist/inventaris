@@ -18,6 +18,7 @@ import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.cctv.CctvDetailViewModel
 import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
+import com.muchlis.inventaris.views.activity.history.EditHistoryActivity
 import es.dmoral.toasty.Toasty
 
 class CctvHistoryFragment : Fragment() {
@@ -81,11 +82,11 @@ class CctvHistoryFragment : Fragment() {
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         val onClickItem: (HistoryResponse) -> Unit = {
-//            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
-//                val intent = Intent(this, EditPelindoAppsHistoryActivity::class.java)
-//                intent.putExtra(INTENT_PELINDO_HISTORY_TO_EDIT, it)
-//                startActivity(intent)
-//            }
+            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+                val intent = Intent(requireActivity(), EditHistoryActivity::class.java)
+                intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
+                startActivity(intent)
+            }
         }
 
         val onLongClickItem: (HistoryResponse) -> Unit = {

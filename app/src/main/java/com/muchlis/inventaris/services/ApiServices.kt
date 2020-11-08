@@ -45,7 +45,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String,
         @Body args: HistoryRequest
-    ): Call<HistoryResponse>
+    ): Call<ErrorResponse>
 
 
     //{{url}}/api/histories?branch=BANJARMASIN&category=&limit=3
@@ -57,6 +57,7 @@ interface ApiService {
         @Query("limit") limit: Int?
     ): Call<HistoryListResponse>
 
+
     //{{url}}/api/histories/5ef05f051bbfc2b3db5d1159
     @GET("/api/histories/{id}")
     fun getHistoryFromParent(
@@ -64,8 +65,8 @@ interface ApiService {
         @Path("id") id: String
     ): Call<HistoryListResponse>
 
-    //{{url}}/api/delete-history/5ef2d20fd72e1f6c75093643
-    @DELETE("/api/delete-history/{id}")
+    //{{url}}/api/detail-history/5fa2a9f415ad122f7e122b8d
+    @DELETE("/api/detail-history/{id}")
     fun deleteSimpleHistory(
         @Header("Authorization") token: String,
         @Path("id") id: String

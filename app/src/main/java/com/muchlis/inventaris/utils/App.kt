@@ -22,6 +22,7 @@ class App : Application() {
         var fragmentDetailHHMustBeRefresh : Boolean = false
 
         var activityAppsHistoryListMustBeRefresh : Boolean = false
+        var activityHistoryListMustBeRefresh : Boolean = false
     }
 
     override fun onCreate() {

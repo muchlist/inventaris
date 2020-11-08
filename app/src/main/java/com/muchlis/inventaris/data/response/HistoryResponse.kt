@@ -1,7 +1,10 @@
 package com.muchlis.inventaris.data.response
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class HistoryResponse(
     @Json(name = "author")
     val author: String,
@@ -44,4 +47,4 @@ data class HistoryResponse(
     val updatedBy: String = "",
     @Json(name = "updated_by_id")
     val updatedById: String = ""
-)
+):Parcelable

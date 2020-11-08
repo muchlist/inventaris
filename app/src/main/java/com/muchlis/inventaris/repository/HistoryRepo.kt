@@ -4,6 +4,7 @@ import com.muchlis.inventaris.data.dto.FindHistoryDto
 import com.muchlis.inventaris.data.request.HistoryAppsEditRequest
 import com.muchlis.inventaris.data.request.HistoryEditRequest
 import com.muchlis.inventaris.data.request.HistoryRequest
+import com.muchlis.inventaris.data.response.ErrorResponse
 import com.muchlis.inventaris.data.response.HistoryAppsDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
@@ -71,16 +72,16 @@ object HistoryRepo {
     fun createHistory(
         parentID: String,
         args: HistoryRequest,
-        callback: (response: HistoryResponse?, error: String) -> Unit
+        callback: (response: ErrorResponse?, error: String) -> Unit
     ) {
         apiService.postHistory(
             token = App.prefs.authTokenSave,
             id = parentID,
             args = args
-        ).enqueue(object : Callback<HistoryResponse> {
+        ).enqueue(object : Callback<ErrorResponse> {
             override fun onResponse(
-                call: Call<HistoryResponse>,
-                response: Response<HistoryResponse>
+                call: Call<ErrorResponse>,
+                response: Response<ErrorResponse>
             ) {
                 when {
                     response.isSuccessful -> {
@@ -99,7 +100,7 @@ object HistoryRepo {
                 }
             }
 
-            override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ErrorResponse>, t: Throwable) {
                 t.message?.let {
                     if (it.contains("to connect")){
                         callback(null, ERR_CONN)

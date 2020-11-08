@@ -67,11 +67,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="16dp"
-                                android:text="Aplikasi : "
+                                android:text="Nama : "
                                 android:textSize="18sp" />
 
                             <TextView
-                                android:id="@+id/tv_app_history_name"
+                                android:id="@+id/tv_history_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="18sp"
@@ -87,7 +87,7 @@
                                 android:textSize="18sp" />
 
                             <TextView
-                                android:id="@+id/tv_app_history_status"
+                                android:id="@+id/tv_history_status"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="18sp"
