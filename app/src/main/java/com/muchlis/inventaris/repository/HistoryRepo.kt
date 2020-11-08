@@ -1,7 +1,10 @@
 package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindHistoryDto
+import com.muchlis.inventaris.data.request.HistoryAppsEditRequest
+import com.muchlis.inventaris.data.request.HistoryEditRequest
 import com.muchlis.inventaris.data.request.HistoryRequest
+import com.muchlis.inventaris.data.response.HistoryAppsDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.services.Api
@@ -190,6 +193,97 @@ object HistoryRepo {
             }
         })
     }
+
+    fun getDetailHistory(
+        id: String,
+        callback: (response: HistoryResponse?, error: String) -> Unit
+    ) {
+        apiService.getHistoryDetail(
+            token = App.prefs.authTokenSave,
+            id = id
+        ).enqueue(object : Callback<HistoryResponse> {
+            override fun onResponse(
+                call: Call<HistoryResponse>,
+                response: Response<HistoryResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        val result = response.body()
+                        callback(result, "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    response.code() == 422 || response.code() == 401 -> {
+                        callback(null, "Token Expired")
+                        App.prefs.authTokenSave = ""
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
+
+    fun editHistory(
+        historyID: String,
+        args: HistoryEditRequest,
+        callback: (response: HistoryResponse?, error: String) -> Unit
+    ) {
+        apiService.editHistoryDetail(
+            token = App.prefs.authTokenSave,
+            id = historyID,
+            args = args
+        ).enqueue(object : Callback<HistoryResponse> {
+            override fun onResponse(
+                call: Call<HistoryResponse>,
+                response: Response<HistoryResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
 
     private fun getMsgFromJson(errorBody: String): String {
         val jsonMarshaller = JsonMarshaller()

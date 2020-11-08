@@ -71,6 +71,23 @@ interface ApiService {
         @Path("id") id: String
     ): Call<ResponseBody>
 
+
+    //{{url}}/api/detail-history/5fa3438d4df0149c8d55d43f
+    @GET("/api/detail-history/{id}")
+    fun getHistoryDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<HistoryResponse>
+
+
+    //{{url}}/api/detail-history/5fa3438d4df0149c8d55d43f
+    @PUT("/api/detail-history/{id}")
+    fun editHistoryDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body args: HistoryEditRequest,
+    ): Call<HistoryResponse>
+
     /* COMPUTER -------------------------------------------------------------------
     */
 
