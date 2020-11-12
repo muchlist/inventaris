@@ -19,6 +19,9 @@ data class HandheldListResponse(
         @Json(name = "last_status")
         val lastStatus: String,
         @Json(name = "location")
-        val location: String
+        val location: String,
+        val case: List<Case>,
+        @Json(name = "case_size")
+        val caseSize: Int,
     )
 }

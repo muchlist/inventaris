@@ -23,6 +23,9 @@ data class ComputerListResponse(
         @Json(name = "last_status")
         val lastStatus: String,
         @Json(name = "seat_management")
-        val seatManagement: Boolean
+        val seatManagement: Boolean,
+        val case: List<Case>,
+        @Json(name = "case_size")
+        val caseSize: Int,
     )
 }

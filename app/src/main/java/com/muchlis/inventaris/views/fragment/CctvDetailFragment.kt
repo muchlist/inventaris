@@ -181,8 +181,18 @@ class CctvDetailFragment : Fragment() {
         bd.tvTahun.text = data.year.toDate().toStringJustYear()
         bd.tvMerkTipe.text = data.tipe + " " + data.merk
         bd.tvLastPing.text = data.lastPing
-        bd.tvDetailStatus.text = data.lastStatus
         bd.tvDetailNote.text = data.note
+
+        //Last Status
+        var lastStatus = ""
+        if (data.case.count() != 0){
+            for (case in data.case){
+                lastStatus = lastStatus + "* " + case.caseNote + "\n"
+            }
+        } else {
+            lastStatus = "Nihil"
+        }
+        bd.tvDetailStatus.text = lastStatus
 
         //Status deactive
         if (data.deactive) {
