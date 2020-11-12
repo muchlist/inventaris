@@ -216,7 +216,6 @@
                                 android:layout_weight="1"
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
-                                android:maxLines="3"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 

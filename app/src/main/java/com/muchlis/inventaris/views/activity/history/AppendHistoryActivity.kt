@@ -45,7 +45,12 @@ class AppendHistoryActivity : AppCompatActivity() {
             Toasty.error(this, ERR_DROPDOWN_NOT_LOAD, Toasty.LENGTH_LONG).show()
         }
 
-        setAutoTextStatus(optionJsonObject.history)
+        //Status Selector
+        if (parentCategory == CATEGORY_CCTV){
+            setAutoTextStatus(optionJsonObject.cctvHistory)
+        }else{
+            setAutoTextStatus(optionJsonObject.history)
+        }
 
         bd.btSave.setOnClickListener {
             sendDataToServer(
