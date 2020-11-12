@@ -156,8 +156,18 @@ class ComputerDetailFragment : Fragment() {
         bd.tvDetailProsessor.text = data.spec.processor
         bd.tvDetailRam.text = data.spec.ram.toString()
         bd.tvDetailHardisk.text = data.spec.hardisk.toString()
-        bd.tvDetailStatus.text = data.lastStatus
         bd.tvDetailNote.text = data.note
+
+        //Last Status
+        var lastStatus = ""
+        if (data.case.count() != 0){
+            for (case in data.case){
+                lastStatus = lastStatus + "* " + case.caseNote + "\n"
+            }
+        } else {
+            lastStatus = "Nihil"
+        }
+        bd.tvDetailStatus.text = lastStatus
 
         //Status deactive
         if (data.deactive){
