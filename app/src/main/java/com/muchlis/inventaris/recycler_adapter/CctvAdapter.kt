@@ -41,7 +41,9 @@ class CctvAdapter(
 
                 tv_cctvlist_name.text = items.cctvName
                 tv_cctvlist_ip.text = items.ipAddress
-                tv_cctvlist_location.text = items.location
+
+                val location = items.location.split(" #")
+                tv_cctvlist_location.text = location[0]
                 tv_cctvlist_condition.text = "${items.pingSum} %"
 
                 if (items.lastPing == "UP") {

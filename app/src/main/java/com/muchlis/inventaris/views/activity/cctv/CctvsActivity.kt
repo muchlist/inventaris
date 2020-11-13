@@ -3,6 +3,7 @@ package com.muchlis.inventaris.views.activity.cctv
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,9 +14,11 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.google.android.material.textfield.TextInputLayout
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.dto.FindCctvDto
@@ -81,7 +84,7 @@ class CctvsActivity : AppCompatActivity() {
         }
 
         bd.infoBar.setOnClickListener {
-            filterRecyclerViewShowOnlyHaveProblem()
+            viewModel.getCctvDataFiltered()?.let { loadRecyclerView(it) }
         }
 
 
@@ -94,9 +97,9 @@ class CctvsActivity : AppCompatActivity() {
     private fun observeViewModel() {
 
         viewModel.run {
-            getCctvData().observe(this@CctvsActivity, Observer {
-                loadInfoBarView(it)
+            getCctvData().observe(this@CctvsActivity, {
                 loadRecyclerView(it)
+                loadInfoBarView()
             })
             isLoading.observe(this@CctvsActivity, Observer { showLoading(it) })
             messageError.observe(this@CctvsActivity, Observer { showErrorToast(it) })
@@ -208,27 +211,19 @@ class CctvsActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun loadInfoBarView(data: CctvListResponse){
-        var haveProblem = 0
-        var numOfProblem = 0
-        for (cctv in data.cctvs){
-            if (cctv.caseSize > 0){
-                haveProblem += 1
+    private fun loadInfoBarView() {
+        bd.chipCctv.removeAllViews()
+        val infoData = viewModel.getInfoBarData()
+        for (info in infoData) {
+            val chip = Chip(bd.chipCctv.context)
+            chip.text= "${info.name} : ${info.total}/${info.problem}"
+            if(info.problem > 0 ){
+                chip.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red_400))
+                chip.chipStrokeWidth = 4f
             }
-            numOfProblem += cctv.caseSize
-        }
-
-        bd.tvNumOfProblem.text = "$numOfProblem masalah"
-        bd.tvUnitHaveProblem.text = "$haveProblem unit"
-    }
-
-    private fun filterRecyclerViewShowOnlyHaveProblem(){
-        val dataRecycler = viewModel.getCctvData().value
-        dataRecycler?.let { cctv ->
-            val filtered =  cctv.cctvs.filter {
-                it.caseSize > 0
-            }
-            loadRecyclerView(CctvListResponse(cctvs = filtered))
+            chip.isClickable = false
+            chip.isCheckable = false
+            bd.chipCctv.addView(chip)
         }
     }
 
