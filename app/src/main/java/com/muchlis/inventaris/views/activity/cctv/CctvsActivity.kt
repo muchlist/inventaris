@@ -80,6 +80,10 @@ class CctvsActivity : AppCompatActivity() {
             showFilterDialog()
         }
 
+        bd.infoBar.setOnClickListener {
+            filterRecyclerViewShowOnlyHaveProblem()
+        }
+
 
         //HIDE KEYBOARD
         bd.etListSearchbar.isFocusable = false
@@ -216,6 +220,16 @@ class CctvsActivity : AppCompatActivity() {
 
         bd.tvNumOfProblem.text = "$numOfProblem masalah"
         bd.tvUnitHaveProblem.text = "$haveProblem unit"
+    }
+
+    private fun filterRecyclerViewShowOnlyHaveProblem(){
+        val dataRecycler = viewModel.getCctvData().value
+        dataRecycler?.let { cctv ->
+            val filtered =  cctv.cctvs.filter {
+                it.caseSize > 0
+            }
+            loadRecyclerView(CctvListResponse(cctvs = filtered))
+        }
     }
 
     private fun runLayoutAnimation() {

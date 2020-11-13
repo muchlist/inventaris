@@ -95,7 +95,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/info_bar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
             app:cardBackgroundColor="#FFF3E0"
             app:cardCornerRadius="4dp"
@@ -104,46 +104,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_bar">
 
-            <LinearLayout
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TableRow>
 
-                    <TableRow>
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="CCTV Bermasalah" />
 
-                        <TextView
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:text="CCTV Bermasalah" />
+                    <TextView
+                        android:id="@+id/tv_unit_have_problem"
+                        tools:text="2 unit" />
 
-                        <TextView
-                            android:id="@+id/tv_unit_have_problem"
-                            tools:text="2 unit" />
+                </TableRow>
 
-                    </TableRow>
+                <TableRow>
 
-                    <TableRow>
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="Jumlah Masalah" />
 
-                        <TextView
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:text="Jumlah Masalah" />
+                    <TextView
+                        android:id="@+id/tv_num_of_problem"
+                        tools:text="2 unit" />
 
-                        <TextView
-                            android:id="@+id/tv_num_of_problem"
-                            tools:text="2 unit" />
+                </TableRow>
 
-                    </TableRow>
-
-                </TableLayout>
-
-
-            </LinearLayout>
+            </TableLayout>
 
 
         </androidx.cardview.widget.CardView>
