@@ -214,9 +214,32 @@ class CctvsActivity : AppCompatActivity() {
     private fun loadInfoBarView() {
         bd.chipCctv.removeAllViews()
         val infoData = viewModel.getInfoBarData()
+
+        //TOTAL
+        var total = 0
+        var down = 0
+        var problem = 0
+        for (info in infoData){
+            total += info.total
+            down += info.down
+            problem += info.problem
+        }
+        val chipHead = Chip(bd.chipCctv.context)
+        chipHead.text= "TOTAL : ${total}/${down}/${problem}"
+        if(problem > 0 ){
+            chipHead.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red_400))
+            chipHead.chipStrokeWidth = 4f
+        }
+        chipHead.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green_100))
+        chipHead.isClickable = false
+        chipHead.isCheckable = false
+        bd.chipCctv.addView(chipHead)
+
+
+        //DETAIL
         for (info in infoData) {
             val chip = Chip(bd.chipCctv.context)
-            chip.text= "${info.name} : ${info.total}/${info.problem}"
+            chip.text= "${info.name} : ${info.total}/${info.down}/${info.problem}"
             if(info.problem > 0 ){
                 chip.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red_400))
                 chip.chipStrokeWidth = 4f
@@ -241,7 +264,7 @@ class CctvsActivity : AppCompatActivity() {
     }
 
     private fun setTotalCount(total: Int) {
-        bd.tvListUnit.text = "Jumlah : $total unit"
+        bd.tvListUnit.text = "Tampil : $total unit"
     }
 
     private fun showFilterDialog() {

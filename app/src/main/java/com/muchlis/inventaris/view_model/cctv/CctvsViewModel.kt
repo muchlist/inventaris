@@ -63,45 +63,51 @@ class CctvsViewModel : ViewModel() {
     }
 
     fun getInfoBarData(): List<InfoBarData> {
+        //MAYBE SLOW , IF IS, CHANGE SEQUENCE TO COROUTINE
+        val dataInfoBarMap = mutableMapOf<String, InfoBarData>()
         val dataAll = _cctvData.value
-        val dataFiltered = getCctvDataFiltered()
-        val dataInfoBar = mutableListOf<InfoBarData>()
-        val dataAllMap = mutableMapOf<String, Int>()
-        val dataProblemMap = mutableMapOf<String, Int>()
-
         dataAll?.let {
             for (cctv in it.cctvs) {
-                if (dataAllMap.containsKey(cctv.location)) {
-                    val tempValue = dataAllMap[cctv.location] ?: 0
-                    dataAllMap[cctv.location] = tempValue + 1
+
+                if (dataInfoBarMap.containsKey(cctv.location)) {
+                    val tempData: InfoBarData? = dataInfoBarMap[cctv.location]
+                    tempData?.let {
+                        if (cctv.caseSize > 0){
+                            var tempProblem = tempData.problem
+                            tempProblem += 1
+                            tempData.problem = tempProblem
+                        }
+
+                        if (cctv.lastPing == "DOWN"){
+                            var tempDown = tempData.down
+                            tempDown += 1
+                            tempData.down = tempDown
+                        }
+
+                        var tempTotal = tempData.total
+                        tempTotal += 1
+                        tempData.total = tempTotal
+                    }
+                    dataInfoBarMap[cctv.location] = tempData as InfoBarData
                 } else {
-                    dataAllMap[cctv.location] = 1
-                }
-            }
-        }
-        dataFiltered?.let {
-            for (cctv in it.cctvs) {
-                if (dataProblemMap.containsKey(cctv.location)) {
-                    val tempValue = dataProblemMap[cctv.location] ?: 0
-                    dataProblemMap[cctv.location] = tempValue + 1
-                } else {
-                    dataProblemMap[cctv.location] = 1
+                    dataInfoBarMap[cctv.location] = InfoBarData(
+                        name = cctv.location.split(" #")[0],
+                        total = 1,
+                        problem = if (cctv.caseSize > 0) 1 else 0,
+                        down = if (cctv.lastPing == "DOWN") 1 else 0,
+                    )
                 }
             }
         }
 
-        for (key in dataAllMap.keys) {
-            val name = key.split(" #")
-            dataInfoBar.add(
-                InfoBarData(
-                    name = name[0],
-                    total = dataAllMap[key] ?: 0,
-                    problem = dataProblemMap[key] ?: 0
-                )
-            )
+        val returnInfoBar = mutableListOf<InfoBarData>()
+        for (key in dataInfoBarMap.keys) {
+            dataInfoBarMap[key]?.let {
+                returnInfoBar.add(it)
+            }
         }
 
-        return dataInfoBar
+        return returnInfoBar
     }
 
 }
