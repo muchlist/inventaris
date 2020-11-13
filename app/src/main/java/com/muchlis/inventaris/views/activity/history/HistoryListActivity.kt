@@ -26,6 +26,7 @@ import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.history.HistoryListViewModel
 import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
+import com.muchlis.inventaris.views.activity.handheld.HandheldDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import es.dmoral.toasty.Toasty
 
@@ -160,6 +161,9 @@ class HistoryListActivity : AppCompatActivity() {
             CATEGORY_CCTV -> {
                 intentToCctvDetailActivity(parentID)
             }
+            CATEGORY_TABLET -> {
+                intentToHandheldDetailActivity(parentID)
+            }
             else -> {
                 Toasty.error(this, "Category tidak valid", Toasty.LENGTH_LONG).show()
             }
@@ -181,6 +185,12 @@ class HistoryListActivity : AppCompatActivity() {
     private fun intentToStockDetailActivity(unitID: String) {
         val intent = Intent(this, StockDetailActivity::class.java)
         intent.putExtra(INTENT_STOCK_TO_DETAIL, unitID)
+        startActivity(intent)
+    }
+
+    private fun intentToHandheldDetailActivity(unitID: String) {
+        val intent = Intent(this, HandheldDetailActivity::class.java)
+        intent.putExtra(INTENT_HH_TO_DETAIL, unitID)
         startActivity(intent)
     }
 
