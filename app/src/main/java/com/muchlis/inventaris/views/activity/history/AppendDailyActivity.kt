@@ -99,7 +99,7 @@ class AppendDailyActivity : AppCompatActivity() {
     private fun killActivityIfHistoryCreated(isCreated: Boolean) {
         if (isCreated) {
             App.activityDashboardMustBeRefresh = true
-            App.fragmentHistoryComputerMustBeRefresh = true
+            App.fragmentHistoryAllMustBeRefresh = true
             when (parentCategory) {
                 CATEGORY_CCTV -> {
                     App.fragmentDetailCctvMustBeRefresh = true

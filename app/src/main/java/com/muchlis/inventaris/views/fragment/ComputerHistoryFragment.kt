@@ -164,9 +164,9 @@ class ComputerHistoryFragment : Fragment() {
         } else {
 
             //reload history apabila App.fragmentHistoryComputerMustBeRefresh == true
-            if (App.fragmentHistoryComputerMustBeRefresh) {
+            if (App.fragmentHistoryAllMustBeRefresh) {
                 viewModel.findHistoriesFromServer()
-                App.fragmentHistoryComputerMustBeRefresh = false
+                App.fragmentHistoryAllMustBeRefresh = false
             }
 
         }

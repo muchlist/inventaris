@@ -4,7 +4,6 @@ import android.R.layout.simple_spinner_dropdown_item
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.data.response.SelectOptionResponse
@@ -134,7 +133,7 @@ class AppendHistoryActivity : AppCompatActivity() {
     private fun killActivityIfHistoryCreated(isCreated: Boolean) {
         if (isCreated) {
             App.activityDashboardMustBeRefresh = true
-            App.fragmentHistoryComputerMustBeRefresh = true
+            App.fragmentHistoryAllMustBeRefresh = true
             when (parentCategory) {
                 CATEGORY_CCTV -> {
                     App.fragmentDetailCctvMustBeRefresh = true

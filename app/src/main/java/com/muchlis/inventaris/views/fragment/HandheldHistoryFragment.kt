@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.HandheldDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
@@ -164,9 +163,9 @@ class HandheldHistoryFragment : Fragment() {
         } else {
 
             //reload history apabila App.fragmentHistoryHandheldMustBeRefresh == true
-            if (App.fragmentHistoryComputerMustBeRefresh) {
+            if (App.fragmentHistoryAllMustBeRefresh) {
                 viewModel.findHistoriesFromServer()
-                App.fragmentHistoryComputerMustBeRefresh = false
+                App.fragmentHistoryAllMustBeRefresh = false
             }
 
         }

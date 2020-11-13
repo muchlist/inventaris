@@ -4,19 +4,17 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.muchlis.inventaris.data.request.HistoryAppsEditRequest
 import com.muchlis.inventaris.data.request.HistoryEditRequest
-import com.muchlis.inventaris.data.response.HistoryAppsListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.databinding.ActivityEditHistoryBinding
-import com.muchlis.inventaris.databinding.ActivityEditPelindoAppsHistoryBinding
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.history.EditHistoryViewModel
-import com.muchlis.inventaris.view_model.pelindo_app_history.EditPelindoAppsHistoryViewModel
 import es.dmoral.toasty.Toasty
 import java.util.*
 
 class EditHistoryActivity : AppCompatActivity() {
+
+    private var data: HistoryResponse? = null
 
     private lateinit var viewModel: EditHistoryViewModel
     private lateinit var bd: ActivityEditHistoryBinding
@@ -26,9 +24,10 @@ class EditHistoryActivity : AppCompatActivity() {
         bd = ActivityEditHistoryBinding.inflate(layoutInflater)
         setContentView(bd.root)
 
-        val data = intent.getParcelableExtra<HistoryResponse>(
+        data = intent.getParcelableExtra<HistoryResponse>(
             INTENT_TO_HISTORY_EDIT
         )
+
         viewModel = ViewModelProvider(this).get(EditHistoryViewModel::class.java)
         observeViewModel()
 
@@ -47,7 +46,7 @@ class EditHistoryActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setDataToLayout(data: HistoryResponse) {
-        bd.tvHistoryName.text = data.category + " " +  data.parentName
+        bd.tvHistoryName.text = data.category + " " + data.parentName
         bd.tvHistoryStatus.text = data.status
         bd.etfDesc.editText?.setText(data.note)
     }
@@ -86,6 +85,18 @@ class EditHistoryActivity : AppCompatActivity() {
     private fun killActivityIfHistoryEditedSuccessfully(isSuccess: Boolean) {
         if (isSuccess) {
             App.activityHistoryListMustBeRefresh = true
+            App.activityDashboardMustBeRefresh = true
+            App.fragmentHistoryAllMustBeRefresh = true
+
+            when (data?.category) {
+                CATEGORY_CCTV -> {
+                    App.fragmentDetailCctvMustBeRefresh = true
+                    App.activityCctvListMustBeRefresh = true
+                }
+                CATEGORY_PC -> App.fragmentDetailComputerMustBeRefresh = true
+                CATEGORY_TABLET -> App.fragmentDetailHHMustBeRefresh = true
+            }
+
             finish()
         }
     }
