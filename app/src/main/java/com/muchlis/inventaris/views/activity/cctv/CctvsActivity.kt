@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.views.activity.cctv
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -90,6 +91,7 @@ class CctvsActivity : AppCompatActivity() {
 
         viewModel.run {
             getCctvData().observe(this@CctvsActivity, Observer {
+                loadInfoBarView(it)
                 loadRecyclerView(it)
             })
             isLoading.observe(this@CctvsActivity, Observer { showLoading(it) })
@@ -199,6 +201,21 @@ class CctvsActivity : AppCompatActivity() {
         }
 
         setTotalCount(cctvData.count())
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun loadInfoBarView(data: CctvListResponse){
+        var haveProblem = 0
+        var numOfProblem = 0
+        for (cctv in data.cctvs){
+            if (cctv.caseSize > 0){
+                haveProblem += 1
+            }
+            numOfProblem += cctv.caseSize
+        }
+
+        bd.tvNumOfProblem.text = "$numOfProblem masalah"
+        bd.tvUnitHaveProblem.text = "$haveProblem unit"
     }
 
     private fun runLayoutAnimation() {
