@@ -75,6 +75,13 @@ class HistoryListActivity : AppCompatActivity() {
             showFilterDialog()
         }
 
+        bd.chipBranch.text = App.prefs.userBranchSave
+        bd.chipBranch.setOnClickListener {
+            viewModel.getDataFiltered()?.let {
+                loadRecyclerView(it)
+            }
+        }
+
         bd.refreshDetailHistory.setOnRefreshListener {
             findHistories()
         }

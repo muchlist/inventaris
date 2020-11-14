@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muchlis.inventaris.data.dto.FindHistoryDto
+import com.muchlis.inventaris.data.response.CctvListResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.repository.HistoryRepo
+import com.muchlis.inventaris.utils.App
 
 class HistoryListViewModel  : ViewModel() {
 
@@ -47,6 +49,16 @@ class HistoryListViewModel  : ViewModel() {
                 _historyData.postValue(response)
             }
         }
+    }
+
+    fun getDataFiltered(): HistoryListResponse? {
+        _historyData.value?.let { x ->
+            val filtered = x.histories.filter {
+                it.branch == App.prefs.userBranchSave
+            }
+            return HistoryListResponse(histories = filtered)
+        }
+        return null
     }
 
     fun deleteHistoryFromServer(historyID: String) {

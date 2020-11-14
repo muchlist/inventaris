@@ -242,7 +242,7 @@ class CctvsActivity : AppCompatActivity() {
             problem += info.problem
         }
         val chipHead = Chip(bd.chipCctv.context)
-        chipHead.text = "TOTAL : ${total}/${down}/${problem}"
+        chipHead.text = "TOTAL : ${total} (CCTV) / ${down} (DOWN) / ${problem} (PROBLEM)"
         if (problem > 0) {
             chipHead.chipStrokeColor =
                 ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red_400))
