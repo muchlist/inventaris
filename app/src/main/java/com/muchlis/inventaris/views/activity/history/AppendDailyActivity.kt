@@ -63,7 +63,12 @@ class AppendDailyActivity : AppCompatActivity() {
             category = parentCategory ?: "",
             date = dateText,
             note = bd.etfNote.editText?.text.toString(),
-            status = bd.atHistoryStatus.text.toString()
+            status = bd.atHistoryStatus.text.toString(),
+
+            endDate = dateText,
+            resolveNote = "",
+            isComplete = true,
+            location = ""
         )
 
         if (args.isValid()) {
@@ -94,7 +99,7 @@ class AppendDailyActivity : AppCompatActivity() {
     private fun killActivityIfHistoryCreated(isCreated: Boolean) {
         if (isCreated) {
             App.activityDashboardMustBeRefresh = true
-            App.fragmentHistoryComputerMustBeRefresh = true
+            App.fragmentHistoryAllMustBeRefresh = true
             when (parentCategory) {
                 CATEGORY_CCTV -> {
                     App.fragmentDetailCctvMustBeRefresh = true

@@ -18,6 +18,7 @@ import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.cctv.CctvDetailViewModel
 import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
+import com.muchlis.inventaris.views.activity.history.EditHistoryActivity
 import es.dmoral.toasty.Toasty
 
 class CctvHistoryFragment : Fragment() {
@@ -79,11 +80,22 @@ class CctvHistoryFragment : Fragment() {
     private fun setRecyclerView() {
         bd.rvDetailComputerHistory.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        historyAdapter = HistoryAdapter(requireActivity(), historyData) {
+
+        val onClickItem: (HistoryResponse) -> Unit = {
+            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+                val intent = Intent(requireActivity(), EditHistoryActivity::class.java)
+                intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
+                startActivity(intent)
+            }
+        }
+
+        val onLongClickItem: (HistoryResponse) -> Unit = {
             if (it.author == App.prefs.nameSave){
                 deleteComputerHistory(it.id)
             }
         }
+
+        historyAdapter = HistoryAdapter(requireActivity(), historyData, onClickItem, onLongClickItem)
         bd.rvDetailComputerHistory.adapter = historyAdapter
         bd.rvDetailComputerHistory.setHasFixedSize(true)
     }
@@ -156,9 +168,9 @@ class CctvHistoryFragment : Fragment() {
         } else {
 
             //reload history apabila App.fragmentHistoryComputerMustBeRefresh == true
-            if (App.fragmentHistoryComputerMustBeRefresh) {
+            if (App.fragmentHistoryAllMustBeRefresh) {
                 viewModel.findHistoriesFromServer()
-                App.fragmentHistoryComputerMustBeRefresh = false
+                App.fragmentHistoryAllMustBeRefresh = false
             }
 
         }

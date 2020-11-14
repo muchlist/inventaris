@@ -4,7 +4,6 @@ import android.R.layout.simple_spinner_dropdown_item
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.muchlis.inventaris.data.request.HistoryRequest
 import com.muchlis.inventaris.data.response.SelectOptionResponse
@@ -45,7 +44,12 @@ class AppendHistoryActivity : AppCompatActivity() {
             Toasty.error(this, ERR_DROPDOWN_NOT_LOAD, Toasty.LENGTH_LONG).show()
         }
 
-        setAutoTextStatus(optionJsonObject.history)
+        //Status Selector
+        if (parentCategory == CATEGORY_CCTV){
+            setAutoTextStatus(optionJsonObject.cctvHistory)
+        }else{
+            setAutoTextStatus(optionJsonObject.history)
+        }
 
         bd.btSave.setOnClickListener {
             sendDataToServer(
@@ -60,6 +64,14 @@ class AppendHistoryActivity : AppCompatActivity() {
             )
         }
         bd.ivBackButton.setOnClickListener { onBackPressed() }
+
+        bd.swHistoryComplete.setOnClickListener {
+            if (bd.swHistoryComplete.isChecked) {
+                bd.etfResolveNote.visible()
+            } else {
+                bd.etfResolveNote.invisible()
+            }
+        }
     }
 
     private fun setAutoTextStatus(status: List<String>) {
@@ -76,11 +88,27 @@ class AppendHistoryActivity : AppCompatActivity() {
         val timeNow = Calendar.getInstance().time
         val dateText = timeNow.toStringInputDate()
 
+        val endDate: String?
+        val resolveNote: String
+        if (bd.swHistoryComplete.isChecked) {
+            endDate = dateText
+            resolveNote = bd.etfResolveNote.editText?.text.toString()
+        } else {
+            endDate = null
+            resolveNote = ""
+        }
+
+
         val args = HistoryRequest(
             category = parentCategory ?: "",
             date = dateText,
             note = bd.etfNote.editText?.text.toString(),
-            status = bd.atHistoryStatus.text.toString()
+            status = bd.atHistoryStatus.text.toString(),
+
+            resolveNote = resolveNote,
+            endDate = endDate,
+            location = App.prefs.userBranchSave,
+            isComplete = bd.swHistoryComplete.isChecked,
         )
 
         if (args.isValid()) {
@@ -105,7 +133,7 @@ class AppendHistoryActivity : AppCompatActivity() {
     private fun killActivityIfHistoryCreated(isCreated: Boolean) {
         if (isCreated) {
             App.activityDashboardMustBeRefresh = true
-            App.fragmentHistoryComputerMustBeRefresh = true
+            App.fragmentHistoryAllMustBeRefresh = true
             when (parentCategory) {
                 CATEGORY_CCTV -> {
                     App.fragmentDetailCctvMustBeRefresh = true

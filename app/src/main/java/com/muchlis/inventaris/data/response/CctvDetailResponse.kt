@@ -42,7 +42,10 @@ data class CctvDetailResponse(
     @Json(name = "year")
     val year: String,
     @Json(name = "image")
-    val image: String
+    val image: String,
+    val case: List<Case>,
+    @Json(name = "case_size")
+    val caseSize: Int,
 ): Parcelable {
     @Parcelize
     data class PingState(

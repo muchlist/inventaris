@@ -19,16 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_circle_history"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:contentDescription="@string/log_desc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/tv_history_note"
                 android:layout_width="0dp"
@@ -44,14 +34,31 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_history_status"
-                tools:text="@string/membersihkan_kipas_prosesor_karena_sering_restart" />
+                tools:text="aplikasi spiner lelet" />
+
+            <TextView
+                android:id="@+id/tv_history_resolve"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto"
+                android:minLines="1"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/tv_history_note"
+                tools:text="solved by dipta" />
 
             <TextView
                 android:id="@+id/tv_history_status"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
                 android:maxLines="1"
@@ -60,13 +67,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_circle_history"
                 app:layout_constraintTop_toBottomOf="@+id/tv_history_name"
-                tools:text="@string/diperbaiki" />
+                tools:text="Spiner lelet" />
 
             <TextView
                 android:id="@+id/tv_history_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/roboto"
                 android:paddingStart="2dp"
@@ -74,9 +81,26 @@
                 android:textSize="12sp"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_history_branch"
                 tools:text="@string/_19_06_2019" />
+
+            <TextView
+                android:id="@+id/tv_history_minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_history_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_history_branch"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="60 menit" />
 
             <TextView
                 android:id="@+id/tv_history_author"
@@ -84,17 +108,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_solid_primary_rounded"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
                 android:maxLines="1"
                 android:minLines="1"
                 android:padding="2dp"
-                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_history_note"
+                app:layout_constraintTop_toBottomOf="@+id/tv_history_resolve"
                 tools:text="@string/nama_user" />
 
             <TextView
@@ -103,17 +125,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
                 android:maxLines="1"
                 android:minLines="1"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_history_complete"
                 app:layout_constraintStart_toEndOf="@+id/iv_circle_history"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/nama_user" />
+                tools:text="Spiner" />
 
             <TextView
                 android:id="@+id/tv_history_branch"
@@ -127,27 +148,47 @@
                 tools:text="sampit" />
 
             <TextView
-                android:id="@+id/tv_history_today"
+                android:id="@+id/tv_history_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/text_rounded_cctv_up"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="complete" />
+
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/text_rounded_seat"
-                android:ellipsize="end"
-                android:fontFamily="@font/roboto"
-                android:maxLines="1"
-                android:minLines="1"
-                android:paddingStart="4dp"
-                android:paddingTop="2dp"
-                android:paddingEnd="4dp"
-                android:paddingBottom="2dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/pager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_history_note" />
+
+            <ImageView
+                android:id="@+id/iv_circle_history"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/image_desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_history_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_rounded_cctv_up"
                 android:text="@string/hari_ini"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:textStyle="normal"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_history_date"
+                app:layout_constraintStart_toStartOf="@+id/tv_history_date" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

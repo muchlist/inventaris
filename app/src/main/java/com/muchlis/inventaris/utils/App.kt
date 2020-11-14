@@ -10,7 +10,7 @@ class App : Application() {
         var activityDashboardMustBeRefresh : Boolean = false
         var activityComputerListMustBeRefresh : Boolean = false
         var fragmentDetailComputerMustBeRefresh : Boolean = false
-        var fragmentHistoryComputerMustBeRefresh : Boolean = false
+        var fragmentHistoryAllMustBeRefresh : Boolean = false
 
         var activityStockListMustBeRefresh : Boolean = false
         var fragmentDetailStockMustBeRefresh : Boolean = false
@@ -22,6 +22,7 @@ class App : Application() {
         var fragmentDetailHHMustBeRefresh : Boolean = false
 
         var activityAppsHistoryListMustBeRefresh : Boolean = false
+        var activityHistoryListMustBeRefresh : Boolean = false
     }
 
     override fun onCreate() {

@@ -38,5 +38,8 @@ data class HandheldDetailResponse(
     @Json(name = "updated_at")
     val updatedAt: String,
     @Json(name = "year")
-    val year: String
+    val year: String,
+    val case: List<Case>,
+    @Json(name = "case_size")
+    val caseSize: Int,
 ): Parcelable

@@ -41,8 +41,9 @@ class CctvAdapter(
 
                 tv_cctvlist_name.text = items.cctvName
                 tv_cctvlist_ip.text = items.ipAddress
-                tv_cctvlist_location.text = items.location
-                tv_cctvlist_last_status.text = items.lastStatus
+
+                val location = items.location.split(" #")
+                tv_cctvlist_location.text = location[0]
                 tv_cctvlist_condition.text = "${items.pingSum} %"
 
                 if (items.lastPing == "UP") {
@@ -54,6 +55,16 @@ class CctvAdapter(
                         tv_cctvlist_condition.setBackgroundResource(R.drawable.text_rounded_cctv_mid)
                     }
                 }
+
+                //Last status text
+                var lastStatus = ""
+                if (items.case.count() != 0){
+                    for (case in items.case){
+                        lastStatus = lastStatus + "* " + case.caseNote + "\n"
+                    }
+                }
+
+                tv_cctvlist_last_status.text = lastStatus
 
                 //onClick
                 itemView.setOnClickListener { itemClick(items) }

@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.HandheldDetailResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
@@ -18,6 +17,7 @@ import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.handheld.HandheldDetailViewModel
 import com.muchlis.inventaris.views.activity.history.AppendHistoryActivity
+import com.muchlis.inventaris.views.activity.history.EditHistoryActivity
 import es.dmoral.toasty.Toasty
 
 class HandheldHistoryFragment : Fragment() {
@@ -75,11 +75,22 @@ class HandheldHistoryFragment : Fragment() {
     private fun setRecyclerView() {
         bd.rvDetailComputerHistory.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        historyAdapter = HistoryAdapter(requireActivity(), historyData) {
+
+        val onClickItem: (HistoryResponse) -> Unit = {
+            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+                val intent = Intent(requireActivity(), EditHistoryActivity::class.java)
+                intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
+                startActivity(intent)
+            }
+        }
+
+        val onLongClickItem: (HistoryResponse) -> Unit = {
             if (it.author == App.prefs.nameSave){
                 deleteHandheldHistory(it.id)
             }
         }
+
+        historyAdapter = HistoryAdapter(requireActivity(), historyData, onClickItem, onLongClickItem)
         bd.rvDetailComputerHistory.adapter = historyAdapter
         bd.rvDetailComputerHistory.setHasFixedSize(true)
     }
@@ -152,9 +163,9 @@ class HandheldHistoryFragment : Fragment() {
         } else {
 
             //reload history apabila App.fragmentHistoryHandheldMustBeRefresh == true
-            if (App.fragmentHistoryComputerMustBeRefresh) {
+            if (App.fragmentHistoryAllMustBeRefresh) {
                 viewModel.findHistoriesFromServer()
-                App.fragmentHistoryComputerMustBeRefresh = false
+                App.fragmentHistoryAllMustBeRefresh = false
             }
 
         }

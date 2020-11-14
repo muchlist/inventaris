@@ -206,7 +206,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/quicksand"
-                                android:text="@string/status_dot"
+                                android:text="@string/masalah"
                                 android:textSize="18sp" />
 
                             <TextView
@@ -216,7 +216,6 @@
                                 android:layout_weight="1"
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
-                                android:maxLines="3"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 

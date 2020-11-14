@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="0dp"
+            android:animateLayoutChanges="true"
             android:background="@android:color/white"
             android:scrollbars="none"
             android:scrollingCache="true"
@@ -58,14 +59,14 @@
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/gradient_dashboard_grid"
                     android:paddingTop="10dp"
                     android:paddingBottom="24dp"
-                    android:background="@drawable/gradient_dashboard_grid"
-                    app:flexWrap="wrap"
                     app:dividerDrawableHorizontal="@drawable/divider"
                     app:dividerDrawableVertical="@drawable/divider"
-                    app:showDividerVertical="middle|beginning"
-                    app:showDividerHorizontal="middle">
+                    app:flexWrap="wrap"
+                    app:showDividerHorizontal="middle"
+                    app:showDividerVertical="middle|beginning">
 
                     <!--computer-->
                     <androidx.cardview.widget.CardView
@@ -98,8 +99,8 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="PC" />
+                                android:text="PC"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -136,89 +137,89 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="@string/stock" />
+                                android:text="@string/stock"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
 
                     <!--printer-->
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:id="@+id/menu_printer"-->
-<!--                        android:layout_width="165dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        app:cardCornerRadius="4dp">-->
+                    <!--                    <androidx.cardview.widget.CardView-->
+                    <!--                        android:id="@+id/menu_printer"-->
+                    <!--                        android:layout_width="165dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        app:cardCornerRadius="4dp">-->
 
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_margin="8dp"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            android:orientation="horizontal">-->
+                    <!--                        <LinearLayout-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_margin="8dp"-->
+                    <!--                            android:gravity="center_vertical"-->
+                    <!--                            android:orientation="horizontal">-->
 
-<!--                            <ImageView-->
-<!--                                android:layout_width="35dp"-->
-<!--                                android:layout_height="35dp"-->
-<!--                                android:layout_marginStart="4dp"-->
-<!--                                android:layout_marginEnd="4dp"-->
-<!--                                android:contentDescription="@string/logo_menu_gridview"-->
-<!--                                android:src="@drawable/ic_041_printer" />-->
+                    <!--                            <ImageView-->
+                    <!--                                android:layout_width="35dp"-->
+                    <!--                                android:layout_height="35dp"-->
+                    <!--                                android:layout_marginStart="4dp"-->
+                    <!--                                android:layout_marginEnd="4dp"-->
+                    <!--                                android:contentDescription="@string/logo_menu_gridview"-->
+                    <!--                                android:src="@drawable/ic_041_printer" />-->
 
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginStart="4dp"-->
-<!--                                android:layout_marginEnd="4dp"-->
-<!--                                android:ellipsize="end"-->
-<!--                                android:fontFamily="@font/quicksand"-->
-<!--                                android:singleLine="true"-->
-<!--                                android:textSize="18sp"-->
-<!--                                android:text="@string/printer" />-->
+                    <!--                            <TextView-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginStart="4dp"-->
+                    <!--                                android:layout_marginEnd="4dp"-->
+                    <!--                                android:ellipsize="end"-->
+                    <!--                                android:fontFamily="@font/quicksand"-->
+                    <!--                                android:singleLine="true"-->
+                    <!--                                android:textSize="18sp"-->
+                    <!--                                android:text="@string/printer" />-->
 
-<!--                        </LinearLayout>-->
+                    <!--                        </LinearLayout>-->
 
-<!--                    </androidx.cardview.widget.CardView>-->
+                    <!--                    </androidx.cardview.widget.CardView>-->
 
 
                     <!--server-->
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:id="@+id/menu_server"-->
-<!--                        android:layout_width="165dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        app:cardCornerRadius="4dp">-->
+                    <!--                    <androidx.cardview.widget.CardView-->
+                    <!--                        android:id="@+id/menu_server"-->
+                    <!--                        android:layout_width="165dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        app:cardCornerRadius="4dp">-->
 
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_margin="8dp"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            android:orientation="horizontal">-->
+                    <!--                        <LinearLayout-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_margin="8dp"-->
+                    <!--                            android:gravity="center_vertical"-->
+                    <!--                            android:orientation="horizontal">-->
 
-<!--                            <ImageView-->
-<!--                                android:layout_width="35dp"-->
-<!--                                android:layout_height="35dp"-->
-<!--                                android:layout_marginStart="4dp"-->
-<!--                                android:layout_marginEnd="4dp"-->
-<!--                                android:contentDescription="@string/logo_menu_gridview"-->
-<!--                                android:src="@drawable/ic_047_server" />-->
+                    <!--                            <ImageView-->
+                    <!--                                android:layout_width="35dp"-->
+                    <!--                                android:layout_height="35dp"-->
+                    <!--                                android:layout_marginStart="4dp"-->
+                    <!--                                android:layout_marginEnd="4dp"-->
+                    <!--                                android:contentDescription="@string/logo_menu_gridview"-->
+                    <!--                                android:src="@drawable/ic_047_server" />-->
 
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginStart="4dp"-->
-<!--                                android:layout_marginEnd="4dp"-->
-<!--                                android:ellipsize="end"-->
-<!--                                android:fontFamily="@font/quicksand"-->
-<!--                                android:singleLine="true"-->
-<!--                                android:textSize="18sp"-->
-<!--                                android:text="@string/server" />-->
+                    <!--                            <TextView-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginStart="4dp"-->
+                    <!--                                android:layout_marginEnd="4dp"-->
+                    <!--                                android:ellipsize="end"-->
+                    <!--                                android:fontFamily="@font/quicksand"-->
+                    <!--                                android:singleLine="true"-->
+                    <!--                                android:textSize="18sp"-->
+                    <!--                                android:text="@string/server" />-->
 
-<!--                        </LinearLayout>-->
+                    <!--                        </LinearLayout>-->
 
-<!--                    </androidx.cardview.widget.CardView>-->
+                    <!--                    </androidx.cardview.widget.CardView>-->
 
                     <!--cctv-->
                     <androidx.cardview.widget.CardView
@@ -251,8 +252,8 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="@string/cctv" />
+                                android:text="@string/cctv"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -289,8 +290,8 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="Daily" />
+                                android:text="Daily"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -327,8 +328,8 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="App" />
+                                android:text="App"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -366,8 +367,8 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="Tablet" />
+                                android:text="Tablet"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -404,8 +405,8 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="QR Scan" />
+                                android:text="QR Scan"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -443,8 +444,8 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:textSize="18sp"
-                                android:text="Export" />
+                                android:text="Export"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -456,9 +457,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="25dp"
                     android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="4dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -474,11 +475,29 @@
                     <ImageView
                         android:id="@+id/iv_reload"
                         android:layout_width="30dp"
-                        android:contentDescription="@string/image_desc"
                         android:layout_height="30dp"
+                        android:contentDescription="@string/image_desc"
                         android:src="@drawable/ic_sync_24px" />
 
                 </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/info_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardElevation="0dp">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_dashboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipSpacingHorizontal="4dp"
+                        app:chipSpacingVertical="-5dp" />
+
+                </androidx.cardview.widget.CardView>
 
                 <ProgressBar
                     android:id="@+id/pb_history_dashboard"

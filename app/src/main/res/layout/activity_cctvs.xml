@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:animationCache="false"
         android:orientation="vertical">
 
         <ImageView
@@ -90,6 +93,30 @@
 
         </androidx.cardview.widget.CardView>
 
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/info_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_cctv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:chipSpacingHorizontal="4dp"
+                app:chipSpacingVertical="-5dp">
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </androidx.cardview.widget.CardView>
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_list"
             android:layout_width="0dp"
@@ -99,7 +126,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bt_list_tambah"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_bar">
+            app:layout_constraintTop_toBottomOf="@+id/info_bar">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list"
@@ -124,15 +151,15 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:text="@string/jumlah"
+            android:id="@+id/tv_list_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_list_unit"
-            app:layout_constraintTop_toTopOf="@+id/bt_list_tambah"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/jumlah"
             app:layout_constraintBottom_toBottomOf="@+id/bt_list_tambah"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/roboto" />
+            app:layout_constraintTop_toTopOf="@+id/bt_list_tambah" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

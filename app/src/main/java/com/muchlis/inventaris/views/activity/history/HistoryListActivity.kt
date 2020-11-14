@@ -26,6 +26,7 @@ import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.history.HistoryListViewModel
 import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
+import com.muchlis.inventaris.views.activity.handheld.HandheldDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import es.dmoral.toasty.Toasty
 
@@ -46,11 +47,18 @@ class HistoryListActivity : AppCompatActivity() {
     //first time animation
     private var isFirstTimeLoad = true
 
+    private var isComplete = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bd = ActivityHistoryListBinding.inflate(layoutInflater)
         val view = bd.root
         setContentView(view)
+
+        //MENERIMA DATA DARI intent dan mengirim ke viewModel
+        isComplete = intent.getIntExtra(
+            INTENT_TO_HISTORY_LIST, 100
+        )
 
         viewModel = ViewModelProvider(this).get(HistoryListViewModel::class.java)
 
@@ -77,7 +85,8 @@ class HistoryListActivity : AppCompatActivity() {
             FindHistoryDto(
                 branch = "",
                 category = "",
-                limit = 100
+                limit = 100,
+                isComplete = isComplete,
             )
         )
     }
@@ -101,7 +110,16 @@ class HistoryListActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         bd.rvDetailHistory.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        historyAdapter = HistoryAdapter(this, historyData) {
+
+        val onClickItem: (HistoryResponse) -> Unit = {
+            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+                val intent = Intent(this, EditHistoryActivity::class.java)
+                intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
+                startActivity(intent)
+            }
+        }
+
+        val onLongClickItem: (HistoryResponse) -> Unit = {
             if (it.category == CATEGORY_DAILY) {
                 //Khusus Daily perilakunya delete daily
                 if (it.author == App.prefs.nameSave) {
@@ -111,6 +129,8 @@ class HistoryListActivity : AppCompatActivity() {
                 intentToDetailActivity(parentID = it.parentId, category = it.category)
             }
         }
+
+        historyAdapter = HistoryAdapter(this, historyData, onClickItem, onLongClickItem)
         bd.rvDetailHistory.adapter = historyAdapter
         bd.rvDetailHistory.setHasFixedSize(true)
     }
@@ -149,6 +169,9 @@ class HistoryListActivity : AppCompatActivity() {
             CATEGORY_CCTV -> {
                 intentToCctvDetailActivity(parentID)
             }
+            CATEGORY_TABLET -> {
+                intentToHandheldDetailActivity(parentID)
+            }
             else -> {
                 Toasty.error(this, "Category tidak valid", Toasty.LENGTH_LONG).show()
             }
@@ -170,6 +193,12 @@ class HistoryListActivity : AppCompatActivity() {
     private fun intentToStockDetailActivity(unitID: String) {
         val intent = Intent(this, StockDetailActivity::class.java)
         intent.putExtra(INTENT_STOCK_TO_DETAIL, unitID)
+        startActivity(intent)
+    }
+
+    private fun intentToHandheldDetailActivity(unitID: String) {
+        val intent = Intent(this, HandheldDetailActivity::class.java)
+        intent.putExtra(INTENT_HH_TO_DETAIL, unitID)
         startActivity(intent)
     }
 
@@ -273,7 +302,8 @@ class HistoryListActivity : AppCompatActivity() {
                 FindHistoryDto(
                     branch = branchSelected,
                     category = categorySelected,
-                    limit = 100
+                    limit = 100,
+                    isComplete = isComplete
                 )
             )
 

@@ -144,8 +144,18 @@ class HandheldDetailFragment : Fragment() {
         val categoryMerkyear =
             "${data.tipe} - ${data.merk} - ${data.year.toDate().toStringJustYear()}"
         bd.tvDetailSubHeader.text = categoryMerkyear
-        bd.tvDetailStatus.text = data.lastStatus
         bd.tvDetailNote.text = data.note
+
+        //Last Status
+        var lastStatus = ""
+        if (data.case.count() != 0){
+            for (case in data.case){
+                lastStatus = lastStatus + "* " + case.caseNote + "\n"
+            }
+        } else {
+            lastStatus = "Nihil"
+        }
+        bd.tvDetailStatus.text = lastStatus
 
         //Status deactive
         if (data.deactive) {
