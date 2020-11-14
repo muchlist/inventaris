@@ -1,19 +1,20 @@
 package com.muchlis.inventaris.views.activity.dashboard
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.google.zxing.integration.android.IntentIntegrator
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.dto.FindHistoryDto
-import com.muchlis.inventaris.data.response.HistoryAppsListResponse
 import com.muchlis.inventaris.data.response.HistoryListResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
+import com.muchlis.inventaris.data.response.ProblemCountResponse
 import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
@@ -27,7 +28,6 @@ import com.muchlis.inventaris.views.activity.handheld.HandheldsActivity
 import com.muchlis.inventaris.views.activity.history.AppendDailyActivity
 import com.muchlis.inventaris.views.activity.history.EditHistoryActivity
 import com.muchlis.inventaris.views.activity.history.HistoryListActivity
-import com.muchlis.inventaris.views.activity.pelindo_apps_history.EditPelindoAppsHistoryActivity
 import com.muchlis.inventaris.views.activity.pelindo_apps_history.PelindoAppsHistoryListActivity
 import com.muchlis.inventaris.views.activity.stock.StockDetailActivity
 import com.muchlis.inventaris.views.activity.stock.StocksActivity
@@ -60,6 +60,7 @@ class DashboardActivity : AppCompatActivity() {
 
         findHistories()
         viewModel.getOption()
+        viewModel.getHistoriesCountFromServer()
 
         bd.menuPc.setOnClickListener { intentToComputerActivity() }
         bd.menuStock.setOnClickListener { intentToStockActivity() }
@@ -76,18 +77,25 @@ class DashboardActivity : AppCompatActivity() {
         bd.btHistoryDashboard.setOnClickListener {
             intentToHistoryListActivity()
         }
+
+        bd.infoBar.setOnClickListener {
+            intentToHistoryListActivity(isComplete = 0)
+        }
     }
 
     private fun observeViewModel() {
 
         viewModel.run {
-            getHistoryData().observe(this@DashboardActivity, Observer {
+            getHistoryData().observe(this@DashboardActivity, {
                 loadRecyclerView(it)
                 showLoadMoreButton(it.histories.count())
             })
-            isLoading.observe(this@DashboardActivity, Observer { showLoading(it) })
-            messageError.observe(this@DashboardActivity, Observer { showErrorToast(it) })
-            isHistoryDeleted.observe(this@DashboardActivity, Observer {
+            getHistoryCountData().observe(this@DashboardActivity, {
+                loadInfoProblem(it)
+            })
+            isLoading.observe(this@DashboardActivity, { showLoading(it) })
+            messageError.observe(this@DashboardActivity, { showErrorToast(it) })
+            isHistoryDeleted.observe(this@DashboardActivity, {
                 if (it) {
                     findHistories()
                 }
@@ -196,8 +204,9 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun intentToHistoryListActivity() {
+    private fun intentToHistoryListActivity(isComplete: Int = 100) {
         val intent = Intent(this, HistoryListActivity::class.java)
+        intent.putExtra(INTENT_TO_HISTORY_LIST, isComplete)
         startActivity(intent)
     }
 
@@ -241,6 +250,19 @@ class DashboardActivity : AppCompatActivity() {
         bd.rvHistoryDashboard.invalidate()
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun loadInfoProblem(data: ProblemCountResponse) {
+        bd.chipDashboard.removeAllViews()
+        //DETAIL
+        for (info in data.issues) {
+            val chip = Chip(bd.chipDashboard.context)
+            chip.text = "${info.id} : ${info.count} issue"
+            chip.isClickable = false
+            chip.isCheckable = false
+            bd.chipDashboard.addView(chip)
+        }
+    }
+
     private fun intentToDetailActivity(parentID: String, category: String) {
         when (category) {
             CATEGORY_PC -> {
@@ -268,7 +290,7 @@ class DashboardActivity : AppCompatActivity() {
             FindHistoryDto(
                 branch = "",
                 category = "",
-                limit = 5
+                limit = 2
             )
         )
     }
@@ -319,6 +341,7 @@ class DashboardActivity : AppCompatActivity() {
         super.onResume()
         if (App.activityDashboardMustBeRefresh) {
             findHistories()
+            viewModel.getHistoriesCountFromServer()
             App.activityDashboardMustBeRefresh = false
         }
     }

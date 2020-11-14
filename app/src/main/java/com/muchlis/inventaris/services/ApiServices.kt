@@ -54,8 +54,16 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("branch") branch: String = "",
         @Query("category") category: String = "",
+        @Query("is_complete") isComplete: Int = 100,
         @Query("limit") limit: Int?
     ): Call<HistoryListResponse>
+
+
+    //{{url}}/api/histories-progress-count
+    @GET("/api/histories-progress-count")
+    fun getHistoryCount(
+        @Header("Authorization") token: String,
+    ): Call<ProblemCountResponse>
 
 
     //{{url}}/api/histories/5ef05f051bbfc2b3db5d1159

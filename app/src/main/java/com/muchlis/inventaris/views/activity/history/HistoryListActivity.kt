@@ -47,11 +47,18 @@ class HistoryListActivity : AppCompatActivity() {
     //first time animation
     private var isFirstTimeLoad = true
 
+    private var isComplete = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bd = ActivityHistoryListBinding.inflate(layoutInflater)
         val view = bd.root
         setContentView(view)
+
+        //MENERIMA DATA DARI intent dan mengirim ke viewModel
+        isComplete = intent.getIntExtra(
+            INTENT_TO_HISTORY_LIST, 100
+        )
 
         viewModel = ViewModelProvider(this).get(HistoryListViewModel::class.java)
 
@@ -78,7 +85,8 @@ class HistoryListActivity : AppCompatActivity() {
             FindHistoryDto(
                 branch = "",
                 category = "",
-                limit = 100
+                limit = 100,
+                isComplete = isComplete,
             )
         )
     }
@@ -294,7 +302,8 @@ class HistoryListActivity : AppCompatActivity() {
                 FindHistoryDto(
                     branch = branchSelected,
                     category = categorySelected,
-                    limit = 100
+                    limit = 100,
+                    isComplete = isComplete
                 )
             )
 

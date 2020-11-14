@@ -4,10 +4,7 @@ import com.muchlis.inventaris.data.dto.FindHistoryDto
 import com.muchlis.inventaris.data.request.HistoryAppsEditRequest
 import com.muchlis.inventaris.data.request.HistoryEditRequest
 import com.muchlis.inventaris.data.request.HistoryRequest
-import com.muchlis.inventaris.data.response.ErrorResponse
-import com.muchlis.inventaris.data.response.HistoryAppsDetailResponse
-import com.muchlis.inventaris.data.response.HistoryListResponse
-import com.muchlis.inventaris.data.response.HistoryResponse
+import com.muchlis.inventaris.data.response.*
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.ERR_CONN
@@ -29,7 +26,8 @@ object HistoryRepo {
             token = App.prefs.authTokenSave,
             branch = data.branch,
             category = data.category,
-            limit = data.limit
+            limit = data.limit,
+            isComplete = data.isComplete
         ).enqueue(object : Callback<HistoryListResponse> {
             override fun onResponse(
                 call: Call<HistoryListResponse>,
@@ -68,6 +66,52 @@ object HistoryRepo {
             }
         })
     }
+
+
+    fun getHistoriesCount(
+        callback: (response: ProblemCountResponse?, error: String) -> Unit
+    ) {
+        apiService.getHistoryCount(
+            token = App.prefs.authTokenSave,
+        ).enqueue(object : Callback<ProblemCountResponse> {
+            override fun onResponse(
+                call: Call<ProblemCountResponse>,
+                response: Response<ProblemCountResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        val result = response.body()
+                        callback(result, "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    response.code() == 422 || response.code() == 401 -> {
+                        callback(null, "Token Expired")
+                        App.prefs.authTokenSave = ""
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ProblemCountResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("to connect")){
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
 
     fun createHistory(
         parentID: String,
