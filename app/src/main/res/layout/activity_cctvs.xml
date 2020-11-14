@@ -6,6 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:animationCache="false"
         android:orientation="vertical">
 
         <ImageView
@@ -149,15 +151,15 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:text="@string/jumlah"
+            android:id="@+id/tv_list_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_list_unit"
-            app:layout_constraintTop_toTopOf="@+id/bt_list_tambah"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/jumlah"
             app:layout_constraintBottom_toBottomOf="@+id/bt_list_tambah"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/roboto" />
+            app:layout_constraintTop_toTopOf="@+id/bt_list_tambah" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

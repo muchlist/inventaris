@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.textfield.TextInputLayout
 import com.muchlis.inventaris.R
@@ -114,6 +115,22 @@ class CctvsActivity : AppCompatActivity() {
         }
         bd.rvList.adapter = cctvAdapter
         bd.rvList.setHasFixedSize(true)
+
+        bd.rvList.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val lm: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val position = lm.findFirstVisibleItemPosition()
+                    if (position == 6) {
+                        bd.infoBar.invisible()
+                    }
+                    if (position == 0) {
+                        bd.infoBar.visible()
+                    }
+                }
+            }
+        )
     }
 
     private fun intentToCctvDetailActivity(stockID: String) {
@@ -219,18 +236,20 @@ class CctvsActivity : AppCompatActivity() {
         var total = 0
         var down = 0
         var problem = 0
-        for (info in infoData){
+        for (info in infoData) {
             total += info.total
             down += info.down
             problem += info.problem
         }
         val chipHead = Chip(bd.chipCctv.context)
-        chipHead.text= "TOTAL : ${total}/${down}/${problem}"
-        if(problem > 0 ){
-            chipHead.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red_400))
+        chipHead.text = "TOTAL : ${total}/${down}/${problem}"
+        if (problem > 0) {
+            chipHead.chipStrokeColor =
+                ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red_400))
             chipHead.chipStrokeWidth = 4f
         }
-        chipHead.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green_100))
+        chipHead.backgroundTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green_100))
         chipHead.isClickable = false
         chipHead.isCheckable = false
         bd.chipCctv.addView(chipHead)
@@ -239,9 +258,10 @@ class CctvsActivity : AppCompatActivity() {
         //DETAIL
         for (info in infoData) {
             val chip = Chip(bd.chipCctv.context)
-            chip.text= "${info.name} : ${info.total}/${info.down}/${info.problem}"
-            if(info.problem > 0 ){
-                chip.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red_400))
+            chip.text = "${info.name} : ${info.total}/${info.down}/${info.problem}"
+            if (info.problem > 0) {
+                chip.chipStrokeColor =
+                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red_400))
                 chip.chipStrokeWidth = 4f
             }
             chip.isClickable = false
