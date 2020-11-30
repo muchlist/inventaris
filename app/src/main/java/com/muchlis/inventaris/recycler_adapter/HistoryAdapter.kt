@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.utils.*
-import kotlinx.android.synthetic.main.item_apps_history.view.*
 import kotlinx.android.synthetic.main.item_history.view.*
 import java.util.*
 
@@ -51,7 +50,12 @@ class HistoryAdapter(
 
             itemView.apply {
                 tv_history_name.text = items.parentName
-                tv_history_author.text = items.author
+
+                //OLD: author - NEW: updatedby  because api has change
+                val updatedBy: String =
+                    if (items.author == items.updatedBy) items.author else "Open: ${items.author}\nClose: ${items.updatedBy}"
+
+                tv_history_author.text = updatedBy
                 tv_history_branch.text = items.branch
                 tv_history_date.text = items.date.toDate().toStringDateForView()
                 tv_history_status.text = items.status
@@ -62,7 +66,7 @@ class HistoryAdapter(
                     tv_history_minute.invisible()
                 } else {
                     tv_history_minute.visible()
-                    tv_history_minute.text = "${items.durationMinute} Menit"
+                    tv_history_minute.text = TranslateMinuteToHour(items.durationMinute).getStringHour()
                 }
 
                 iv_circle_history.setImageResource(getImageResourceFromCategory(items.category))

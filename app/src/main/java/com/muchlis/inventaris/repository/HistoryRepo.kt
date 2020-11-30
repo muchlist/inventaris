@@ -1,10 +1,12 @@
 package com.muchlis.inventaris.repository
 
 import com.muchlis.inventaris.data.dto.FindHistoryDto
-import com.muchlis.inventaris.data.request.HistoryAppsEditRequest
 import com.muchlis.inventaris.data.request.HistoryEditRequest
 import com.muchlis.inventaris.data.request.HistoryRequest
-import com.muchlis.inventaris.data.response.*
+import com.muchlis.inventaris.data.response.DashboardResponse
+import com.muchlis.inventaris.data.response.ErrorResponse
+import com.muchlis.inventaris.data.response.HistoryListResponse
+import com.muchlis.inventaris.data.response.HistoryResponse
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.ERR_CONN
@@ -57,7 +59,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<HistoryListResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -68,15 +70,15 @@ object HistoryRepo {
     }
 
 
-    fun getHistoriesCount(
-        callback: (response: ProblemCountResponse?, error: String) -> Unit
+    fun getDashboard(
+        callback: (response: DashboardResponse?, error: String) -> Unit
     ) {
-        apiService.getHistoryCount(
+        apiService.getDashboard(
             token = App.prefs.authTokenSave,
-        ).enqueue(object : Callback<ProblemCountResponse> {
+        ).enqueue(object : Callback<DashboardResponse> {
             override fun onResponse(
-                call: Call<ProblemCountResponse>,
-                response: Response<ProblemCountResponse>
+                call: Call<DashboardResponse>,
+                response: Response<DashboardResponse>
             ) {
                 when {
                     response.isSuccessful -> {
@@ -100,9 +102,9 @@ object HistoryRepo {
                 }
             }
 
-            override fun onFailure(call: Call<ProblemCountResponse>, t: Throwable) {
+            override fun onFailure(call: Call<DashboardResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -146,7 +148,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<ErrorResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -187,7 +189,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<HistoryListResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -229,7 +231,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback("", ERR_CONN)
                     } else {
                         callback("", it)
@@ -275,7 +277,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)
@@ -319,7 +321,7 @@ object HistoryRepo {
 
             override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
                 t.message?.let {
-                    if (it.contains("to connect")){
+                    if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
                     } else {
                         callback(null, it)

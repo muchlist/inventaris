@@ -110,7 +110,7 @@
                 android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:minLines="1"
                 android:padding="2dp"
                 android:textSize="12sp"

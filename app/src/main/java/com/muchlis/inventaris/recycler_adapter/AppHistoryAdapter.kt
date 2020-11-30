@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muchlis.inventaris.R
 import com.muchlis.inventaris.data.response.HistoryAppsListResponse
-import com.muchlis.inventaris.utils.invisible
-import com.muchlis.inventaris.utils.toDate
-import com.muchlis.inventaris.utils.toStringDateForView
-import com.muchlis.inventaris.utils.visible
+import com.muchlis.inventaris.utils.*
 import kotlinx.android.synthetic.main.item_apps_history.view.*
 
 class AppHistoryAdapter(
@@ -61,7 +58,7 @@ class AppHistoryAdapter(
                     tv_app_history_minute.invisible()
                 } else {
                     tv_app_history_minute.visible()
-                    tv_app_history_minute.text = "${items.durationMinute} Menit"
+                    tv_app_history_minute.text = TranslateMinuteToHour(items.durationMinute).getStringHour()
                 }
 
 

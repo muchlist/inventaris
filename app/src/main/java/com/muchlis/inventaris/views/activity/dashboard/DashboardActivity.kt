@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.zxing.integration.android.IntentIntegrator
 import com.muchlis.inventaris.R
-import com.muchlis.inventaris.data.dto.FindHistoryDto
-import com.muchlis.inventaris.data.response.HistoryListResponse
+import com.muchlis.inventaris.data.response.DashboardResponse
 import com.muchlis.inventaris.data.response.HistoryResponse
-import com.muchlis.inventaris.data.response.ProblemCountResponse
 import com.muchlis.inventaris.databinding.ActivityDashboardBinding
 import com.muchlis.inventaris.recycler_adapter.HistoryAdapter
 import com.muchlis.inventaris.utils.*
@@ -58,9 +56,7 @@ class DashboardActivity : AppCompatActivity() {
 
         setRecyclerView()
 
-        findHistories()
-        viewModel.getOption()
-        viewModel.getHistoriesCountFromServer()
+        viewModel.getDashboardHistoriesFromServer()
 
         bd.menuPc.setOnClickListener { intentToComputerActivity() }
         bd.menuStock.setOnClickListener { intentToStockActivity() }
@@ -71,7 +67,7 @@ class DashboardActivity : AppCompatActivity() {
         bd.menuHandheld.setOnClickListener { intentToHandheldActivity() }
 
         bd.ivReload.setOnClickListener {
-            findHistories()
+            viewModel.getDashboardHistoriesFromServer()
         }
 
         bd.btHistoryDashboard.setOnClickListener {
@@ -86,18 +82,16 @@ class DashboardActivity : AppCompatActivity() {
     private fun observeViewModel() {
 
         viewModel.run {
-            getHistoryData().observe(this@DashboardActivity, {
-                loadRecyclerView(it)
+            getDashboardData().observe(this@DashboardActivity, {
+                loadRecyclerView(it.histories)
                 showLoadMoreButton(it.histories.count())
-            })
-            getHistoryCountData().observe(this@DashboardActivity, {
                 loadInfoProblem(it)
             })
             isLoading.observe(this@DashboardActivity, { showLoading(it) })
             messageError.observe(this@DashboardActivity, { showErrorToast(it) })
             isHistoryDeleted.observe(this@DashboardActivity, {
                 if (it) {
-                    findHistories()
+                    viewModel.getDashboardHistoriesFromServer()
                 }
             })
         }
@@ -238,9 +232,9 @@ class DashboardActivity : AppCompatActivity() {
         bd.rvHistoryDashboard.setHasFixedSize(true)
     }
 
-    private fun loadRecyclerView(data: HistoryListResponse) {
+    private fun loadRecyclerView(data: List<HistoryResponse>) {
         historyData.clear()
-        historyData.addAll(data.histories)
+        historyData.addAll(data)
         runLayoutAnimation()
         historyAdapter.notifyDataSetChanged()
     }
@@ -251,7 +245,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun loadInfoProblem(data: ProblemCountResponse) {
+    private fun loadInfoProblem(data: DashboardResponse) {
         bd.chipDashboard.removeAllViews()
         //DETAIL
         for (info in data.issues) {
@@ -283,16 +277,6 @@ class DashboardActivity : AppCompatActivity() {
                 Toasty.error(this, "Category tidak valid", Toasty.LENGTH_LONG).show()
             }
         }
-    }
-
-    private fun findHistories() {
-        viewModel.findHistories(
-            FindHistoryDto(
-                branch = "",
-                category = "",
-                limit = 2
-            )
-        )
     }
 
     private fun showLoadMoreButton(dataCount: Int) {
@@ -340,8 +324,7 @@ class DashboardActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (App.activityDashboardMustBeRefresh) {
-            findHistories()
-            viewModel.getHistoriesCountFromServer()
+            viewModel.getDashboardHistoriesFromServer()
             App.activityDashboardMustBeRefresh = false
         }
     }

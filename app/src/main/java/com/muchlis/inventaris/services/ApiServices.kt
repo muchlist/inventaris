@@ -39,6 +39,13 @@ interface ApiService {
     /* HISTORY -------------------------------------------------------------------
     */
 
+    //{{url}}/api/history-dashboard
+    @GET("/api/history-dashboard")
+    fun getDashboard(
+        @Header("Authorization") token: String,
+    ): Call<DashboardResponse>
+
+
     //{{url}}/api/histories/5ef05f051bbfc2b3db5d1159
     @POST("/api/histories/{id}")
     fun postHistory(

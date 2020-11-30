@@ -3,25 +3,20 @@ package com.muchlis.inventaris.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.muchlis.inventaris.data.dto.FindHistoryDto
-import com.muchlis.inventaris.data.response.HistoryListResponse
-import com.muchlis.inventaris.data.response.ProblemCountResponse
+import com.google.gson.Gson
+import com.google.gson.JsonParseException
+import com.muchlis.inventaris.data.response.DashboardResponse
+import com.muchlis.inventaris.data.response.SelectOptionResponse
 import com.muchlis.inventaris.repository.HistoryRepo
 import com.muchlis.inventaris.repository.OptionSelectorRepo
 import com.muchlis.inventaris.utils.App
 
 class DashboardViewModel : ViewModel() {
 
-    //Data untuk RecyclerView
-    private val _historyData: MutableLiveData<HistoryListResponse> = MutableLiveData()
-    fun getHistoryData(): MutableLiveData<HistoryListResponse> {
-        return _historyData
-    }
-
-    //Data untuk chip group
-    private val _historyCount: MutableLiveData<ProblemCountResponse> = MutableLiveData()
-    fun getHistoryCountData(): MutableLiveData<ProblemCountResponse> {
-        return _historyCount
+    //Data untuk Dashboard
+    private val _dashboardData: MutableLiveData<DashboardResponse> = MutableLiveData()
+    fun getDashboardData(): MutableLiveData<DashboardResponse> {
+        return _dashboardData
     }
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -41,36 +36,27 @@ class DashboardViewModel : ViewModel() {
         _messageError.value = ""
     }
 
-    fun findHistories(data: FindHistoryDto) {
+    fun getDashboardHistoriesFromServer() {
         _isLoading.value = true
         _messageError.value = ""
-        HistoryRepo.getHistories(data) { response, error ->
+        HistoryRepo.getDashboard() { response, error ->
             if (error.isNotEmpty()) {
                 //Ada pesan error
                 _isLoading.value = false
                 _messageError.value = error
-                return@getHistories
+                return@getDashboard
             }
             response.let {
                 _isLoading.value = false
-                _historyData.postValue(response)
+                _dashboardData.postValue(response)
+
+                //if response option lvl != sharedPref call get option
+                if (App.prefs.optionsJsonVersion < response?.optionLvl ?: 0) {
+                    getOption()
+                }
             }
         }
     }
-
-    fun getHistoriesCountFromServer() {
-        _messageError.value = ""
-        HistoryRepo.getHistoriesCount { response, error ->
-            if (error.isNotEmpty()) {
-                _messageError.value = error
-                return@getHistoriesCount
-            }
-            response.let {
-                _historyCount.postValue(response)
-            }
-        }
-    }
-
 
     fun deleteHistoryFromServer(historyID: String) {
         _isLoading.value = true
@@ -96,7 +82,18 @@ class DashboardViewModel : ViewModel() {
                 return@getOptions
             }
             response.let {
+                var recentVersion = 0
+                if (it.isNotEmpty()) {
+                    recentVersion = try {
+                        val options = Gson().fromJson(it, SelectOptionResponse::class.java)
+                        options.version
+                    } catch (e: JsonParseException) {
+                        0
+                    }
+                }
+
                 App.prefs.optionsJson = it
+                App.prefs.optionsJsonVersion = recentVersion
             }
         }
     }
