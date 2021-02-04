@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 
 data class CctvListResponse(
     @Json(name = "cctvs")
-    val cctvs: List<Cctv>
+    val cctvs: MutableList<Cctv>
 ) {
     data class Cctv(
         @Json(name = "branch")

@@ -46,17 +46,45 @@ class CctvsViewModel : ViewModel() {
             }
             response.let {
                 _isLoading.value = false
-                _cctvData.postValue(it)
+                _cctvData.postValue(sortCCTV(it))
                 _isLoading.value = false
             }
         }
+    }
+
+    // Data from database already sorted but we must pin cctv down without check to top of the list
+    private fun sortCCTV(data: CctvListResponse?): CctvListResponse?{
+        data?.let {
+            val cctvList = data.cctvs
+            val pinnedCCTV = mutableListOf<CctvListResponse.Cctv>()
+            val indexToRemove = mutableListOf<Int>()
+
+            cctvList.forEachIndexed { index, cctv ->
+                val cctvDown = cctv.lastPing == "DOWN"
+                val cctvHaveNotBeenCheck = cctv.caseSize == 0
+                if ( cctvDown && cctvHaveNotBeenCheck){
+                    pinnedCCTV.add(cctv)
+                    indexToRemove.add(index)
+                }
+            }
+
+            for (i in indexToRemove.reversed()){
+                cctvList.removeAt(i)
+            }
+
+            cctvList.addAll(0, pinnedCCTV)
+            return CctvListResponse(cctvs = cctvList)
+        }
+
+        return null
+
     }
 
     fun getCctvDataFiltered(): CctvListResponse? {
         _cctvData.value?.let { cctv ->
             val filtered = cctv.cctvs.filter {
                 it.caseSize > 0
-            }
+            }.toMutableList()
             return CctvListResponse(cctvs = filtered)
         }
         return null
