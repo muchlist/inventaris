@@ -53,27 +53,29 @@ class CctvsViewModel : ViewModel() {
     }
 
     // Data from database already sorted but we must pin cctv down without check to top of the list
-    private fun sortCCTV(data: CctvListResponse?): CctvListResponse?{
+    private fun sortCCTV(data: CctvListResponse?): CctvListResponse? {
         data?.let {
-            val cctvList = data.cctvs
-            val pinnedCCTV = mutableListOf<CctvListResponse.Cctv>()
-            val indexToRemove = mutableListOf<Int>()
+            if (data.cctvs.size > 0) {
+                val cctvList = data.cctvs
+                val pinnedCCTV = mutableListOf<CctvListResponse.Cctv>()
+                val indexToRemove = mutableListOf<Int>()
 
-            cctvList.forEachIndexed { index, cctv ->
-                val cctvDown = cctv.lastPing == "DOWN"
-                val cctvHaveNotBeenCheck = cctv.caseSize == 0
-                if ( cctvDown && cctvHaveNotBeenCheck){
-                    pinnedCCTV.add(cctv)
-                    indexToRemove.add(index)
+                cctvList.forEachIndexed { index, cctv ->
+                    val cctvDown = cctv.lastPing == "DOWN"
+                    val cctvHaveNotBeenCheck = cctv.caseSize == 0
+                    if (cctvDown && cctvHaveNotBeenCheck) {
+                        pinnedCCTV.add(cctv)
+                        indexToRemove.add(index)
+                    }
                 }
-            }
 
-            for (i in indexToRemove.reversed()){
-                cctvList.removeAt(i)
-            }
+                for (i in indexToRemove.reversed()) {
+                    cctvList.removeAt(i)
+                }
 
-            cctvList.addAll(0, pinnedCCTV)
-            return CctvListResponse(cctvs = cctvList)
+                cctvList.addAll(0, pinnedCCTV)
+                return CctvListResponse(cctvs = cctvList)
+            }
         }
 
         return null
@@ -100,13 +102,13 @@ class CctvsViewModel : ViewModel() {
                 if (dataInfoBarMap.containsKey(cctv.location)) {
                     val tempData: InfoBarData? = dataInfoBarMap[cctv.location]
                     tempData?.let {
-                        if (cctv.caseSize > 0){
+                        if (cctv.caseSize > 0) {
                             var tempProblem = tempData.problem
                             tempProblem += 1
                             tempData.problem = tempProblem
                         }
 
-                        if (cctv.lastPing == "DOWN"){
+                        if (cctv.lastPing == "DOWN") {
                             var tempDown = tempData.down
                             tempDown += 1
                             tempData.down = tempDown

@@ -413,6 +413,47 @@ interface ApiService {
     ): Call<HandheldDetailResponse>
 
 
+    /* CHECKLIST OBJ -------------------------------------------------------------------
+   */
+
+    //{{url}}/api/check-obj
+    @POST("/api/check-obj")
+    fun postCheckObj(
+        @Header("Authorization") token: String,
+        @Body args: CheckObjRequest,
+    ): Call<CheckObjResponse.CheckObj>
+
+    //{{url}}/api/check-obj/601c42d368f178887e4b8742
+    @GET("/api/check-obj/{id}")
+    fun getCheckObj(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+    ): Call<CheckObjResponse.CheckObj>
+
+    //{{url}}/api/check-obj?name=&problem=1
+    @GET("/api/check-obj")
+    fun findCheckObj(
+        @Header("Authorization") token: String,
+        @Query("name") name: String = "",
+        @Query("problem") problem: Int = 1,
+    ): Call<CheckObjResponse>
+
+    //{{url}}/api/check-obj/601c42d368f178887e4b8742
+    @PUT("/api/check-obj/{id}")
+    fun editCheckObj(
+        @Header("Authorization") token: String,
+        @Body args: CheckObjEditRequest,
+        @Path("id") id: String
+    ): Call<CheckObjResponse.CheckObj>
+
+    //{{url}}/api/check-obj/60071f541001aac61c473506
+    @DELETE("/api/check-obj/{id}")
+    fun deleteCheckObj(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ErrorResponse>
+
+
     /* OPTION -------------------------------------------------------------------
     */
 
