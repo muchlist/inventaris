@@ -1,4 +1,4 @@
-package com.muchlis.inventaris.data.request
+package com.muchlis.inventaris.data.response
 
 
 import com.squareup.moshi.Json

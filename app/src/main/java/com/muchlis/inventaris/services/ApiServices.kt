@@ -454,6 +454,65 @@ interface ApiService {
     ): Call<ErrorResponse>
 
 
+    /* CHECKLIST OBJ -------------------------------------------------------------------
+     */
+
+    //{{url}}/api/check
+    @POST("/api/check")
+    fun postCheck(
+        @Header("Authorization") token: String,
+        @Body args: CheckRequest,
+    ): Call<CheckResponse>
+
+    //{{url}}/api/check/601aa7dedfb30eb84512f29f
+    @GET("/api/check/{id}")
+    fun getCheck(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+    ): Call<CheckResponse>
+
+    //{{url}}/api/check
+    @GET("/api/check")
+    fun findCheck(
+        @Header("Authorization") token: String,
+    ): Call<CheckListResponse>
+
+    // this is not for update child checklist , but for update check wrapper (or container list check inside)
+    //{{url}}/api/check/60074f74bf06269079268755
+    @PUT("/api/check/{id}")
+    fun editCheck(
+        @Header("Authorization") token: String,
+        @Body args: CheckEditRequest,
+        @Path("id") id: String
+    ): Call<CheckResponse>
+
+    //{{url}}/api/check/60071f541001aac61c473506
+    @DELETE("/api/check/{id}")
+    fun deleteCheck(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<ErrorResponse>
+
+    //{{url}}/api/update-check/601aa7dedfb30eb84512f29f/601aa46235f01cf9216b9684
+    @PUT("/api/update-check/{parentID}/{childID}")
+    fun updateCheckChild(
+        @Header("Authorization") token: String,
+        @Body args: CheckUpdateRequest,
+        @Path("parentID") parentID: String,
+        @Path("childID") childID: String,
+    ): Call<CheckResponse>
+
+    //{{url}}/api/check/5f34b5a7affc5a31f79584c1/601aa46235f01cf9216b9684/upload
+    @Multipart
+    @POST("/api/check/{parentID}/{childID}")
+    fun uploadImageCheck(
+        @Header("Authorization") token: String,
+        @Path("parentID") parentID: String,
+        @Path("childID") childID: String,
+        @Part("image\"; filename=\"pp.jpg\" ") image: RequestBody
+    ): Call<CheckResponse>
+
+
     /* OPTION -------------------------------------------------------------------
     */
 
