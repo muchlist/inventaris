@@ -491,7 +491,7 @@ interface ApiService {
     fun deleteCheck(
         @Header("Authorization") token: String,
         @Path("id") id: String
-    ): Call<ErrorResponse>
+    ): Call<ResponseBody>
 
     //{{url}}/api/update-check/601aa7dedfb30eb84512f29f/601aa46235f01cf9216b9684
     @PUT("/api/update-check/{parentID}/{childID}")

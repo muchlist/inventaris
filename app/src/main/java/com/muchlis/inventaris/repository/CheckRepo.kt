@@ -1,32 +1,37 @@
 package com.muchlis.inventaris.repository
 
-import com.muchlis.inventaris.data.request.*
-import com.muchlis.inventaris.data.response.CheckObjResponse
+import com.muchlis.inventaris.data.request.CheckEditRequest
+import com.muchlis.inventaris.data.request.CheckRequest
+import com.muchlis.inventaris.data.request.CheckUpdateRequest
+import com.muchlis.inventaris.data.response.CheckListResponse
+import com.muchlis.inventaris.data.response.CheckResponse
+import com.muchlis.inventaris.data.response.StockDetailResponse
 import com.muchlis.inventaris.services.Api
 import com.muchlis.inventaris.services.ApiService
 import com.muchlis.inventaris.utils.App
 import com.muchlis.inventaris.utils.ERR_CONN
 import com.muchlis.inventaris.utils.ERR_JSON_PARSING
 import com.muchlis.inventaris.utils.JsonMarshaller
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object CheckObjRepo {
+object CheckRepo {
     private val apiService: ApiService = Api.retrofitService
 
-    fun getCheckObj(
+    fun getCheck(
         id: String,
-        callback: (response: CheckObjResponse.CheckObj?, error: String) -> Unit
+        callback: (response: CheckResponse?, error: String) -> Unit
     ) {
-        apiService.getCheckObj(
+        apiService.getCheck(
             token = App.prefs.authTokenSave,
             id = id
-        ).enqueue(object : Callback<CheckObjResponse.CheckObj> {
+        ).enqueue(object : Callback<CheckResponse> {
             override fun onResponse(
-                call: Call<CheckObjResponse.CheckObj>,
-                response: Response<CheckObjResponse.CheckObj>
+                call: Call<CheckResponse>,
+                response: Response<CheckResponse>
             ) {
                 when {
                     response.isSuccessful -> {
@@ -45,7 +50,7 @@ object CheckObjRepo {
                 }
             }
 
-            override fun onFailure(call: Call<CheckObjResponse.CheckObj>, t: Throwable) {
+            override fun onFailure(call: Call<CheckResponse>, t: Throwable) {
                 t.message?.let {
                     if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
@@ -57,19 +62,15 @@ object CheckObjRepo {
         })
     }
 
-    fun findCheckObj(
-        name: String,
-        problem: Int,
-        callback: (response: CheckObjResponse?, error: String) -> Unit
+    fun findCheck(
+        callback: (response: CheckListResponse?, error: String) -> Unit
     ) {
-        apiService.findCheckObj(
+        apiService.findCheck(
             token = App.prefs.authTokenSave,
-            name = name,
-            problem = problem,
-        ).enqueue(object : Callback<CheckObjResponse> {
+        ).enqueue(object : Callback<CheckListResponse> {
             override fun onResponse(
-                call: Call<CheckObjResponse>,
-                response: Response<CheckObjResponse>
+                call: Call<CheckListResponse>,
+                response: Response<CheckListResponse>
             ) {
                 when {
                     response.isSuccessful -> {
@@ -92,7 +93,7 @@ object CheckObjRepo {
                 }
             }
 
-            override fun onFailure(call: Call<CheckObjResponse>, t: Throwable) {
+            override fun onFailure(call: Call<CheckListResponse>, t: Throwable) {
                 t.message?.let {
                     if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
@@ -104,17 +105,17 @@ object CheckObjRepo {
         })
     }
 
-    fun createCheckObj(
-        args: CheckObjRequest,
-        callback: (response: CheckObjResponse.CheckObj?, error: String) -> Unit
+    fun createCheck(
+        args: CheckRequest,
+        callback: (response: CheckResponse?, error: String) -> Unit
     ) {
-        apiService.postCheckObj(
+        apiService.postCheck(
             token = App.prefs.authTokenSave,
             args = args
-        ).enqueue(object : Callback<CheckObjResponse.CheckObj> {
+        ).enqueue(object : Callback<CheckResponse> {
             override fun onResponse(
-                call: Call<CheckObjResponse.CheckObj>,
-                response: Response<CheckObjResponse.CheckObj>
+                call: Call<CheckResponse>,
+                response: Response<CheckResponse>
             ) {
                 when {
                     response.isSuccessful -> {
@@ -133,7 +134,7 @@ object CheckObjRepo {
                 }
             }
 
-            override fun onFailure(call: Call<CheckObjResponse.CheckObj>, t: Throwable) {
+            override fun onFailure(call: Call<CheckResponse>, t: Throwable) {
                 t.message?.let {
                     if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
@@ -146,19 +147,19 @@ object CheckObjRepo {
     }
 
 
-    fun editCheckObj(
+    fun editCheck(
         id: String,
-        args: CheckObjEditRequest,
-        callback: (response: CheckObjResponse.CheckObj?, error: String) -> Unit
+        args: CheckEditRequest,
+        callback: (response: CheckResponse?, error: String) -> Unit
     ) {
-        apiService.editCheckObj(
+        apiService.editCheck(
             token = App.prefs.authTokenSave,
             id = id,
             args = args
-        ).enqueue(object : Callback<CheckObjResponse.CheckObj> {
+        ).enqueue(object : Callback<CheckResponse> {
             override fun onResponse(
-                call: Call<CheckObjResponse.CheckObj>,
-                response: Response<CheckObjResponse.CheckObj>
+                call: Call<CheckResponse>,
+                response: Response<CheckResponse>
             ) {
                 when {
                     response.isSuccessful -> {
@@ -177,7 +178,7 @@ object CheckObjRepo {
                 }
             }
 
-            override fun onFailure(call: Call<CheckObjResponse.CheckObj>, t: Throwable) {
+            override fun onFailure(call: Call<CheckResponse>, t: Throwable) {
                 t.message?.let {
                     if (it.contains("to connect")) {
                         callback(null, ERR_CONN)
@@ -189,11 +190,103 @@ object CheckObjRepo {
         })
     }
 
-    fun deleteCheckObj(
+
+    fun updateCheck(
+        parentId: String,
+        childId: String,
+        args: CheckUpdateRequest,
+        callback: (response: CheckResponse?, error: String) -> Unit
+    ) {
+        apiService.updateCheckChild(
+            token = App.prefs.authTokenSave,
+            parentID = parentId,
+            childID = childId,
+            args = args
+        ).enqueue(object : Callback<CheckResponse> {
+            override fun onResponse(
+                call: Call<CheckResponse>,
+                response: Response<CheckResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CheckResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("to connect")) {
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
+
+    fun uploadImageCheck(
+        parentID: String,
+        childId: String,
+        imageFile: RequestBody,
+        callback: (response: CheckResponse?, error: String) -> Unit
+    ) {
+        apiService.uploadImageCheck(
+            token = App.prefs.authTokenSave,
+            parentID = parentID,
+            childID = childId,
+            image = imageFile
+        ).enqueue(object : Callback<CheckResponse> {
+            override fun onResponse(
+                call: Call<CheckResponse>,
+                response: Response<CheckResponse>
+            ) {
+                when {
+                    response.isSuccessful -> {
+                        callback(response.body(), "")
+                    }
+                    response.code() == 400 || response.code() == 500 -> {
+                        val responseBody = response.errorBody()?.string() ?: ""
+                        callback(
+                            null,
+                            getMsgFromJson(responseBody)
+                        )
+                    }
+                    else -> {
+                        callback(null, response.code().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CheckResponse>, t: Throwable) {
+                t.message?.let {
+                    if (it.contains("to connect")) {
+                        callback(null, ERR_CONN)
+                    } else {
+                        callback(null, it)
+                    }
+                }
+            }
+        })
+    }
+
+    fun deleteCheck(
         id: String,
         callback: (success: String, error: String) -> Unit
     ) {
-        apiService.deleteCheckObj(
+        apiService.deleteCheck(
             token = App.prefs.authTokenSave,
             id = id
         ).enqueue(object : Callback<ResponseBody> {
@@ -203,7 +296,7 @@ object CheckObjRepo {
             ) {
                 when {
                     response.isSuccessful -> {
-                        callback("CheckObject berhasil dihapus", "")
+                        callback("Check berhasil dihapus", "")
                     }
                     response.code() == 400 || response.code() == 500 -> {
                         val responseBody = response.errorBody()?.string() ?: ""
