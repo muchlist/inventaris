@@ -451,7 +451,7 @@ interface ApiService {
     fun deleteCheckObj(
         @Header("Authorization") token: String,
         @Path("id") id: String
-    ): Call<ErrorResponse>
+    ): Call<ResponseBody>
 
 
     /* CHECKLIST OBJ -------------------------------------------------------------------
