@@ -23,6 +23,8 @@ class AppendHistoryActivity : AppCompatActivity() {
 
     private lateinit var parentCategory: String
 
+    private val completeStatusOption = listOf<String>("Progress", "Pending", "Complete")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +53,9 @@ class AppendHistoryActivity : AppCompatActivity() {
             setAutoTextStatus(optionJsonObject.history)
         }
 
+        //CompleteStatus
+        setAutoTextCompleteStatus()
+
         bd.btSave.setOnClickListener {
             sendDataToServer(
                 parentID = parentID,
@@ -65,13 +70,13 @@ class AppendHistoryActivity : AppCompatActivity() {
         }
         bd.ivBackButton.setOnClickListener { onBackPressed() }
 
-        bd.swHistoryComplete.setOnClickListener {
-            if (bd.swHistoryComplete.isChecked) {
-                bd.etfResolveNote.visible()
-            } else {
-                bd.etfResolveNote.invisible()
-            }
-        }
+//        bd.swHistoryComplete.setOnClickListener {
+//            if (bd.swHistoryComplete.isChecked) {
+//                bd.etfResolveNote.visible()
+//            } else {
+//                bd.etfResolveNote.invisible()
+//            }
+//        }
     }
 
     private fun setAutoTextStatus(status: List<String>) {
@@ -84,13 +89,31 @@ class AppendHistoryActivity : AppCompatActivity() {
         bd.atHistoryStatus.setAdapter(adapter)
     }
 
+    private fun setAutoTextCompleteStatus() {
+        val adapter: ArrayAdapter<String> = ArrayAdapter(
+            this,
+            simple_spinner_dropdown_item,
+            completeStatusOption
+        )
+
+        bd.atHistoryCompleteStatus.setText(completeStatusOption[0])
+        bd.atHistoryCompleteStatus.setAdapter(adapter)
+
+    }
+
     private fun sendDataToServer(parentID: String?, parentCategory: String?) {
         val timeNow = Calendar.getInstance().time
         val dateText = timeNow.toStringInputDate()
 
         val endDate: String?
         val resolveNote: String
-        if (bd.swHistoryComplete.isChecked) {
+
+        var completeStatus = 0
+        if (bd.atHistoryCompleteStatus.text.toString().isNotEmpty()){
+            completeStatus = completeStatusOption.indexOf(bd.atHistoryCompleteStatus.text.toString())
+        }
+        // if not complete endDate must be null
+        if (completeStatus == 2) {
             endDate = dateText
             resolveNote = bd.etfResolveNote.editText?.text.toString()
         } else {
@@ -108,7 +131,7 @@ class AppendHistoryActivity : AppCompatActivity() {
             resolveNote = resolveNote,
             endDate = endDate,
             location = App.prefs.userBranchSave,
-            isComplete = bd.swHistoryComplete.isChecked,
+            completeStatus = completeStatus,
         )
 
         if (args.isValid()) {

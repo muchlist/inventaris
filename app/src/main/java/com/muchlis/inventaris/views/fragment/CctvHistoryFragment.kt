@@ -38,7 +38,7 @@ class CctvHistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentListHistoryBinding.inflate(inflater, container, false)
         return bd.root
     }
@@ -65,15 +65,15 @@ class CctvHistoryFragment : Fragment() {
     private fun observeViewModel() {
 
         viewModel.run {
-            getHistoryData().observe(viewLifecycleOwner, Observer { loadRecyclerView(it) })
-            messageHistoryError.observe(viewLifecycleOwner, Observer { showToast(it, true) })
+            getHistoryData().observe(viewLifecycleOwner, { loadRecyclerView(it) })
+            messageHistoryError.observe(viewLifecycleOwner, { showToast(it, true) })
             messageDeleteHistorySuccess.observe(
                 viewLifecycleOwner,
-                Observer { showToast(it, false) })
+                { showToast(it, false) })
             isDeleteHistorySuccess.observe(
                 viewLifecycleOwner,
-                Observer { viewModel.findHistoriesFromServer() })
-            isLoading.observe(viewLifecycleOwner, Observer { showLoading(it) })
+                { viewModel.findHistoriesFromServer() })
+            isLoading.observe(viewLifecycleOwner, { showLoading(it) })
         }
     }
 
@@ -82,7 +82,7 @@ class CctvHistoryFragment : Fragment() {
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         val onClickItem: (HistoryResponse) -> Unit = {
-            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+            if (it.completeStatus != 2 && it.branch == App.prefs.userBranchSave) {
                 val intent = Intent(requireActivity(), EditHistoryActivity::class.java)
                 intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
                 startActivity(intent)
@@ -90,12 +90,13 @@ class CctvHistoryFragment : Fragment() {
         }
 
         val onLongClickItem: (HistoryResponse) -> Unit = {
-            if (it.author == App.prefs.nameSave){
+            if (it.author == App.prefs.nameSave) {
                 deleteComputerHistory(it.id)
             }
         }
 
-        historyAdapter = HistoryAdapter(requireActivity(), historyData, onClickItem, onLongClickItem)
+        historyAdapter =
+            HistoryAdapter(requireActivity(), historyData, onClickItem, onLongClickItem)
         bd.rvDetailComputerHistory.adapter = historyAdapter
         bd.rvDetailComputerHistory.setHasFixedSize(true)
     }

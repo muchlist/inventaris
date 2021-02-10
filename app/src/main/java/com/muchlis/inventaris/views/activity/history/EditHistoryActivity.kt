@@ -52,6 +52,12 @@ class EditHistoryActivity : AppCompatActivity() {
     }
 
     private fun sendDataToServer(data: HistoryResponse) {
+
+        //TODO
+        /*
+        * samakan dengan halaman menambah history agar tidak repot
+        * ada pilihan pending dan complete pada complete status*/
+
         val timeNow = Calendar.getInstance().time
         val dateText = timeNow.toStringInputDate()
 
@@ -62,7 +68,7 @@ class EditHistoryActivity : AppCompatActivity() {
             date = data.date,
             endDate = dateText,
             location = data.location,
-            isComplete = true,
+            completeStatus = 2, //TODO
             timestamp = data.timestamp,
             category = data.category
         )

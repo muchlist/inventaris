@@ -75,7 +75,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         bd.infoBar.setOnClickListener {
-            intentToHistoryListActivity(isComplete = 0)
+            intentToHistoryListActivity(isComplete = -1)
         }
     }
 
@@ -198,7 +198,7 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun intentToHistoryListActivity(isComplete: Int = 100) {
+    private fun intentToHistoryListActivity(isComplete: Int = -1) {
         val intent = Intent(this, HistoryListActivity::class.java)
         intent.putExtra(INTENT_TO_HISTORY_LIST, isComplete)
         startActivity(intent)
@@ -209,7 +209,7 @@ class DashboardActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val onClickItem: (HistoryResponse) -> Unit = {
-            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+            if (it.completeStatus != 2 && it.branch == App.prefs.userBranchSave) {
                 val intent = Intent(this, EditHistoryActivity::class.java)
                 intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
                 startActivity(intent)

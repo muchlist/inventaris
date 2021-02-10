@@ -38,7 +38,7 @@ class ComputerHistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentListHistoryBinding.inflate(inflater, container, false)
         return bd.root
     }
@@ -65,11 +65,13 @@ class ComputerHistoryFragment : Fragment() {
     private fun observeViewModel() {
 
         viewModel.run {
-            getHistoryData().observe(viewLifecycleOwner, Observer { loadRecyclerView(it) })
-            messageHistoryError.observe(viewLifecycleOwner, Observer { showToast(it, true) })
-            messageDeleteHistorySuccess.observe(viewLifecycleOwner, Observer { showToast(it, false) })
-            isDeleteHistorySuccess.observe(viewLifecycleOwner, Observer { viewModel.findHistoriesFromServer() })
-            isLoading.observe(viewLifecycleOwner, Observer { showLoading(it) })
+            getHistoryData().observe(viewLifecycleOwner, { loadRecyclerView(it) })
+            messageHistoryError.observe(viewLifecycleOwner, { showToast(it, true) })
+            messageDeleteHistorySuccess.observe(viewLifecycleOwner, { showToast(it, false) })
+            isDeleteHistorySuccess.observe(
+                viewLifecycleOwner,
+                { viewModel.findHistoriesFromServer() })
+            isLoading.observe(viewLifecycleOwner, { showLoading(it) })
         }
     }
 
@@ -78,7 +80,7 @@ class ComputerHistoryFragment : Fragment() {
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         val onClickItem: (HistoryResponse) -> Unit = {
-            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+            if (it.completeStatus != 2 && it.branch == App.prefs.userBranchSave) {
                 val intent = Intent(requireActivity(), EditHistoryActivity::class.java)
                 intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
                 startActivity(intent)
@@ -86,12 +88,13 @@ class ComputerHistoryFragment : Fragment() {
         }
 
         val onLongClickItem: (HistoryResponse) -> Unit = {
-            if (it.author == App.prefs.nameSave){
+            if (it.author == App.prefs.nameSave) {
                 deleteComputerHistory(it.id)
             }
         }
 
-        historyAdapter = HistoryAdapter(requireActivity(), historyData, onClickItem, onLongClickItem)
+        historyAdapter =
+            HistoryAdapter(requireActivity(), historyData, onClickItem, onLongClickItem)
         bd.rvDetailComputerHistory.adapter = historyAdapter
         bd.rvDetailComputerHistory.setHasFixedSize(true)
     }
@@ -140,7 +143,7 @@ class ComputerHistoryFragment : Fragment() {
 
     private fun showToast(text: String, isError: Boolean = false) {
         if (text.isNotEmpty()) {
-            if (isError){
+            if (isError) {
                 Toasty.error(requireActivity(), text, Toasty.LENGTH_LONG).show()
             } else {
                 Toasty.success(requireActivity(), text, Toasty.LENGTH_LONG).show()

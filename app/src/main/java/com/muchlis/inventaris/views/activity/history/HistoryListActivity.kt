@@ -47,7 +47,7 @@ class HistoryListActivity : AppCompatActivity() {
     //first time animation
     private var isFirstTimeLoad = true
 
-    private var isComplete = 100
+    private var completeStatus = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +56,8 @@ class HistoryListActivity : AppCompatActivity() {
         setContentView(view)
 
         //MENERIMA DATA DARI intent dan mengirim ke viewModel
-        isComplete = intent.getIntExtra(
-            INTENT_TO_HISTORY_LIST, 100
+        completeStatus = intent.getIntExtra(
+            INTENT_TO_HISTORY_LIST, -1
         )
 
         viewModel = ViewModelProvider(this).get(HistoryListViewModel::class.java)
@@ -93,7 +93,7 @@ class HistoryListActivity : AppCompatActivity() {
                 branch = "",
                 category = "",
                 limit = 100,
-                isComplete = isComplete,
+                completeStatus = -1,
             )
         )
     }
@@ -101,12 +101,12 @@ class HistoryListActivity : AppCompatActivity() {
     private fun observeViewModel() {
 
         viewModel.run {
-            getHistoryData().observe(this@HistoryListActivity, Observer {
+            getHistoryData().observe(this@HistoryListActivity, {
                 loadRecyclerView(it)
             })
-            isLoading.observe(this@HistoryListActivity, Observer { showLoading(it) })
-            messageError.observe(this@HistoryListActivity, Observer { showErrorToast(it) })
-            isHistoryDeleted.observe(this@HistoryListActivity, Observer {
+            isLoading.observe(this@HistoryListActivity, { showLoading(it) })
+            messageError.observe(this@HistoryListActivity, { showErrorToast(it) })
+            isHistoryDeleted.observe(this@HistoryListActivity, {
                 if (it) {
                     findHistories()
                 }
@@ -119,7 +119,7 @@ class HistoryListActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val onClickItem: (HistoryResponse) -> Unit = {
-            if (!it.isComplete && it.branch == App.prefs.userBranchSave) {
+            if (it.completeStatus != 2 && it.branch == App.prefs.userBranchSave) {
                 val intent = Intent(this, EditHistoryActivity::class.java)
                 intent.putExtra(INTENT_TO_HISTORY_EDIT, it)
                 startActivity(intent)
@@ -310,7 +310,7 @@ class HistoryListActivity : AppCompatActivity() {
                     branch = branchSelected,
                     category = categorySelected,
                     limit = 100,
-                    isComplete = isComplete
+                    completeStatus = completeStatus
                 )
             )
 

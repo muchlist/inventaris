@@ -218,7 +218,7 @@
     <string name="minimum_peringatan">Minimum Peringatan</string>
     <string name="komputer">Computer</string>
     <string name="daily">Add Daily</string>
-    <string name="application">Aplication</string>
+    <string name="aplication">Aplication</string>
     <string name="stock">Stock</string>
     <string name="printer">Printer</string>
     <string name="server">Server</string>
@@ -246,4 +246,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="masalah">Masalah</string>
+    <string name="resolve_note">Resolve Note (isi hanya jika tuntas dikerjakan)</string>
+    <string name="problem">Problem</string>
+    <string name="status_pekerjaan">Status pekerjaan</string>
 </resources>

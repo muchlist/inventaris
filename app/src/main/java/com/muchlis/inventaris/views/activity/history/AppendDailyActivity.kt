@@ -67,7 +67,8 @@ class AppendDailyActivity : AppCompatActivity() {
 
             endDate = dateText,
             resolveNote = "",
-            isComplete = true,
+//            isComplete = true,
+            completeStatus = 2,
             location = ""
         )
 

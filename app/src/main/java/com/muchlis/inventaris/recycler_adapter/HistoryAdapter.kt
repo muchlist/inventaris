@@ -71,12 +71,19 @@ class HistoryAdapter(
 
                 iv_circle_history.setImageResource(getImageResourceFromCategory(items.category))
 
-                if (items.isComplete) {
-                    tv_history_complete.text = "Complete"
-                    tv_history_complete.setBackgroundResource(R.drawable.text_rounded_cctv_up)
-                } else {
-                    tv_history_complete.text = "Progress"
-                    tv_history_complete.setBackgroundResource(R.drawable.text_rounded_cctv_down)
+                when (items.completeStatus) {
+                    2 -> {
+                        tv_history_complete.text = "Complete"
+                        tv_history_complete.setBackgroundResource(R.drawable.text_rounded_cctv_up)
+                    }
+                    1 -> {
+                        tv_history_complete.text = "Pending"
+                        tv_history_complete.setBackgroundResource(R.drawable.text_rounded_cctv_mid)
+                    }
+                    else -> {
+                        tv_history_complete.text = "Progress"
+                        tv_history_complete.setBackgroundResource(R.drawable.text_rounded_cctv_down)
+                    }
                 }
 
                 if (dateTimeNow.time.toStringddMMMyyyy() == items.date.toDate()
