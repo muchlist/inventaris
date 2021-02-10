@@ -10,8 +10,8 @@ data class HistoryEditRequest(
     val date: String,
     @Json(name = "end_date")
     val endDate: String,
-    @Json(name = "is_complete")
-    val isComplete: Boolean,
+//    @Json(name = "is_complete")
+//    val isComplete: Boolean,
     @Json(name = "location")
     val location: String,
     @Json(name = "note")
@@ -21,5 +21,13 @@ data class HistoryEditRequest(
     @Json(name = "status")
     val status: String,
     @Json(name = "timestamp")
-    val timestamp: String
+    val timestamp: String,
+
+    /*Versi 3 ada tambahan completeStatus untuk menggantikan isComplete
+    * 0 progress
+    * 1 pending
+    * 2 complete
+    * */
+    @Json(name = "complete_status")
+    val completeStatus: Int,
 )

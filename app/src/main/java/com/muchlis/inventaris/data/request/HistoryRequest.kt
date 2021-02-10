@@ -16,10 +16,18 @@ data class HistoryRequest(
     val endDate: String?,
     @Json(name = "resolve_note")
     val resolveNote: String,
-    @Json(name = "is_complete")
-    val isComplete: Boolean,
+//    @Json(name = "is_complete")
+//    val isComplete: Boolean,
     @Json(name = "location")
     val location: String,
+
+    /*Versi 3 ada tambahan completeStatus untuk menggantikan isComplete
+    * 0 progress
+    * 1 pending
+    * 2 complete
+    * */
+    @Json(name = "complete_status")
+    val completeStatus: Int,
 
     ) {
     fun isValid(): Boolean {

@@ -29,7 +29,8 @@ object HistoryRepo {
             branch = data.branch,
             category = data.category,
             limit = data.limit,
-            isComplete = data.isComplete
+//            isComplete = data.isComplete
+            completeStatus = data.completeStatus
         ).enqueue(object : Callback<HistoryListResponse> {
             override fun onResponse(
                 call: Call<HistoryListResponse>,

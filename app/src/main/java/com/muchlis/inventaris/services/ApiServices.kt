@@ -61,7 +61,8 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("branch") branch: String = "",
         @Query("category") category: String = "",
-        @Query("is_complete") isComplete: Int = 100,
+//        @Query("is_complete") isComplete: Int = 100,
+        @Query("complete_status") completeStatus: Int = -1,
         @Query("limit") limit: Int?
     ): Call<HistoryListResponse>
 

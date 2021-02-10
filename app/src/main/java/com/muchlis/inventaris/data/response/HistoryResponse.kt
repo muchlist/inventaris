@@ -13,7 +13,7 @@ data class HistoryResponse(
     @Json(name = "category")
     val category: String,
     @Json(name = "date")
-    val date: String = "2020-10-00 08:00:00.625000" ,
+    val date: String = "2020-10-00 08:00:00.625000",
     @Json(name = "_id")
     val id: String,
     @Json(name = "note")
@@ -37,8 +37,8 @@ data class HistoryResponse(
     val durationMinute: Int = 0,
     @Json(name = "end_date")
     val endDate: String? = null,
-    @Json(name = "is_complete")
-    val isComplete: Boolean = false,
+//    @Json(name = "is_complete")
+//    val isComplete: Boolean = false,
     @Json(name = "location")
     val location: String = "",
     @Json(name = "resolve_note")
@@ -46,5 +46,14 @@ data class HistoryResponse(
     @Json(name = "updated_by")
     val updatedBy: String = "",
     @Json(name = "updated_by_id")
-    val updatedById: String = ""
-):Parcelable
+    val updatedById: String = "",
+
+    /*Versi 3 ada tambahan completeStatus untuk menggantikan isComplete
+    * 0 progress
+    * 1 pending
+    * 2 complete
+    * */
+    @Json(name = "complete_status")
+    val completeStatus: Int = 0,
+
+    ) : Parcelable
