@@ -71,13 +71,21 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         bd.btHistoryDashboard.setOnClickListener {
-            intentToHistoryListActivity()
+            intentToHistoryListActivity(isComplete = -1) // all
         }
 
         bd.infoBar.setOnClickListener {
-            intentToHistoryListActivity(isComplete = -1)
+            intentToHistoryListActivity(isComplete = 0) // progress
         }
-    }
+
+        bd.ivProgress.setOnClickListener{
+            intentToHistoryListActivity(isComplete = 0) // progress
+        }
+
+        bd.ivPending.setOnClickListener{
+            intentToHistoryListActivity(isComplete = 1) // pending
+        }
+   }
 
     private fun observeViewModel() {
 
@@ -198,7 +206,7 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun intentToHistoryListActivity(isComplete: Int = -1) {
+    private fun intentToHistoryListActivity(isComplete: Int) {
         val intent = Intent(this, HistoryListActivity::class.java)
         intent.putExtra(INTENT_TO_HISTORY_LIST, isComplete)
         startActivity(intent)

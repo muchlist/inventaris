@@ -473,6 +473,22 @@
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/iv_progress"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        app:srcCompat="@drawable/ic_access_time_24px" />
+
+                    <ImageView
+                        android:id="@+id/iv_pending"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="0"
+                        app:srcCompat="@drawable/ic_pause_circle_outline_24px" />
+
+                    <ImageView
                         android:id="@+id/iv_reload"
                         android:layout_width="30dp"
                         android:layout_height="30dp"

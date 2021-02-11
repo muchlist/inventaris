@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.views.activity.history
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
@@ -66,7 +67,7 @@ class HistoryListActivity : AppCompatActivity() {
 
         setRecyclerView()
 
-        findHistories()
+        findHistories(completeStatus)
 
         //INIT dialog
         myDialog = Dialog(this)
@@ -83,17 +84,17 @@ class HistoryListActivity : AppCompatActivity() {
         }
 
         bd.refreshDetailHistory.setOnRefreshListener {
-            findHistories()
+            findHistories(completeStatus)
         }
     }
 
-    private fun findHistories() {
+    private fun findHistories(completeStatus: Int) {
         viewModel.findHistories(
             FindHistoryDto(
                 branch = "",
                 category = "",
                 limit = 100,
-                completeStatus = -1,
+                completeStatus = completeStatus,
             )
         )
     }
@@ -103,12 +104,13 @@ class HistoryListActivity : AppCompatActivity() {
         viewModel.run {
             getHistoryData().observe(this@HistoryListActivity, {
                 loadRecyclerView(it)
+                setHistoryCount(it.histories.size)
             })
             isLoading.observe(this@HistoryListActivity, { showLoading(it) })
             messageError.observe(this@HistoryListActivity, { showErrorToast(it) })
             isHistoryDeleted.observe(this@HistoryListActivity, {
                 if (it) {
-                    findHistories()
+                    findHistories(completeStatus)
                 }
             })
         }
@@ -158,6 +160,11 @@ class HistoryListActivity : AppCompatActivity() {
         } else {
             bd.ivEmptyList.invisible()
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setHistoryCount(size: Int){
+        bd.tvHistoryCount.text = "Jumlah ditampilkan : $size"
     }
 
     private fun runLayoutAnimation() {
