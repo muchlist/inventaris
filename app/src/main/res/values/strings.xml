@@ -249,4 +249,5 @@
     <string name="resolve_note">Resolve Note (isi hanya jika tuntas dikerjakan)</string>
     <string name="problem">Problem</string>
     <string name="status_pekerjaan">Status pekerjaan</string>
+    <string name="update_riwayat">Update Riwayat</string>
 </resources>

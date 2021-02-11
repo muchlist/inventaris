@@ -33,6 +33,10 @@ class EditHistoryViewModel : ViewModel() {
     }
 
     fun editHistoryR(historyID: String, args: HistoryEditRequest) {
+        if (!updateHistoryValid(args)){
+            _messageError.value = "Resolve note harus di isi!"
+            return
+        }
         _isLoading.value = true
         _isHistoryEdited.value = false
         HistoryRepo.editHistory(
@@ -46,9 +50,18 @@ class EditHistoryViewModel : ViewModel() {
             }
             response.let {
                 _isLoading.value = false
-                _messageSuccess.value = "Case berhasil diselesaikan"
+                _messageSuccess.value = "Case berhasil diupdate"
                 _isHistoryEdited.value = true
             }
         }
+    }
+
+    private fun updateHistoryValid(args: HistoryEditRequest): Boolean {
+        if (args.completeStatus == 2) {
+            if (args.resolveNote.isEmpty()) {
+                return false
+            }
+        }
+        return true
     }
 }
