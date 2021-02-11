@@ -64,6 +64,10 @@ class CctvAdapter(
                     }
                 }
 
+                if (lastStatus.contains("##PENDING##")){
+                    tv_cctvlist_condition.setBackgroundResource(R.drawable.text_rounded_cctv_mid)
+                }
+
                 tv_cctvlist_last_status.text = lastStatus
 
                 //onClick
