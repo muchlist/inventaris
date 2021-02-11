@@ -33,16 +33,23 @@ class EditHandheldActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(EditHandheldViewModel::class.java)
 
         //GET DATA FROM ANOTHER ACTIVITY
-        val dataFromIntent: HandheldDetailResponse =
-            intent.getParcelableExtra(INTENT_TO_EDIT_HH) as HandheldDetailResponse
-        viewModel.setHandheldData(dataFromIntent)
+        val dataFromIntent: HandheldDetailResponse? =
+            intent.getParcelableExtra(INTENT_TO_EDIT_HH) as HandheldDetailResponse?
+
+        dataFromIntent?.let {
+            viewModel.setHandheldData(it)
+        }
+
 
         validateJsonStringInSharedPrefsForDropdown()
 
         //Init date
         dateTimeNowCalander = Calendar.getInstance()
 
-        setAllFormValue(dataFromIntent)
+        dataFromIntent?.let {
+            setAllFormValue(it)
+        }
+
         setAllDropdownForAutoText()
 
         //CLICK HANDLE

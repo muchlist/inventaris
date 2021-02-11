@@ -33,16 +33,23 @@ class EditCctvActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(EditCctvViewModel::class.java)
 
         //GET DATA FROM ANOTHER ACTIVITY
-        val dataFromIntent: CctvDetailResponse =
-            intent.getParcelableExtra(INTENT_TO_EDIT_CCTV) as CctvDetailResponse
-        viewModel.setCctvData(dataFromIntent)
+        val dataFromIntent: CctvDetailResponse? =
+            intent.getParcelableExtra(INTENT_TO_EDIT_CCTV) as CctvDetailResponse?
+
+        dataFromIntent?.let {
+            viewModel.setCctvData(it)
+        }
+
 
         validateJsonStringInSharedPrefsForDropdown()
 
         //Init date
         dateTimeNowCalander = Calendar.getInstance()
 
-        setAllFormValue(dataFromIntent)
+        dataFromIntent?.let {
+            setAllFormValue(it)
+        }
+
         setAllDropdownForAutoText()
 
         //CLICK HANDLE
@@ -109,18 +116,18 @@ class EditCctvActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.run {
-            isCctvEdited.observe(this@EditCctvActivity, androidx.lifecycle.Observer {
+            isCctvEdited.observe(this@EditCctvActivity, {
                 killActivityIfCctvCreated(it)
             })
             isLoading.observe(
                 this@EditCctvActivity,
-                androidx.lifecycle.Observer { showLoading(it) })
+                { showLoading(it) })
             messageError.observe(
                 this@EditCctvActivity,
-                androidx.lifecycle.Observer { showToast(it, true) })
+                { showToast(it, true) })
             messageSuccess.observe(
                 this@EditCctvActivity,
-                androidx.lifecycle.Observer { showToast(it, false) })
+                { showToast(it, false) })
         }
     }
 

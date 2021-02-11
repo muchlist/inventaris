@@ -33,15 +33,21 @@ class EditComputerActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(EditComputerViewModel::class.java)
 
         //GET DATA FROM ANOTHER ACTIVITY
-        val dataFromIntent: ComputerDetailResponse = intent.getParcelableExtra(INTENT_TO_EDIT_COMPUTER) as ComputerDetailResponse
-        viewModel.setComputerData(dataFromIntent)
+        val dataFromIntent: ComputerDetailResponse? = intent.getParcelableExtra(INTENT_TO_EDIT_COMPUTER) as ComputerDetailResponse?
+
+        dataFromIntent?.let {
+            viewModel.setComputerData(it)
+        }
 
         validateJsonStringInSharedPrefsForDropdown()
 
         //Init date
         dateTimeNowCalander = Calendar.getInstance()
 
-        setAllFormValue(dataFromIntent)
+        dataFromIntent?.let {
+            setAllFormValue(it)
+        }
+
         setAllDropdownForAutoText()
 
         //CLICK HANDLE

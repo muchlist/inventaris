@@ -28,14 +28,19 @@ class EditStockActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(EditStockViewModel::class.java)
 
         //GET DATA FROM ANOTHER ACTIVITY
-        val dataFromIntent: StockDetailResponse = intent.getParcelableExtra(
+        val dataFromIntent: StockDetailResponse? = intent.getParcelableExtra(
             INTENT_TO_EDIT_STOCK
-        ) as StockDetailResponse
-        viewModel.setStockData(dataFromIntent)
+        ) as StockDetailResponse?
+
+        dataFromIntent?.let {
+            viewModel.setStockData(it)
+        }
 
         validateJsonStringInSharedPrefsForDropdown()
 
-        setAllFormValue(dataFromIntent)
+        dataFromIntent?.let {
+            setAllFormValue(it)
+        }
         setAllDropdownForAutoText()
 
         //CLICK HANDLE
@@ -92,18 +97,18 @@ class EditStockActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.run {
-            isStockEdited.observe(this@EditStockActivity, androidx.lifecycle.Observer {
+            isStockEdited.observe(this@EditStockActivity, {
                 killActivityIfStockEdited(it)
             })
             isLoading.observe(
                 this@EditStockActivity,
-                androidx.lifecycle.Observer { showLoading(it) })
+                { showLoading(it) })
             messageError.observe(
                 this@EditStockActivity,
-                androidx.lifecycle.Observer { showToast(it, true) })
+                { showToast(it, true) })
             messageSuccess.observe(
                 this@EditStockActivity,
-                androidx.lifecycle.Observer { showToast(it, false) })
+                { showToast(it, false) })
         }
     }
 
