@@ -290,7 +290,7 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/quicksand"
                                 android:singleLine="true"
-                                android:text="Daily"
+                                android:text="Gen.."
                                 android:textSize="18sp" />
 
                         </LinearLayout>

@@ -1,5 +1,6 @@
 package com.muchlis.inventaris.views.activity.history
 
+import android.R
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,8 @@ class AppendDailyActivity : AppCompatActivity() {
 
     private lateinit var parentCategory: String
 
+    private val completeStatusOption = listOf<String>("Progress", "Pending", "Complete")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,7 @@ class AppendDailyActivity : AppCompatActivity() {
         bd.etfHistoryName.editText?.setText(parentName)
 
         setAutoTextStatus(listOf(App.prefs.lastTitleDaily, "Daily"))
+        setAutoTextCompleteStatus()
 
         bd.btSave.setOnClickListener {
             sendDataToServer(
@@ -55,9 +59,33 @@ class AppendDailyActivity : AppCompatActivity() {
         bd.atHistoryStatus.setAdapter(adapter)
     }
 
+    private fun setAutoTextCompleteStatus() {
+        val adapter: ArrayAdapter<String> = ArrayAdapter(
+            this,
+            R.layout.simple_spinner_dropdown_item,
+            completeStatusOption
+        )
+
+        bd.atHistoryCompleteStatus.setText(completeStatusOption[2])
+        bd.atHistoryCompleteStatus.setAdapter(adapter)
+
+    }
+
     private fun sendDataToServer(parentID: String?, parentCategory: String?) {
         val timeNow = Calendar.getInstance().time
         val dateText = timeNow.toStringInputDate()
+        val endDate: String?
+
+        var completeStatus = 0
+        if (bd.atHistoryCompleteStatus.text.toString().isNotEmpty()){
+            completeStatus = completeStatusOption.indexOf(bd.atHistoryCompleteStatus.text.toString())
+        }
+        // if not complete endDate must be null
+        endDate = if (completeStatus == 2) {
+            dateText
+        } else {
+            null
+        }
 
         val args = HistoryRequest(
             category = parentCategory ?: "",
@@ -65,10 +93,10 @@ class AppendDailyActivity : AppCompatActivity() {
             note = bd.etfNote.editText?.text.toString(),
             status = bd.atHistoryStatus.text.toString(),
 
-            endDate = dateText,
+            endDate = endDate,
             resolveNote = "",
 //            isComplete = true,
-            completeStatus = 2,
+            completeStatus = completeStatus,
             location = ""
         )
 

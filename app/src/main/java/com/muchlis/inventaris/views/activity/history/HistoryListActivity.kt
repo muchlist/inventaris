@@ -354,4 +354,12 @@ class HistoryListActivity : AppCompatActivity() {
             Toasty.error(this, text, Toasty.LENGTH_LONG).show()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (App.activityHistoryListMustBeRefresh) {
+            findHistories(completeStatus)
+            App.activityHistoryListMustBeRefresh = false
+        }
+    }
 }
