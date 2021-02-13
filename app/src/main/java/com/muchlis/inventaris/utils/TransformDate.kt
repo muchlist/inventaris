@@ -35,7 +35,7 @@ fun String.toDate(): Date {
     for (p in pattern){
         try {
             val format = SimpleDateFormat(p, Locale.US)
-            date = format.parse(this)
+            date = format.parse(this) ?: Date()
             return date
         } catch (e: ParseException){
             //FAILED
@@ -48,7 +48,7 @@ fun String.fromddMMMyyyytoDate(): Date {
     var date = Date()
     val format = SimpleDateFormat("dd MMM yyyy", Locale.US)
     try {
-        date = format.parse(this)
+        date = format.parse(this) ?: Date()
     } catch (e: ParseException) {
         //DATE FAILED HANDLE
     }
