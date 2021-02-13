@@ -14,7 +14,7 @@ import java.util.*
 
 class CheckAdapter(
     private val context: Context?,
-    private val itemList: CheckListResponse,
+    private val itemList: List<CheckListResponse.Check>,
     private val itemClick: (CheckListResponse.Check) -> Unit,
     private val itemLongClick: (CheckListResponse.Check) -> Unit,
 ) : RecyclerView.Adapter<CheckAdapter.ViewHolder>() {
@@ -29,10 +29,10 @@ class CheckAdapter(
         )
     }
 
-    override fun getItemCount(): Int = itemList.check.size
+    override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(itemList.check[position])
+        holder.bindItem(itemList[position])
     }
 
 
@@ -50,7 +50,7 @@ class CheckAdapter(
 
             itemView.apply {
                 this.tv_check_name.text = items.createdBy
-
+                this.tv_check_shift.text = "SHIFT ${items.shift}"
                 this.tv_check_date.text = items.createdAt.toDate().toStringDateForView()
 
                 if (items.isFinish) {

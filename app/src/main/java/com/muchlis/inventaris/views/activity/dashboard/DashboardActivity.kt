@@ -19,6 +19,7 @@ import com.muchlis.inventaris.utils.*
 import com.muchlis.inventaris.view_model.DashboardViewModel
 import com.muchlis.inventaris.views.activity.cctv.CctvDetailActivity
 import com.muchlis.inventaris.views.activity.cctv.CctvsActivity
+import com.muchlis.inventaris.views.activity.check.CheckListActivity
 import com.muchlis.inventaris.views.activity.computer.ComputerDetailActivity
 import com.muchlis.inventaris.views.activity.computer.ComputersActivity
 import com.muchlis.inventaris.views.activity.handheld.HandheldDetailActivity
@@ -65,6 +66,7 @@ class DashboardActivity : AppCompatActivity() {
         bd.menuDaily.setOnClickListener { intentToAppendDailyActivity() }
         bd.menuApplication.setOnClickListener { intentToAppsHistoryActivity() }
         bd.menuHandheld.setOnClickListener { intentToHandheldActivity() }
+        bd.menuReports.setOnClickListener { intentToCheckListActivity() }
 
         bd.ivReload.setOnClickListener {
             viewModel.getDashboardHistoriesFromServer()
@@ -211,6 +213,12 @@ class DashboardActivity : AppCompatActivity() {
         intent.putExtra(INTENT_TO_HISTORY_LIST, isComplete)
         startActivity(intent)
     }
+
+    private fun intentToCheckListActivity() {
+        val intent = Intent(this, CheckListActivity::class.java)
+        startActivity(intent)
+    }
+
 
     private fun setRecyclerView() {
         bd.rvHistoryDashboard.layoutManager =

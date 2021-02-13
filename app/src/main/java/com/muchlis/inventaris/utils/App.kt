@@ -23,6 +23,8 @@ class App : Application() {
 
         var activityAppsHistoryListMustBeRefresh : Boolean = false
         var activityHistoryListMustBeRefresh : Boolean = false
+
+        var activityCheckListMustBeRefresh: Boolean = false
     }
 
     override fun onCreate() {

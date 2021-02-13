@@ -48,6 +48,7 @@
                 android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_check_today"
                 tools:text="@string/_19_06_2019" />
 
             <TextView
@@ -88,7 +89,6 @@
                 android:text="@string/hari_ini"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_check_date"
                 app:layout_constraintStart_toStartOf="@+id/tv_check_date"
                 app:layout_constraintTop_toBottomOf="@+id/tv_check_shift" />
 
